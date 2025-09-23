@@ -9,6 +9,7 @@
     "web": "expo start --web"
   },
   "dependencies": {
+    "@react-navigation/native": "^7.1.17",
     "expo": "~54.0.1",
     "expo-status-bar": "~3.0.7",
     "react": "19.1.0",
