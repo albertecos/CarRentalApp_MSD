@@ -4,6 +4,8 @@ import { useNavigation } from '@react-navigation/native';
 import type { StackNavigationProp } from '@react-navigation/stack';
 import { RootStackParamList } from '../../../App';
 type BookingNavigationProp = StackNavigationProp<RootStackParamList, 'Booking'>;
+import '../../styling/CarCardsStyle';
+import {flexContainer, outerBox, texting} from "../../styling/CarCardsStyle";
 
 const CarCards: React.FC = () => {
     const navigation = useNavigation<BookingNavigationProp>();
@@ -27,30 +29,3 @@ const CarCards: React.FC = () => {
 };
 
 export default CarCards;
-
-const flexContainer = StyleSheet.create({
-    container: {
-        flexDirection: 'row',
-        alignItems: 'center',
-    },
-});
-
-const outerBox = StyleSheet.create({
-    container: {
-        backgroundColor: 'rgb(255,255,255)',
-        width: '70%',
-        margin: "auto",
-        borderRadius: 10,
-        padding: 10,
-        alignItems: 'center',
-    },
-});
-
-const texting = StyleSheet.create({
-    container: {
-        color: "rgba(12,113,122,0.46)",
-        alignItems: 'center',
-        justifyContent: 'center',
-        fontWeight: 'bold',
-    },
-});
