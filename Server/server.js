@@ -14,7 +14,7 @@ function writeToJsonFile(path, data) {
 }
 
 
-app.get('/get/cars', (req, res) => {
+app.get('/cars', (req, res) => {
     var cars = readJsonFile('data/cars.json');
     res.send(cars);
 });
@@ -42,7 +42,7 @@ app.get('/bookings/:userId', (req, res) => {
     res.json(userBookings);
 });
 
-app.post('/bookings', (req, res) => {
+app.post('/create/booking', (req, res) => {
     const bookingsJson = readJsonFile('data/bookings.json');
     const {id, userId, carId, startDate, endDate, totalCost} = req.body;
 
