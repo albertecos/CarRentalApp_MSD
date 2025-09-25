@@ -5,6 +5,7 @@ import BookingDetail from './frontend/screens/bookingDetails';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Confirmation from './frontend/screens/confirmation';
+import { BookingService, CarService, UserService } from './backend/service';
 
 export type RootStackParamList = {
   Booking: undefined;
@@ -14,14 +15,15 @@ export type RootStackParamList = {
     endDate: string;
   };
   Confirmation: {
-    carId: string;
-    startDate: string;
-    endDate: string;
-    totalCost: number;
+    bookingId: string;
   }
 };
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
+
+CarService.getInstance(); // Initialize the service to load data
+BookingService.getInstance(); // Initialize the service to load data
+UserService.getInstance(); // Initialize the service to load data
 
 export default function App() {
   return (

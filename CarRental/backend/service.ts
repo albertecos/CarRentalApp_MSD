@@ -1,4 +1,6 @@
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import {Car, Booking, User} from "./models";
+import axios from "axios";
 
 export class CarService {
     private cars: Car[] = [];
@@ -12,8 +14,24 @@ export class CarService {
     }
 
     private constructor() {
-        // Load dummy data from TypeScript file
-        this.cars = require('./data/cars').cars;
+        AsyncStorage.getItem('cars').then(data => {
+            if (data !== null) {
+                this.cars = JSON.parse(data);
+                console.log("Loaded cars from AsyncStorage");
+            }
+            axios.get('https://raw.githubusercontent.com/albertecos/CarRentalApp_MSD/refs/heads/main/CarRental/backend/data/cars.json')
+            .then(response => {
+                this.cars = response.data;
+                AsyncStorage.setItem('cars', JSON.stringify(this.cars));
+                console.log("Fetched cars from API and stored in AsyncStorage");
+            })
+            .catch(error => {
+                console.error("Failed to fetch cars from API, loading dummy data", error);
+                this.cars = require('./data/cars').cars; // TODO: Load from JSON file
+                AsyncStorage.setItem('cars', JSON.stringify(this.cars));
+            });
+        });
+
     }
     
     getAllCars(): Car[] {

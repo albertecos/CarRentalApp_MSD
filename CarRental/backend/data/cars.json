@@ -32,7 +32,7 @@
             "transmission": "manual",
             "fuelType": "petrol"
         },
-        "extras": ["GPS"],
+        "extras": ["GPS", "Additional Driver", "Insurance", "Roadside Assistance", "WiFi"],
         "location": "Los Angeles"
     },
     {
