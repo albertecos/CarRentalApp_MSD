@@ -5,6 +5,9 @@ import { useNavigation } from '@react-navigation/native';
 const Profile: React.FC = () => {
     const navigation = useNavigation();
 
+    const data = () => {
+
+    }
     return (
         <View>
             <Text>Profile page</Text>
