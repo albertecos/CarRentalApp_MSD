@@ -1,13 +1,9 @@
 export type Car = {
     id: string;
-    make: string;
+    brand: string;
     model: string;
     year: number;
-    pricePerDay: {
-        weekday: number;
-        weekend: number;
-        holiday: number;
-    }
+    pricePerDay: number;
     available: boolean;
     imageUrl: string;
     description: string;
