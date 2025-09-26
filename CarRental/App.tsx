@@ -14,10 +14,7 @@ export type RootStackParamList = {
     endDate: string;
   };
   Confirmation: {
-    carId: string;
-    startDate: string;
-    endDate: string;
-    totalCost: number;
+    bookingId: string;
   }
 };
 

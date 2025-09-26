@@ -30,10 +30,7 @@ const BookingDetail: React.FC<BookingDetailsProps> = ({ route, navigation }) => 
       
   const handleBooking = () => {
     navigation.navigate('Confirmation', {
-        carId: carId,
-        startDate: startDate,
-        endDate: endDate,
-        totalCost: totalCost,
+        bookingId: "booking1"
     });
   }
 
