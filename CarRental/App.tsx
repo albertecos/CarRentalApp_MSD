@@ -77,19 +77,3 @@ function ProfileComponent() {
     )
 }
 
-
-
-export type RootStackParamList = {
-    Booking: undefined;
-    BookingDetails: {
-        carId: string;
-        startDate: string;
-        endDate: string;
-    };
-    Confirmation: {
-        carId: string;
-        startDate: string;
-        endDate: string;
-        totalCost: number;
-    }
-};
