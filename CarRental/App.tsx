@@ -11,6 +11,18 @@ import {AntDesign, Feather, MaterialIcons} from "@expo/vector-icons";
 import UserBookings from "./frontend/screens/UserBookings";
 import ContactPage from "./frontend/screens/Contact";
 
+export type RootStackParamList = {
+  Booking: undefined;
+  BookingDetails: {
+    carId: string;
+    startDate: string;
+    endDate: string;
+  };
+  Confirmation: {
+    bookingId: string;
+  }
+};
+
 
 export type RootTabParams = {
     Home: undefined,
