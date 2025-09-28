@@ -16,10 +16,10 @@ type Booking = {
     carId: string;
     startDate: string;
     endDate: string;
-    totalCost: string;
+    totalCost: number;
 }
 
-const API_BASE_URL = 'http://localhost:8081';
+const API_BASE_URL = 'http://localhost:3000';
 
 const ConfirmationCard: React.FC<ConfirmationProps> = ({ route, navigation }) => {
     const bookingId = route.params?.bookingId;
@@ -55,7 +55,7 @@ const ConfirmationCard: React.FC<ConfirmationProps> = ({ route, navigation }) =>
         return () => { isMounted = false; };
     }, [bookingId]);
 
-    if (!loading) {
+    if (loading) {
         return (
             <View style={noConfStyles.noBookingContainer}>
                 <ActivityIndicator />

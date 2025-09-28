@@ -8,6 +8,7 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/CarRental/backend/bookingService.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/CarRental/backend/bookingService.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/CarRental/frontend/components/cards/ConfirmationCard.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/CarRental/frontend/components/cards/ConfirmationCard.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Server/server.js" beforeDir="false" afterPath="$PROJECT_DIR$/Server/server.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -85,7 +86,7 @@
       <workItem from="1758876455922" duration="4844000" />
       <workItem from="1758892743808" duration="1734000" />
       <workItem from="1758968446607" duration="7042000" />
-      <workItem from="1758977708419" duration="2974000" />
+      <workItem from="1758977708419" duration="4116000" />
     </task>
     <servers />
   </component>

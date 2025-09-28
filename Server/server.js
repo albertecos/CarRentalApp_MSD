@@ -1,7 +1,10 @@
 const express = require('express');
+const cors = require('cors');
 const app = express();
 const fs = require('fs');
-// const {v4:uuidv4} = require('uuid');
+const {v4:uuidv4} = require('uuid');
+
+app.use(cors());
 app.use(express.json()); // This middleware is used to parse JSON bodies.
 
 function readJsonFile(path) {
@@ -10,7 +13,7 @@ function readJsonFile(path) {
 }
 
 function writeToJsonFile(path, data) {
-    fs.writeFileSync(path, data);
+    fs.writeFileSync(path, JSON.stringify(data, null, 2), 'utf8');
 }
 
 
@@ -52,7 +55,7 @@ app.get('/bookings/bookingId/:id', (req, res) => {
 
 app.post('/create/booking', (req, res) => {
     const bookingsJson = readJsonFile('data/bookings.json');
-    const {id, userId, carId, startDate, endDate, totalCost} = req.body;
+    const {userId, carId, startDate, endDate, totalCost} = req.body;
 
     if(!id || !userId || !carId || !startDate || !endDate || !totalCost) {
         return res.status(400).send({error: 'No valid values.'});

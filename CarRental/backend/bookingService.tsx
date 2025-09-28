@@ -9,7 +9,7 @@ export type Booking = {
 
 class BookingService {
     private static instance: BookingService;
-    private base = 'http://localhost:8081';
+    private base = 'http://localhost:3000';
     static getInstance() {
         if (!BookingService.instance) BookingService.instance = new BookingService();
         return BookingService.instance;
