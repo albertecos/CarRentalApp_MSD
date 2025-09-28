@@ -5,12 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="61920fc8-b739-4efc-8b39-32ffc07a90b5" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/CarRental/backend/bookingService.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CarRental/App.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/CarRental/App.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CarRental/backend/bookingService.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/CarRental/backend/bookingService.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/CarRental/frontend/components/cards/ConfirmationCard.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/CarRental/frontend/components/cards/ConfirmationCard.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CarRental/frontend/screens/booking.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/CarRental/frontend/screens/booking.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CarRental/frontend/screens/confirmation.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/CarRental/frontend/screens/confirmation.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Server/server.js" beforeDir="false" afterPath="$PROJECT_DIR$/Server/server.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -88,7 +85,7 @@
       <workItem from="1758876455922" duration="4844000" />
       <workItem from="1758892743808" duration="1734000" />
       <workItem from="1758968446607" duration="7042000" />
-      <workItem from="1758977708419" duration="1223000" />
+      <workItem from="1758977708419" duration="2974000" />
     </task>
     <servers />
   </component>

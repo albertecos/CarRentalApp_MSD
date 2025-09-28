@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Text, Button, StyleSheet, Animated, Image} from 'react-native';
+import {View, Text, Button, StyleSheet, Animated, Image, ActionSheetIOS, ActivityIndicator} from 'react-native';
 import {ReceiptStackParamList, RootStackParamList} from "../../../App";
 import { BookingService } from "../../../backend/service";
 import { confStyles } from "../../styling/ConfirmationStyles/ConfirmationCardStyling";
@@ -10,19 +10,67 @@ const ScrollView = Animated.ScrollView;
 
 type ConfirmationProps = NativeStackScreenProps<ReceiptStackParamList, 'Confirmation'>;
 
-const bookingService = BookingService.getInstance();
+type Booking = {
+    id: string;
+    userId: string;
+    carId: string;
+    startDate: string;
+    endDate: string;
+    totalCost: string;
+}
+
+const API_BASE_URL = 'http://localhost:8081';
 
 const ConfirmationCard: React.FC<ConfirmationProps> = ({ route, navigation }) => {
     const bookingId = route.params?.bookingId;
-    const booking = bookingId ? bookingService.getBookingById(bookingId) : undefined;
+    //const booking = bookingId ? bookingService.getBookingById(bookingId) : undefined;
+
+    const [loading, setLoading] = React.useState<boolean>(true);
+    const [error, setError] = React.useState<string | null>(null);
+    const [booking, setBooking] = React.useState<Booking | null>(null);
+
+    React.useEffect(() => {
+        let isMounted = true;
+        async function load() {
+            if (!bookingId){
+                setError('No booking id given');
+                setLoading(false);
+                return;
+            }
+            try {
+                const res = await fetch(`${API_BASE_URL}/bookings/bookingId/${bookingId}`);
+                if (!res.ok) {
+                    const body = await res.json().catch(() => ({}));
+                    throw new Error(body.error || `Failed to fetch booking: ${res.status}`);
+                }
+                const data: Booking = await res.json();
+                if (isMounted) setBooking(data);
+            } catch (e: any) {
+                if (isMounted) setError(e.message);
+            } finally {
+                if (isMounted) setLoading(false);
+            }
+        }
+        load();
+        return () => { isMounted = false; };
+    }, [bookingId]);
+
+    if (!loading) {
+        return (
+            <View style={noConfStyles.noBookingContainer}>
+                <ActivityIndicator />
+                <Text style={confStyles.h1}>Loading you booking</Text>
+            </View>
+        );
+    }
 
     // Handle output when there is no bookings
-    if (!booking) {
+    if (error || !booking) {
         return (
             <View style={noConfStyles.noBookingContainer}>
                 <View style={noConfStyles.emptyState}>
                     <Text style={noConfStyles.emptyTitle}>
-                        No bookings were found
+                        {error ?? 'No bookings were found'}
                     </Text>
                 </View>
             </View>
