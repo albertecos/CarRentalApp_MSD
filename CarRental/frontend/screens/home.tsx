@@ -1,6 +1,6 @@
 import React from "react";
 import {View, Text, StyleSheet, TextInput, TouchableOpacity, Image} from "react-native";
-
+import MapView from 'react-native-maps';
 
 
 
@@ -18,7 +18,7 @@ const Home: React.FC = () => {
             <View style={styles.textContainer}>
                 {/*Insert an image of car*/}
 
-                <Text style={styles.carModel}>Cool Car</Text>
+                <Text style={styles.carModel}>Hyundai Kona</Text>
                 <Image source={carCardImage} style={{ width: 150, height: 100, resizeMode: "contain", borderRadius: 20,}}/>
                 <Text style={styles.carPrice}>67.99/day</Text>
 
@@ -40,6 +40,7 @@ const Home: React.FC = () => {
             />
 
             {/*Figure out how to make a map*/}
+            <MapView style={styles.map}/>
 
         </View>
     )
@@ -83,6 +84,8 @@ const styles = StyleSheet.create({
         color: "#000000",
         marginTop: 5,
         fontWeight: "bold",
+        textAlign: "right",
+        marginRight: 25,
     },
     textContainer: {
         // flex: 1, makes the text container take up all the remaining space (Grows with the View)
@@ -92,7 +95,8 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         borderRadius: 20,
         shadowColor: "#222020",
-        marginBottom: 16,
+        shadowRadius: 10,
+        marginBottom: 70,
 
     },
     smallButtonText: {
@@ -109,5 +113,10 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         height: 30,
         marginHorizontal: 70,
-    }
+        marginBottom: 10,
+    },
+    map: {
+        width: '100%',
+        height: '100%',
+    },
 })
