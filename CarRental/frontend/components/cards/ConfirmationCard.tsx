@@ -1,4 +1,4 @@
-import {View} from "react-native";
+import {Image, View} from "react-native";
 
 export default function ConfirmationCard(){
     function confirm(){
@@ -8,6 +8,11 @@ export default function ConfirmationCard(){
     const imgsrc = require("../../../assets/car.png");
 
     return (
-        <View></View>
+        <View>
+            <Image source={imgsrc}/>
+            getCarById(imgsrc)
+            getBookingById()
+
+        </View>
     )
 }

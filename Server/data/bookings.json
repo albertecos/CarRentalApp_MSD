@@ -1,0 +1,18 @@
+[
+    {
+        "id": "booking1",
+        "userId": "user1",
+        "carId": "1",
+        "startDate": "2025-09-25",
+        "endDate": "2025-09-28",
+        "totalCost": 300
+    },
+    {
+        "id": "booking2",
+        "userId": "user2",
+        "carId": "2",
+        "startDate": "2025-09-26",
+        "endDate": "2025-09-29",
+        "totalCost": 350
+    }
+]

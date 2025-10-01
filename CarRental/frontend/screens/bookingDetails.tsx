@@ -28,20 +28,8 @@ const BookingDetail: React.FC<BookingDetailsProps> = ({ route, navigation }) => 
   const uri = car?.imageUrl || 'https://via.placeholder.com/150';
       
   const handleBooking = () => {
-    let bookingId = Math.random().toString(36).substring(2, 15); // Simple random ID generation
-    let bookingObj: Booking = {
-        id: bookingId,
-        carId: carId,
-        userId: 'user123', // In real app, fetch from logged-in user context
-        startDate: startDate,
-        endDate: endDate,
-        totalCost: totalCost,
-    };
-
-    BookingService.getInstance().createBooking(bookingObj);
-
     navigation.navigate('Confirmation', {
-        bookingId: bookingId
+        bookingId: "booking1"
     });
   }
 
