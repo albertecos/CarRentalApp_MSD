@@ -10,6 +10,8 @@ import {View} from "react-native";
 import {AntDesign, Feather, MaterialIcons} from "@expo/vector-icons";
 import UserBookings from "./frontend/screens/UserBookings";
 import ContactPage from "./frontend/screens/Contact";
+import CreateAccount from "./frontend/screens/createAccount";
+import Login from "./frontend/screens/login";
 
 export type RootStackParamList = {
   Booking: undefined;
@@ -21,6 +23,8 @@ export type RootStackParamList = {
   Confirmation: {
     bookingId: string;
   }
+    Login: undefined
+    CreateAccount: undefined
 };
 
 
@@ -54,11 +58,22 @@ export default function App() {
     );
 };
 
+function Login_Create() {
+    const Stack = createNativeStackNavigator<RootStackParamList>();
+    return (
+        <Stack.Navigator>
+            <Stack.Screen name="Login" component={Login} />
+            <Stack.Screen name={"CreateAccount"} component={CreateAccount}/>
+        </Stack.Navigator>
+    );
+}
 
 function BookingComponent() {
     const Stack = createNativeStackNavigator<RootStackParamList>();
     return (
         <Stack.Navigator>
+            <Stack.Screen name="Login" component={Login} />
+            <Stack.Screen name={"CreateAccount"} component={CreateAccount}/>
             <Stack.Screen name="Booking" component={Booking}/>
             <Stack.Screen name="BookingDetails" component={BookingDetail}/>
             <Stack.Screen name="Confirmation" component={Confirmation}/>
