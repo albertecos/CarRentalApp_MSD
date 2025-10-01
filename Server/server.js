@@ -1,8 +1,11 @@
 const express = require('express');
 const app = express();
 const fs = require('fs');
-// const {v4:uuidv4} = require('uuid');
+var cors = require('cors');
+
 app.use(express.json()); // This middleware is used to parse JSON bodies.
+app.use(cors());
+
 
 function readJsonFile(path) {
     const data = fs.readFileSync(path, 'utf8');
@@ -36,7 +39,7 @@ app.post('/create/user', (req, res) => {
   res.status(201).json(newUser);
 });
 
-app.get('/bookings/:userId', (req, res) => {
+app.get(`/bookings/:userId`, (req, res) => {
     const bookingsJson = readJsonFile('data/bookings.json');
     const userBookings = bookingsJson.filter((b) => b.userId === req.params.userId);
     res.json(userBookings);

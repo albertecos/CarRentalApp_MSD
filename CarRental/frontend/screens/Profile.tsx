@@ -1,21 +1,16 @@
 import React from 'react';
 import {View, Text, Image, StyleSheet, Pressable} from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import Ionicons from '@expo/vector-icons/Ionicons';
 
 
 const Profile: React.FC = () => {
-    const navigation = useNavigation();
+    const navigation = useNavigation<any>();
     const defaultImage = require('../assets/defaultpp.jpg');
 
-    // const data = () => {
-    //
-    // }
     return (
         <View>
-            <Text>Profile page</Text>
             <Image source={defaultImage} style={styles.image}/>
-            <Pressable style={styles.buttons}>
+            <Pressable style={styles.buttons} onPress={() => navigation.navigate('UserBookings')}>
                 <Text>Your bookings</Text>
             </Pressable>
             <Pressable style={styles.buttons}>
@@ -32,21 +27,23 @@ export default Profile;
 
 const styles = StyleSheet.create({
     image: {
-        width: 100,
-        height: 100,
+        width: 150,
+        height: 150,
         borderStyle: 'solid',
         borderWidth: 1,
-        borderRadius: 50,
+        borderRadius: 750,
         alignSelf: 'center',
     },
     buttons: {
-        marginTop: 35,
+        marginTop: 50,
+        marginBottom: -30,
         alignSelf: 'center',
         borderStyle: 'solid',
         borderColor: 'black',
         borderWidth: 1,
         borderRadius: 50,
-        paddingBlock: 15,
-        paddingInline: 35,
+        paddingBlock: 25,
+        paddingInline: 55,
+        backgroundColor: '#e6dddd',
     }
 });
