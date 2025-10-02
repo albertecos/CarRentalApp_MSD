@@ -21,7 +21,7 @@ const Booking: React.FC = () => {
                 value={search}
             />
 
-            <Text style={normalFont.container}>Your search gave 3 results</Text>
+            <Text style={normalFont.container}>Your search gave {filteredCars.length} results</Text>
             {filteredCars.map((car) => (
                 <CarCards key={car.id} car={car}/>
             ))}
