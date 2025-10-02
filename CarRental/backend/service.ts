@@ -1,6 +1,7 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import {Car, Booking, User} from "./models";
 import axios from "axios";
+import { API_BASE_URL } from '@env';
 
 export class CarService {
     private cars: Car[] = [];
@@ -19,7 +20,7 @@ export class CarService {
                 this.cars = JSON.parse(data);
                 console.log("Loaded cars from AsyncStorage");
             }
-            axios.get('http://localhost:3000/cars')
+            axios.get(`${API_BASE_URL}/cars`)
             .then(response => {
                 this.cars = response.data;
                 AsyncStorage.setItem('cars', JSON.stringify(this.cars));
@@ -58,7 +59,7 @@ export class BookingService {
                 this.bookings = JSON.parse(data);
                 console.log("Loaded bookings from AsyncStorage");
             }
-            axios.get('http://localhost:3000/bookings')
+            axios.get(`${API_BASE_URL}/bookings`)
             .then(response => {
                 this.bookings = response.data;
                 AsyncStorage.setItem('bookings', JSON.stringify(this.bookings));
@@ -81,7 +82,7 @@ export class BookingService {
     createBooking(booking: Booking): Booking {
         this.bookings.push(booking);
         AsyncStorage.setItem('bookings', JSON.stringify(this.bookings));
-        axios.post('http://localhost:3000/create/booking', booking)
+        axios.post(`${API_BASE_URL}/create/booking`, booking)
         .then(response => {
             console.log("Booking created successfully:", response.data);
         })
