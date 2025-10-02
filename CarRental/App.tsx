@@ -1,15 +1,17 @@
-import {NavigationContainer} from '@react-navigation/native';
+import {NavigationContainer, NavigatorScreenParams} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {createBottomTabNavigator} from "@react-navigation/bottom-tabs";
 import Home from "./frontend/screens/home";
 import Profile from "./frontend/screens/Profile";
 import Booking from './frontend/screens/booking';
-import BookingDetail from './frontend/screens/bookingDetails';
 import Confirmation from './frontend/screens/confirmation';
 import {View} from "react-native";
 import {AntDesign, Feather, MaterialIcons} from "@expo/vector-icons";
 import UserBookings from "./frontend/screens/UserBookings";
 import ContactPage from "./frontend/screens/Contact";
+import CreateAccount from "./frontend/screens/createAccount";
+import Login from "./frontend/screens/login";
+import BookingDetails from "./frontend/screens/bookingDetails";
 
 export type RootStackParamList = {
   Booking: undefined;
@@ -21,17 +23,23 @@ export type RootStackParamList = {
   Confirmation: {
     bookingId: string;
   }
+    Login: undefined
+    CreateAccount: undefined
 };
 
 
 export type RootTabParams = {
     Home: undefined,
-    Search: undefined,
+    Search: NavigatorScreenParams<ReceiptStackParamList>,
     Profile: undefined,
+    Receipt: NavigatorScreenParams<ReceiptStackParamList>
 }
 
-const Tab = createBottomTabNavigator<RootTabParams>();
+export type ReceiptStackParamList = {
+    Confirmation: {bookingId: string} | undefined;
+};
 
+const Tab = createBottomTabNavigator<RootTabParams>();
 
 export default function App() {
     return (
@@ -49,18 +57,33 @@ export default function App() {
                     options={{tabBarIcon: () => (
                             <MaterialIcons name="face" size={24} color="black"/>)
                             }}/>
+                <Tab.Screen name={"Receipt"} component={ConfirmationComponent}
+                    options={{tabBarIcon: () => (
+                            <MaterialIcons name="receipt" size={24} color="black"/>)
+                            }}/>
             </Tab.Navigator>
         </NavigationContainer>
     );
 };
 
+function Login_Create() {
+    const Stack = createNativeStackNavigator<RootStackParamList>();
+    return (
+        <Stack.Navigator>
+            <Stack.Screen name="Login" component={Login} />
+            <Stack.Screen name={"CreateAccount"} component={CreateAccount}/>
+        </Stack.Navigator>
+    );
+}
 
 function BookingComponent() {
     const Stack = createNativeStackNavigator<RootStackParamList>();
     return (
         <Stack.Navigator>
+            <Stack.Screen name="Login" component={Login} />
+            <Stack.Screen name={"CreateAccount"} component={CreateAccount}/>
             <Stack.Screen name="Booking" component={Booking}/>
-            <Stack.Screen name="BookingDetails" component={BookingDetail}/>
+            <Stack.Screen name="BookingDetails" component={BookingDetails}/>
             <Stack.Screen name="Confirmation" component={Confirmation}/>
         </Stack.Navigator>
     );
@@ -76,4 +99,14 @@ function ProfileComponent() {
         </Stack.Navigator>
     )
 }
+
+function ConfirmationComponent() {
+    const Stack = createNativeStackNavigator<ReceiptStackParamList>();
+    return (
+        <Stack.Navigator>
+            <Stack.Screen name="Confirmation" component={Confirmation}/>
+        </Stack.Navigator>
+    )
+}
+
 
