@@ -45,6 +45,14 @@ app.get('/bookings/:userId', (req, res) => {
     res.json(userBookings);
 });
 
+//Getting booking by id
+app.get('/bookings/bookingId/:id', (req, res) => {
+    const bookings = readJsonFile('data/bookings.json');
+    const booking = bookings.find(b => b.id == req.params.id);
+    if (!booking) return res.status(404).send({error: 'Booking not found'});
+    res.json(booking);
+});
+
 app.post('/create/booking', (req, res) => {
     const bookingsJson = readJsonFile('data/bookings.json');
     const {userId, carId, startDate, endDate, totalCost} = req.body;
