@@ -22,7 +22,8 @@ type Booking = {
 const API_BASE_URL = 'http://localhost:3000';
 
 const ConfirmationCard: React.FC<ConfirmationProps> = ({ route, navigation }) => {
-    const bookingId = route.params?.bookingId;
+    const bookingId = "booking1";
+    //route.params?.bookingId;
     //const booking = bookingId ? bookingService.getBookingById(bookingId) : undefined;
 
     const [loading, setLoading] = React.useState<boolean>(true);
