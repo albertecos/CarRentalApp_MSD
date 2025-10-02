@@ -1,4 +1,6 @@
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import {Car, Booking, User} from "./models";
+import axios from "axios";
 
 export class CarService {
     private cars: Car[] = [];
@@ -12,8 +14,22 @@ export class CarService {
     }
 
     private constructor() {
-        // Load dummy data from TypeScript file
-        this.cars = require('./data/cars').cars;
+        AsyncStorage.getItem('cars').then(data => {
+            if (data !== null) {
+                this.cars = JSON.parse(data);
+                console.log("Loaded cars from AsyncStorage");
+            }
+            axios.get('http://localhost:3000/cars')
+            .then(response => {
+                this.cars = response.data;
+                AsyncStorage.setItem('cars', JSON.stringify(this.cars));
+                console.log("Fetched cars from API and stored in AsyncStorage");
+            })
+            .catch(error => {
+                console.error("Error fetching cars from API:", error);
+            });
+        });
+
     }
     
     getAllCars(): Car[] {
@@ -37,8 +53,21 @@ export class BookingService {
     }
 
     private constructor() {
-        // Load dummy data from TypeScript file
-        this.bookings = require('./data/bookings').bookings;
+        AsyncStorage.getItem('bookings').then(data => {
+            if (data !== null) {
+                this.bookings = JSON.parse(data);
+                console.log("Loaded bookings from AsyncStorage");
+            }
+            axios.get('http://localhost:3000/bookings')
+            .then(response => {
+                this.bookings = response.data;
+                AsyncStorage.setItem('bookings', JSON.stringify(this.bookings));
+                console.log("Fetched bookings from API and stored in AsyncStorage");
+            })
+            .catch(error => {
+                console.error("Error fetching bookings from API:", error);
+            });
+        });
     }
 
     getMyBookings(userId: string): Booking[] {
@@ -51,6 +80,14 @@ export class BookingService {
 
     createBooking(booking: Booking): Booking {
         this.bookings.push(booking);
+        AsyncStorage.setItem('bookings', JSON.stringify(this.bookings));
+        axios.post('http://localhost:3000/create/booking', booking)
+        .then(response => {
+            console.log("Booking created successfully:", response.data);
+        })
+        .catch(error => {
+            console.error("Error creating booking:", error);
+        });
         return booking;
     }
 }
@@ -68,8 +105,7 @@ export class UserService {
     }
 
     private constructor() {
-        // Load dummy data from TypeScript file
-        this.users = require('./data/users').users;
+        // TODO: use server API to fetch users
         this.currentUser = this.users[0]; // Simulate logged-in user
     }
 
