@@ -1,18 +1,43 @@
 import React from 'react';
-import {StyleSheet, View, Text, Button} from 'react-native';
+import {View, Text, Button, Image, TouchableOpacity} from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import type { StackNavigationProp } from '@react-navigation/stack';
 import { RootStackParamList } from '../../../App';
 type BookingNavigationProp = StackNavigationProp<RootStackParamList, 'Booking'>;
 import '../../styling/CarCardsStyle';
-import {flexContainer, outerBox, texting} from "../../styling/CarCardsStyle";
+import {
+    flexContainer, infoContainer, priceContainer, brandFont, normalFont,
+    imageLogo, priceFont, button, buttonFont, dailyPriceFont
+} from "../../styling/CarCardsStyle";
 
-const CarCards: React.FC = () => {
+type CarType = {
+    id: string;
+    model: string,
+    year: number,
+    pricePerDay: {
+        weekday: number,
+        weekend: number,
+        holiday: number,
+    }
+    available: boolean,
+    imageUrl: string,
+    description: string,
+}
+
+type carProps = {
+    car: CarType;
+}
+
+
+//const image = require('../../assets/favicon.png');
+
+const CarCards: React.FC<carProps> = ({ car }) => {
     const navigation = useNavigation<BookingNavigationProp>();
+    const uri = car.imageUrl || 'https://via.placeholder.com/150';
 
     const handleNavigateToBookingDetails = () => {
         navigation.navigate('BookingDetails', {
-            carId: '2',
+            carId: car.id,
             startDate: '2025-09-25',
             endDate: '2025-09-28'
         });
@@ -20,9 +45,19 @@ const CarCards: React.FC = () => {
 
     return (
         <View style={flexContainer.container}>
-            <View style={outerBox.container}>
-                <Text style={texting.container}>BOOK THIS CAR RN</Text>
-                <Button title="Go to Booking Details NOW"  onPress={handleNavigateToBookingDetails} />
+            <Image source={{ uri }} style={imageLogo.container}/>
+            <View style={infoContainer.container}>
+                <Text style={brandFont.container}> {car.model} {car.year}</Text>
+                <Text style={normalFont.container}>{car.description}</Text>
+            </View>
+            <View style={priceContainer.container}>
+
+                <Text style={priceFont.container}>Price for booking</Text>
+                <Text style={dailyPriceFont.container}>{car.pricePerDay.weekday}DKK / daily</Text>
+                <Text style={priceFont.container}>Total: 2000DKK (6 days)</Text>
+                <TouchableOpacity style={button.container} onPress={handleNavigateToBookingDetails}>
+                    <Text style={buttonFont.container}>Check offer</Text>
+                </TouchableOpacity>
             </View>
         </View>
     )
