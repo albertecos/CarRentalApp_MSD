@@ -1,6 +1,7 @@
 import React from "react";
 import {View, Text, StyleSheet, TextInput, TouchableOpacity, Image} from "react-native";
-import MapView from 'react-native-maps';
+import MapView, { Marker } from 'react-native-maps';
+
 
 
 
@@ -28,19 +29,27 @@ const Home: React.FC = () => {
                     </Text>
                 </TouchableOpacity>
             </View>
-            <Text style={styles.subHeader}>
-                Find a car on the map
-            </Text>
             {/*Search Bar*/}
             <TextInput
                 style={styles.searchBar}
                 value={search}
                 onChangeText={setSearch}
                 placeholder="Search for car"
+
             />
+            <Text style={styles.subHeader}>
+                Find a car on the map
+            </Text>
+
+
 
             {/*Figure out how to make a map*/}
-            <MapView style={styles.map}/>
+            <MapView
+                style={styles.map}
+                showsUserLocation={true}
+
+            />
+
 
         </View>
     )
@@ -57,6 +66,7 @@ const styles = StyleSheet.create({
         paddingHorizontal: 15,
         backgroundColor: "#fff",
         verticalAlign: "top",
+        marginBottom: 10,
     },
     header: {
         padding: 16,
@@ -72,7 +82,7 @@ const styles = StyleSheet.create({
     },
     subHeader: {
         fontSize: 18,
-        marginBottom: 16,
+        marginBottom: 5,
         fontWeight: "bold",
     },
     carModel: {
@@ -117,6 +127,10 @@ const styles = StyleSheet.create({
     },
     map: {
         width: '100%',
-        height: '100%',
+        height: '50%',
+        borderRadius: 20,
+        borderWidth: 1,
+        flex: 1,
+        marginVertical: 10,
     },
 })
