@@ -19,20 +19,14 @@ const UserBookings: React.FC = () => {
         }
         console.log("user id: " + userId);
 
-        axios.get(`https://6fjnkw0-anonymous-8081.exp.direct:3000/bookings/${userId}`).then(
+        axios.get(`http://10.126.32.40:3000/bookings/${userId}`).then(
             res => {
-                console.log("hellooooo")
-                setBookings(Array.isArray(res.data) ? res.data : []);
-                if(res.data.isEmpty()){
-                    console.log("res data is empty");
-                }else{
-                    console.log(res.data);
-                }
+                setBookings(res.data);
+                console.log(res.data);
             }
 
         ).catch(err => {
-            console.log(err.message);
-            console.log(err.response.data + " :(");
+            console.log("error: ", err);
             setError("Could not load bookings.");
         }).finally(() => setLoading(false))
     }, [userId]);

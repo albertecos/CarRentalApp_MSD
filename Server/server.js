@@ -3,7 +3,7 @@ const app = express();
 const fs = require('fs');
 var cors = require('cors');
 
-app.use(express.json()); // This middleware is used to parse JSON bodies.
+app.use(express.json());
 app.use(cors());
 
 
@@ -41,6 +41,7 @@ app.post('/create/user', (req, res) => {
 
 app.get(`/bookings/:userId`, (req, res) => {
     const bookingsJson = readJsonFile('data/bookings.json');
+    console.log(bookingsJson);
     const userBookings = bookingsJson.filter((b) => b.userId === req.params.userId);
     res.json(userBookings);
 });
