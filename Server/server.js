@@ -7,6 +7,8 @@ const {v4:uuidv4} = require('uuid');
 app.use(cors()); // Enable CORS for all routes
 app.use(express.json()); // This middleware is used to parse JSON bodies.
 
+
+
 function readJsonFile(path) {
     const data = fs.readFileSync(path, 'utf8');
     return JSON.parse(data);
@@ -39,7 +41,7 @@ app.post('/create/user', (req, res) => {
   res.status(201).json(newUser);
 });
 
-app.get('/bookings/:userId', (req, res) => {
+app.get(`/bookings/:userId`, (req, res) => {
     const bookingsJson = readJsonFile('data/bookings.json');
     const userBookings = bookingsJson.filter((b) => b.userId === req.params.userId);
     res.json(userBookings);

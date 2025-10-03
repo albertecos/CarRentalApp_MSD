@@ -1,14 +1,15 @@
-import {NavigationContainer, NavigatorScreenParams} from '@react-navigation/native';
+import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {createBottomTabNavigator} from "@react-navigation/bottom-tabs";
 import Home from "./frontend/screens/home";
 import Profile from "./frontend/screens/Profile";
 import Booking from './frontend/screens/booking';
 import Confirmation from './frontend/screens/confirmation';
-import {View} from "react-native";
 import {AntDesign, Feather, MaterialIcons} from "@expo/vector-icons";
 import UserBookings from "./frontend/screens/UserBookings";
 import ContactPage from "./frontend/screens/Contact";
+import React from "react";
+import UserContextProvider from './UserContext';
 import CreateAccount from "./frontend/screens/createAccount";
 import Login from "./frontend/screens/login";
 import BookingDetails from "./frontend/screens/bookingDetails";
@@ -23,15 +24,17 @@ export type RootStackParamList = {
   Confirmation: {
     bookingId: string;
   }
-    Login: undefined
-    CreateAccount: undefined
+    Login: undefined;
+    CreateAccount: undefined;
+    UserBookings: undefined;
 };
 
 
 export type RootTabParams = {
     Home: undefined,
+    // Search: undefined,
+    "Profile Page": undefined,
     Search: NavigatorScreenParams<ReceiptStackParamList>,
-    Profile: undefined,
     Receipt: NavigatorScreenParams<ReceiptStackParamList>
 }
 
@@ -43,8 +46,9 @@ const Tab = createBottomTabNavigator<RootTabParams>();
 
 export default function App() {
     return (
+        <UserContextProvider>
         <NavigationContainer>
-            <Tab.Navigator>
+            <Tab.Navigator screenOptions={{headerShown: false}} initialRouteName={'Home'}>
                 <Tab.Screen name={"Search"} component={BookingComponent}
                     options={{tabBarIcon: () => (
                             <Feather name="search" size={24} color="black" />)
@@ -53,7 +57,7 @@ export default function App() {
                     options={{tabBarIcon: () => (
                             <AntDesign name="car" size={24} color="black"/>),
                             }}/>
-                <Tab.Screen name={"Profile"} component={ProfileComponent}
+                <Tab.Screen name={"Profile Page"} component={ProfileStack}
                     options={{tabBarIcon: () => (
                             <MaterialIcons name="face" size={24} color="black"/>)
                             }}/>
@@ -63,6 +67,7 @@ export default function App() {
                             }}/>
             </Tab.Navigator>
         </NavigationContainer>
+        </UserContextProvider>
     );
 };
 
@@ -89,12 +94,12 @@ function BookingComponent() {
     );
 }
 
-function ProfileComponent() {
+function ProfileStack() {
     const Stack = createNativeStackNavigator();
     return (
         <Stack.Navigator>
             <Stack.Screen name="Profile" component={Profile}/>
-            <Stack.Screen name="Your bookings" component={UserBookings}/>
+            <Stack.Screen name="UserBookings" component={UserBookings}/>
             <Stack.Screen name="Contact" component={ContactPage}/>
         </Stack.Navigator>
     )
