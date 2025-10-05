@@ -10,13 +10,13 @@ const Profile: React.FC = () => {
     return (
         <View>
             <Image source={defaultImage} style={styles.image}/>
-            <Pressable style={styles.buttons} onPress={() => navigation.navigate('UserBookings')}>
+            <Pressable style={styles.buttons} onPress={() => navigation.navigate('Your Bookings')}>
                 <Text>Your bookings</Text>
             </Pressable>
-            <Pressable style={styles.buttons}>
+            <Pressable style={styles.buttons} onPress={() => navigation.navigate('Settings')}>
                 <Text>Settings</Text>
             </Pressable>
-            <Pressable style={styles.buttons}>
+            <Pressable style={styles.buttons} onPress={() => navigation.navigate('Contact')}>
                 <Text>Contact</Text>
             </Pressable>
         </View>

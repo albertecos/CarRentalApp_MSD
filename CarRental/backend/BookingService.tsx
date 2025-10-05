@@ -1,3 +1,6 @@
+import {API_BASE_URL} from "@env";
+import axios from "axios";
+
 export type Booking = {
     id: string;
     userId: string;
@@ -9,7 +12,8 @@ export type Booking = {
 
 class BookingService {
     private static instance: BookingService;
-    private base = 'http://localhost:3000';
+    private base = API_BASE_URL;
+
     static getInstance() {
         if (!BookingService.instance) BookingService.instance = new BookingService();
         return BookingService.instance;
@@ -22,12 +26,21 @@ class BookingService {
     }
 
     async createBooking(payload: Omit<Booking, 'id'>): Promise<Booking> {
-        const res = await fetch(`${this.base}/create/booking`, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(payload),
-        });
-        return res.json();
+        try {
+            const res = await axios.post(`${this.base}/create/booking`, payload, {
+                timeout: 5000,
+            });
+            const newBooking = res.data;
+            return newBooking;
+        } catch (err: any) {
+            console.log("Error in bookingService", {
+                message: err.message,
+                code: err.code,
+                config: err.config?.url,
+                stack: err.stack?.split("\n")[0],
+            });
+            throw err;
+        }
     }
 }
 

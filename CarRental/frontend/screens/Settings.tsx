@@ -4,12 +4,12 @@ import { useNavigation } from '@react-navigation/native';
 import Ionicons from '@expo/vector-icons/Ionicons';
 
 
-const Contact: React.FC = () => {
+const Settings: React.FC = () => {
     const navigation = useNavigation();
 
     return (
         <View>
-            <Text>Contact information</Text>
+            <Text>Settings</Text>
 
             <Pressable style={styles.buttons} onPress={() => navigation.goBack()}>
                 <Text>Back</Text>
@@ -18,7 +18,7 @@ const Contact: React.FC = () => {
     )
 };
 
-export default Contact;
+export default Settings;
 
 const styles = StyleSheet.create({
     image: {

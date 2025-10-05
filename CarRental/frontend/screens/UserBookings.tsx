@@ -2,6 +2,8 @@ import React, {useEffect, useState} from 'react';
 import {View, Text, Image, StyleSheet, ActivityIndicator, FlatList} from 'react-native';
 import axios from "axios";
 import {UseUserContext} from "../../UserContext";
+import {API_BASE_URL} from "@env";
+import BookingCard from "../components/cards/BookingCard";
 
 const UserBookings: React.FC = () => {
 
@@ -17,16 +19,14 @@ const UserBookings: React.FC = () => {
             setLoading(false);
             return;
         }
-        console.log("user id: " + userId);
 
-        axios.get(`http://10.126.32.40:3000/bookings/${userId}`).then(
+        axios.get(`${API_BASE_URL}/bookings/${userId}`, {timeout: 5000}).then(
             res => {
                 setBookings(res.data);
-                console.log(res.data);
+                // console.log(res.data);
             }
-
         ).catch(err => {
-            console.log("error: ", err);
+            console.error("error: ", err, err?.response?.status);
             setError("Could not load bookings.");
         }).finally(() => setLoading(false))
     }, [userId]);
@@ -48,22 +48,36 @@ const UserBookings: React.FC = () => {
         )
     }
 
+    // return (
+    //     <View>
+    //         <Text style={styles.text}>Your bookings</Text>
+    //
+    //         <FlatList data={bookings}
+    //           keyExtractor={(b, index) => b.id?.toString() ?? index.toString()}
+    //           renderItem={({item}) => (
+    //               <View>
+    //                   <Text>{item.id}</Text>
+    //                   <Text>{item.userId}</Text>
+    //                   <Text>{item.carId}</Text>
+    //                   <Text>{item.startDate}</Text>
+    //                   <Text>{item.endDate}</Text>
+    //                   <Text>{item.totalCost}</Text>
+    //               </View>
+    //           )}/>
+    //     </View>
+    // )
     return (
-        <View>
-            <Text style={styles.text}>Your bookings</Text>
+        <View style={{flex: 1, backgroundColor: "#f8f9fa"}}>
+            <Text style={{fontSize: 24, fontWeight: "bold", margin: 20}}>
+                Your bookings
+            </Text>
 
-            <FlatList data={bookings}
-              keyExtractor={(b, index) => b.id?.toString() ?? index.toString()}
-              renderItem={({item}) => (
-                  <View>
-                      <Text>{item.id}</Text>
-                      <Text>{item.userId}</Text>
-                      <Text>{item.carId}</Text>
-                      <Text>{item.startDate}</Text>
-                      <Text>{item.endDate}</Text>
-                      <Text>{item.totalCost}</Text>
-                  </View>
-              )}/>
+            <FlatList
+                data={bookings}
+                keyExtractor={(b, index) => b.id?.toString() ?? index.toString()}
+            renderItem={({item}) => <BookingCard booking={item}/>}
+                contentContainerStyle={{paddingBottom: 20}}/>
+
         </View>
     )
 };
