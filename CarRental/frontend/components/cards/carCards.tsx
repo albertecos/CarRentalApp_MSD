@@ -14,11 +14,7 @@ type CarType = {
     id: string;
     model: string,
     year: number,
-    pricePerDay: {
-        weekday: number,
-        weekend: number,
-        holiday: number,
-    }
+    pricePerDay: number,
     available: boolean,
     imageUrl: string,
     description: string,
@@ -27,7 +23,6 @@ type CarType = {
 type carProps = {
     car: CarType;
 }
-
 
 //const image = require('../../assets/favicon.png');
 
@@ -53,7 +48,7 @@ const CarCards: React.FC<carProps> = ({ car }) => {
             <View style={priceContainer.container}>
 
                 <Text style={priceFont.container}>Price for booking</Text>
-                <Text style={dailyPriceFont.container}>{car.pricePerDay.weekday}DKK / daily</Text>
+                <Text style={dailyPriceFont.container}>{car.pricePerDay}DKK / daily</Text>
                 <Text style={priceFont.container}>Total: 2000DKK (6 days)</Text>
                 <TouchableOpacity style={button.container} onPress={handleNavigateToBookingDetails}>
                     <Text style={buttonFont.container}>Check offer</Text>
