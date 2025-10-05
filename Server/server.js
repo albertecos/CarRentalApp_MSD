@@ -1,12 +1,16 @@
+const {v4: uuidv4} = require('uuid');
 const express = require('express');
 const cors = require('cors');
 const app = express();
 const fs = require('fs');
-const {v4:uuidv4} = require('uuid');
-
 app.use(cors()); // Enable CORS for all routes
 app.use(express.json()); // This middleware is used to parse JSON bodies.
 
+
+app.use((req, res, next) => {
+  console.log("Incoming:", req.method, req.url);
+  next();
+});
 
 
 function readJsonFile(path) {
@@ -21,7 +25,8 @@ function writeToJsonFile(path, data) {
 
 app.get('/cars', (req, res) => {
     var cars = readJsonFile('data/cars.json');
-    res.send(cars);
+    // res.send(cars);
+    res.json(cars);
 });
 
 
@@ -50,24 +55,31 @@ app.get(`/bookings/:userId`, (req, res) => {
 //Getting booking by id
 app.get('/bookings/bookingId/:id', (req, res) => {
     const bookings = readJsonFile('data/bookings.json');
-    const booking = bookings.find(b => b.id == req.params.id);
+    const booking = bookings.find(b => b.id === req.params.id);
     if (!booking) return res.status(404).send({error: 'Booking not found'});
     res.json(booking);
 });
 
 app.post('/create/booking', (req, res) => {
-    const bookingsJson = readJsonFile('data/bookings.json');
-    const {userId, carId, startDate, endDate, totalCost} = req.body;
+    try {
+        const bookingsJson = readJsonFile('data/bookings.json');
+        const {userId, carId, startDate, endDate, totalCost} = req.body;
 
-    if(!userId || !carId || !startDate || !endDate || !totalCost) {
-        return res.status(400).send({error: 'No valid values.'});
+        console.log("creating booking in server.js: ", req.body);
+
+        if (!userId || !carId || !startDate || !endDate || !totalCost) {
+            return res.status(400).send({error: 'No valid values.'});
+        }
+
+        const newBooking = {id: uuidv4(), userId, carId, startDate, endDate, totalCost};
+        bookingsJson.push(newBooking);
+        writeToJsonFile('data/bookings.json', bookingsJson);
+        console.log("booking from server: ", newBooking);
+        res.status(201).json(newBooking);
+    }catch(err){
+        console.error("error in server.js with creating booking.. ", err);
+        res.status(500).json({error: err.message});
     }
+});
 
-    const newBooking = {id: uuidv4(), userId, carId, startDate, endDate, totalCost};
-    bookingsJson.push(newBooking);
-    writeToJsonFile('data/bookings.json', bookingsJson);
-
-    res.status(201).json(newBooking);
-})
-
-app.listen(3000, () => console.log('Server running on port 3000'));
+app.listen(3000, "0.0.0.0", () => console.log('Server running on \'0.0.0.0:3000\''));

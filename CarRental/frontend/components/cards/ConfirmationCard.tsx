@@ -1,14 +1,14 @@
 import React from 'react';
-import {View, Text, Button, StyleSheet, Animated, Image, ActionSheetIOS, ActivityIndicator} from 'react-native';
-import {ReceiptStackParamList, RootStackParamList} from "../../../App";
-import { BookingService } from "../../../backend/service";
-import { confStyles } from "../../styling/ConfirmationStyles/ConfirmationCardStyling";
+import {View, Text, Image, ActivityIndicator} from 'react-native';
+import {confStyles} from "../../styling/ConfirmationStyles/ConfirmationCardStyling";
 import {noConfStyles} from "../../styling/ConfirmationStyles/NoBookings";
 import {NativeStackScreenProps} from "@react-navigation/native-stack";
+import {API_BASE_URL} from "@env";
+import {SearchStackParamList} from "../../../App";
+import {ScrollView} from "react-native";
+import {SafeAreaView} from 'react-native-safe-area-context'
 
-const ScrollView = Animated.ScrollView;
-
-type ConfirmationProps = NativeStackScreenProps<ReceiptStackParamList, 'Confirmation'>;
+type ConfirmationProps = NativeStackScreenProps<SearchStackParamList, 'Confirmation'>;
 
 type Booking = {
     id: string;
@@ -19,11 +19,10 @@ type Booking = {
     totalCost: number;
 }
 
-const API_BASE_URL = 'http://localhost:3000';
 
-const ConfirmationCard: React.FC<ConfirmationProps> = ({ route, navigation }) => {
-    const bookingId = "booking1";
-    //route.params?.bookingId;
+const ConfirmationCard: React.FC<ConfirmationProps> = ({route, navigation}) => {
+    // const bookingId = "booking1";
+    const bookingId = route.params?.bookingId;
     //const booking = bookingId ? bookingService.getBookingById(bookingId) : undefined;
 
     const [loading, setLoading] = React.useState<boolean>(true);
@@ -32,36 +31,55 @@ const ConfirmationCard: React.FC<ConfirmationProps> = ({ route, navigation }) =>
 
     React.useEffect(() => {
         let isMounted = true;
+
         async function load() {
-            if (!bookingId){
+            if (!bookingId) {
+                console.log("No booking id given")
                 setError('No booking id given');
                 setLoading(false);
                 return;
             }
             try {
                 const res = await fetch(`${API_BASE_URL}/bookings/bookingId/${bookingId}`);
+                const booking: Booking = await res.json();
+
                 if (!res.ok) {
-                    const body = await res.json().catch(() => ({}));
-                    throw new Error(body.error || `Failed to fetch booking: ${res.status}`);
+                    // const body = await res.json().catch(() => ({}));
+                    throw new Error(error || `Failed to fetch booking: ${res.status}`);
                 }
-                const data: Booking = await res.json();
-                if (isMounted) setBooking(data);
+                if (isMounted) {
+                    setBooking(booking);
+                }
             } catch (e: any) {
-                if (isMounted) setError(e.message);
+                if (isMounted) {
+                    setError(e.message);
+                }
             } finally {
-                if (isMounted) setLoading(false);
+                if (isMounted) {
+                    setLoading(false);
+                }
             }
         }
+
         load();
-        return () => { isMounted = false; };
+
+        return () => {
+            isMounted = false;
+        };
     }, [bookingId]);
 
     if (loading) {
         return (
-            <View style={noConfStyles.noBookingContainer}>
-                <ActivityIndicator />
-                <Text style={confStyles.h1}>Loading you booking</Text>
+            <View>
+                <View style={noConfStyles.noBookingContainer}>
+                    <ActivityIndicator style={{
+                        alignSelf: "center",
+                        paddingTop: 100,
+                    }}/>
+                    <Text style={confStyles.h1}>Loading you booking</Text>
+                </View>
             </View>
+
         );
     }
 
@@ -75,10 +93,11 @@ const ConfirmationCard: React.FC<ConfirmationProps> = ({ route, navigation }) =>
                     </Text>
                 </View>
             </View>
-        )
+        );
     }
+
     return (
-        <View style={confStyles.confContainer}>
+        <SafeAreaView>
             <ScrollView contentContainerStyle={confStyles.scrollContent}>
                 <View style={confStyles.banner}>
                     <Text style={confStyles.brand}>CarRental</Text>
@@ -129,11 +148,11 @@ const ConfirmationCard: React.FC<ConfirmationProps> = ({ route, navigation }) =>
                         </View>
                     </View>
                 </View>
-                <View style={{ height: 24 }} />
+                <View style={{height: 24}}/>
             </ScrollView>
-        </View>
+        </SafeAreaView>
 
-    )
+    );
 };
 
 export default ConfirmationCard;

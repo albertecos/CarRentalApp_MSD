@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {View, Text, Image, StyleSheet, ActivityIndicator, FlatList} from 'react-native';
 import axios from "axios";
 import {UseUserContext} from "../../UserContext";
+import {API_BASE_URL} from "@env";
 
 const UserBookings: React.FC = () => {
 
@@ -17,16 +18,14 @@ const UserBookings: React.FC = () => {
             setLoading(false);
             return;
         }
-        console.log("user id: " + userId);
 
-        axios.get(`http://10.126.32.40:3000/bookings/${userId}`).then(
+        axios.get(`${API_BASE_URL}/bookings/${userId}`, {timeout: 5000}).then(
             res => {
                 setBookings(res.data);
-                console.log(res.data);
+                // console.log(res.data);
             }
-
         ).catch(err => {
-            console.log("error: ", err);
+            console.error("error: ", err, err?.response?.status);
             setError("Could not load bookings.");
         }).finally(() => setLoading(false))
     }, [userId]);

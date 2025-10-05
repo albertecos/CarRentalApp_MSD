@@ -5,8 +5,9 @@ import { useNavigation } from '@react-navigation/native';
 import { RootStackParamList } from '../../App';
 import { useFonts, MadimiOne_400Regular } from '@expo-google-fonts/madimi-one';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import Home from "./Home";
 
-type CreateAccountScreenProp = NativeStackNavigationProp<RootStackParamList, 'CreateAccount'>;
+type CreateAccountScreenProp = NativeStackNavigationProp<RootStackParamList, 'Create Account'>;
 
 const CreateAccount: React.FC = () => {
     const navigation = useNavigation<CreateAccountScreenProp>();
@@ -29,11 +30,12 @@ const CreateAccount: React.FC = () => {
             await AsyncStorage.setItem('username', username);
             await AsyncStorage.setItem('password', password);
 
-            //Gør så Booking ikke er i en stack
-            navigation.reset({
-                index: 0,
-                routes: [{ name: 'Booking' }],
-            });
+            // //Gør så Booking ikke er i en stack
+            // navigation.reset({
+            //     index: 0,
+            //     routes: [{ name: 'Booking' }],
+            // });
+            navigation.replace('Tabs');
         } catch (error) {
             Alert.alert('Error', 'Failed to create account');
         }

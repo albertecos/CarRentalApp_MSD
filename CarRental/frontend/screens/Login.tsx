@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet, Alert } from 'react-native';
-import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import { useNavigation } from '@react-navigation/native';
-import { RootStackParamList } from '../../App';
-import { useFonts, MadimiOne_400Regular } from '@expo-google-fonts/madimi-one';
+import React, {useState} from 'react';
+import {View, Text, TextInput, TouchableOpacity, StyleSheet, Alert} from 'react-native';
+import {NativeStackNavigationProp} from '@react-navigation/native-stack';
+import {useNavigation} from '@react-navigation/native';
+import {RootStackParamList} from '../../App';
+import {useFonts, MadimiOne_400Regular} from '@expo-google-fonts/madimi-one';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 type LoginScreenProp = NativeStackNavigationProp<RootStackParamList, 'Login'>;
@@ -31,7 +31,7 @@ const Login: React.FC = () => {
             const savedPassword = await AsyncStorage.getItem('password');
 
             if (username === savedUsername && password === savedPassword) {
-                navigation.replace('Booking');
+                navigation.replace('Tabs');
             } else {
                 Alert.alert('Error', 'Invalid username or password');
             }
@@ -41,15 +41,15 @@ const Login: React.FC = () => {
     };
 
     const handleCreateAccount = () => {
-        navigation.navigate('CreateAccount');
+        navigation.navigate('Create Account');
     };
 
     return (
         <View style={styles.container}>
-            <Text style={[styles.title, { fontFamily: 'MadimiOne' }]}>Login</Text>
+            <Text style={[styles.title, {fontFamily: 'MadimiOne'}]}>Login</Text>
 
             <TextInput
-                style={[styles.input, { fontFamily: 'MadimiOne' }]}
+                style={[styles.input, {fontFamily: 'MadimiOne'}]}
                 placeholder="Username"
                 value={username}
                 onChangeText={setUsername}
@@ -57,7 +57,7 @@ const Login: React.FC = () => {
             />
 
             <TextInput
-                style={[styles.input, { fontFamily: 'MadimiOne' }]}
+                style={[styles.input, {fontFamily: 'MadimiOne'}]}
                 placeholder="Password"
                 value={password}
                 onChangeText={setPassword}
@@ -67,10 +67,10 @@ const Login: React.FC = () => {
 
             <View style={styles.buttonRow}>
                 <TouchableOpacity style={styles.button} onPress={handleLogin}>
-                    <Text style={[styles.buttonText, { fontFamily: 'MadimiOne' }]}>Login</Text>
+                    <Text style={[styles.buttonText, {fontFamily: 'MadimiOne'}]}>Login</Text>
                 </TouchableOpacity>
                 <TouchableOpacity style={styles.button} onPress={handleCreateAccount}>
-                    <Text style={[styles.buttonText, { fontFamily: 'MadimiOne' }]}>Create Account</Text>
+                    <Text style={[styles.buttonText, {fontFamily: 'MadimiOne'}]}>Create Account</Text>
                 </TouchableOpacity>
             </View>
         </View>
@@ -111,7 +111,7 @@ const styles = StyleSheet.create({
         borderRadius: 12,
         alignItems: 'center',
         shadowColor: '#000',
-        shadowOffset: { width: 0, height: 2 },
+        shadowOffset: {width: 0, height: 2},
         shadowOpacity: 0.2,
         shadowRadius: 3,
         elevation: 3,
