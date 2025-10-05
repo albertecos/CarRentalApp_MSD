@@ -1,59 +1,44 @@
-import React from 'react';
-import {View, Text, StyleSheet, Pressable} from 'react-native';
-import {useNavigation} from '@react-navigation/native';
-import {bookingService} from "../../backend/BookingService";
-import {NativeStackNavigationProp} from "@react-navigation/native-stack";
-import {SearchStackParamList} from "../../App";
-
-type stackNav = NativeStackNavigationProp<SearchStackParamList, 'Booking'>
+import React, {useEffect, useState} from 'react';
+import { Text, ScrollView, TextInput} from 'react-native';
+import CarCards from "../components/cards/CarCards";
+import axios from "axios";
+import { normalFont, searchBar } from "../styling/BookingPageStyle";
+import {Car} from "../../backend/models";
+import {API_BASE_URL} from "@env";
 
 const Booking: React.FC = () => {
-    const navigation = useNavigation<stackNav>();
+    const [search, setSearch] = useState('');
+    const [cars, setCars] = useState<Car[]>([]);
 
-    React.useEffect(() => {
-        async function makeBooking() {
-            const created = await bookingService.createBooking({
-                userId: "user1",
-                carId: "1",
-                startDate: "2025-09-25",
-                endDate: "2025-09-28",
-                totalCost: 300,
-            });
-            // navigation.navigate('Confirmation', {bookingId: created.id});
-        }
-        makeBooking();
-    }, [navigation]);
+    useEffect(() => {
+        axios.get(`${API_BASE_URL}/cars`, {timeout: 5000}).then(
+            res => {
+                setCars(res.data);
+            }
+        ).catch(error => console.log(error));
+    }, []);
 
-    const handleNavigateToBookingDetails = () => {
-        navigation.navigate('BookingDetails', {
-            carId: '2',
-            startDate: '2025-09-25',
-            endDate: '2025-09-28'
-        });
-    };
+    const filteredCars = cars.filter(car =>
+        car.model.toLowerCase().includes(search.toLowerCase())
+    );
+
 
     return (
-        <View>
-            <Pressable style={styles.button} onPress={handleNavigateToBookingDetails}>
-                <Text>Go to Booking Details</Text>
-            </Pressable>
-        </View>
+        <ScrollView>
+            <TextInput
+                style = {searchBar.container}
+                placeholder="Search booking..."
+                onChangeText={setSearch}
+                value={search}
+            />
+
+            <Text style={normalFont.container}>Your search gave {filteredCars.length} results</Text>
+            {filteredCars.map((car) => (
+                <CarCards key={car.id} car={car}/>
+            ))}
+        </ScrollView>
     )
 };
 
 export default Booking;
 
-const styles = StyleSheet.create({
-    button: {
-        marginTop: 35,
-        position: 'absolute',
-        verticalAlign: 'top',
-        borderStyle: 'solid',
-        borderColor: 'black',
-        borderWidth: 1,
-        borderRadius: 50,
-        paddingBlock: 15,
-        paddingInline: 35,
-        alignSelf: 'center',
-    }
-})
