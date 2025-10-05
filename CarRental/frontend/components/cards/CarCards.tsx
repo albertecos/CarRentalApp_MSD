@@ -31,20 +31,6 @@ const CarCards: React.FC<carProps> = ({ car }) => {
     const navigation = useNavigation<BookingNavigationProp>();
     const uri = car.imageUrl || 'https://via.placeholder.com/150';
 
-    React.useEffect(() => {
-        async function makeBooking() {
-            const created = await bookingService.createBooking({
-                userId: "user1",
-                carId: "1",
-                startDate: "2025-09-25",
-                endDate: "2025-09-28",
-                totalCost: 300,
-            });
-            // navigation.navigate('Confirmation', {bookingId: created.id});
-        }
-        makeBooking();
-    }, [navigation]);
-
     const handleNavigateToBookingDetails = () => {
         navigation.navigate('BookingDetails', {
             carId: car.id,
