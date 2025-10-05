@@ -3,10 +3,10 @@ import {View, Text, Image, ActivityIndicator} from 'react-native';
 import {confStyles} from "../../styling/ConfirmationStyles/ConfirmationCardStyling";
 import {noConfStyles} from "../../styling/ConfirmationStyles/NoBookings";
 import {NativeStackScreenProps} from "@react-navigation/native-stack";
-import {API_BASE_URL} from "@env";
 import {SearchStackParamList} from "../../../App";
 import {ScrollView} from "react-native";
 import {SafeAreaView} from 'react-native-safe-area-context'
+import { bookingService } from '../../../backend/BookingService';
 
 type ConfirmationProps = NativeStackScreenProps<SearchStackParamList, 'Confirmation'>;
 
@@ -40,13 +40,8 @@ const ConfirmationCard: React.FC<ConfirmationProps> = ({route, navigation}) => {
                 return;
             }
             try {
-                const res = await fetch(`${API_BASE_URL}/bookings/bookingId/${bookingId}`);
-                const booking: Booking = await res.json();
+                const booking: Booking | null = await bookingService.getBookById(bookingId);
 
-                if (!res.ok) {
-                    // const body = await res.json().catch(() => ({}));
-                    throw new Error(error || `Failed to fetch booking: ${res.status}`);
-                }
                 if (isMounted) {
                     setBooking(booking);
                 }
