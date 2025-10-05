@@ -6,7 +6,7 @@
 Create .env file in the CarRental folder with the the following
 ```sh
 # API Configuration
-API_BASE_URL=http://YOURIPADDRESS
+API_BASE_URL=http://YOURIPADDRESS:3000
 # API_BASE_URL=http://localhost:3000
 ```
 
