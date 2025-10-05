@@ -22,3 +22,14 @@ export const normalFont = StyleSheet.create({
         marginLeft: 5,
     },
 });
+
+export const titleFont = StyleSheet.create({
+    container: {
+        color: "rgb(102,7,8)",
+        fontWeight: 'bold',
+        marginTop: 60,
+        marginLeft: 5,
+        fontSize: 28,
+        fontFamily:'MadimiOne',
+    },
+});
