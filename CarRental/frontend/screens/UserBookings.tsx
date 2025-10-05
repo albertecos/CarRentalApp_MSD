@@ -3,6 +3,7 @@ import {View, Text, Image, StyleSheet, ActivityIndicator, FlatList} from 'react-
 import axios from "axios";
 import {UseUserContext} from "../../UserContext";
 import {API_BASE_URL} from "@env";
+import BookingCard from "../components/cards/BookingCard";
 
 const UserBookings: React.FC = () => {
 
@@ -47,22 +48,36 @@ const UserBookings: React.FC = () => {
         )
     }
 
+    // return (
+    //     <View>
+    //         <Text style={styles.text}>Your bookings</Text>
+    //
+    //         <FlatList data={bookings}
+    //           keyExtractor={(b, index) => b.id?.toString() ?? index.toString()}
+    //           renderItem={({item}) => (
+    //               <View>
+    //                   <Text>{item.id}</Text>
+    //                   <Text>{item.userId}</Text>
+    //                   <Text>{item.carId}</Text>
+    //                   <Text>{item.startDate}</Text>
+    //                   <Text>{item.endDate}</Text>
+    //                   <Text>{item.totalCost}</Text>
+    //               </View>
+    //           )}/>
+    //     </View>
+    // )
     return (
-        <View>
-            <Text style={styles.text}>Your bookings</Text>
+        <View style={{flex: 1, backgroundColor: "#f8f9fa"}}>
+            <Text style={{fontSize: 24, fontWeight: "bold", margin: 20}}>
+                Your bookings
+            </Text>
 
-            <FlatList data={bookings}
-              keyExtractor={(b, index) => b.id?.toString() ?? index.toString()}
-              renderItem={({item}) => (
-                  <View>
-                      <Text>{item.id}</Text>
-                      <Text>{item.userId}</Text>
-                      <Text>{item.carId}</Text>
-                      <Text>{item.startDate}</Text>
-                      <Text>{item.endDate}</Text>
-                      <Text>{item.totalCost}</Text>
-                  </View>
-              )}/>
+            <FlatList
+                data={bookings}
+                keyExtractor={(b, index) => b.id?.toString() ?? index.toString()}
+            renderItem={({item}) => <BookingCard booking={item}/>}
+                contentContainerStyle={{paddingBottom: 20}}/>
+
         </View>
     )
 };

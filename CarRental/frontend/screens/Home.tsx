@@ -1,13 +1,32 @@
-import React from "react";
-import {View, Text, StyleSheet, TextInput, TouchableOpacity, Image} from "react-native";
+import React, {useEffect} from "react";
+import {View, Text, StyleSheet, TextInput, TouchableOpacity, Image, Alert} from "react-native";
 import MapView, { Marker } from 'react-native-maps';
+import * as Location from 'expo-location';
 
 
 
 
 const Home: React.FC = () => {
     const [search, setSearch] = React.useState('')
+    const [location, setLocation] = React.useState<any>();
     const carCardImage = require("../assets/Car images/Hyundai_Kona_(2022).png");
+
+    useEffect(() => {
+        (async () => {
+            let { status } = await Location.requestForegroundPermissionsAsync();
+            if (status !== 'granted') {
+                Alert.alert(
+                    'Permission denied',
+                    'Allow the app to use location services',
+                    [{ text: 'OK' }]
+                );
+                return;
+            }
+
+            let currentLocation = await Location.getCurrentPositionAsync({});
+            setLocation(currentLocation.coords);
+        })();
+    }, []);
 
     return (
         <View style={styles.container}>

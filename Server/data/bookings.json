@@ -662,5 +662,117 @@
     "startDate": "2025-09-25",
     "endDate": "2025-09-28",
     "totalCost": 255
+  },
+  {
+    "id": "cb9156b0-b82c-4b99-a8f0-870108fc6c5f",
+    "userId": "user1",
+    "carId": "1",
+    "startDate": "2025-09-25",
+    "endDate": "2025-09-28",
+    "totalCost": 300
+  },
+  {
+    "id": "f34e3cd7-f6c7-43b0-99f7-ab69d61f247b",
+    "userId": "user1",
+    "carId": "1",
+    "startDate": "2025-09-25",
+    "endDate": "2025-09-28",
+    "totalCost": 300
+  },
+  {
+    "id": "f40be665-e5a6-459f-b904-647f60d34980",
+    "userId": "user1",
+    "carId": "1",
+    "startDate": "2025-09-25",
+    "endDate": "2025-09-28",
+    "totalCost": 300
+  },
+  {
+    "id": "a8a161fc-eb31-4422-95bf-a636bc758f7d",
+    "userId": "user1",
+    "carId": "2",
+    "startDate": "2025-09-25",
+    "endDate": "2025-09-28",
+    "totalCost": 255
+  },
+  {
+    "id": "65d53086-21bb-4753-b178-ea18aa836b8b",
+    "userId": "user1",
+    "carId": "2",
+    "startDate": "2025-09-25",
+    "endDate": "2025-09-28",
+    "totalCost": 255
+  },
+  {
+    "id": "03617888-ed72-464e-a1bc-f3300864cef7",
+    "userId": "user1",
+    "carId": "1",
+    "startDate": "2025-09-25",
+    "endDate": "2025-09-28",
+    "totalCost": 300
+  },
+  {
+    "id": "199dbb88-1c71-4666-8741-41bc763f6322",
+    "userId": "user1",
+    "carId": "1",
+    "startDate": "2025-09-25",
+    "endDate": "2025-09-28",
+    "totalCost": 300
+  },
+  {
+    "id": "a4f9ae24-8356-478f-a04d-11d1708066ba",
+    "userId": "user1",
+    "carId": "2",
+    "startDate": "2025-09-25",
+    "endDate": "2025-09-28",
+    "totalCost": 255
+  },
+  {
+    "id": "6b52da67-bb3c-49c5-bdbb-752131b8b461",
+    "userId": "user1",
+    "carId": "1",
+    "startDate": "2025-09-25",
+    "endDate": "2025-09-28",
+    "totalCost": 300
+  },
+  {
+    "id": "5e50792f-9bcf-424a-863f-ddf47fc9811f",
+    "userId": "user1",
+    "carId": "2",
+    "startDate": "2025-09-25",
+    "endDate": "2025-09-28",
+    "totalCost": 255
+  },
+  {
+    "id": "929a70b0-2618-408b-afc7-0bdd6c7a844a",
+    "userId": "user1",
+    "carId": "1",
+    "startDate": "2025-09-25",
+    "endDate": "2025-09-28",
+    "totalCost": 300
+  },
+  {
+    "id": "7d14d73b-3351-437d-b082-43fb748edc25",
+    "userId": "user1",
+    "carId": "2",
+    "startDate": "2025-09-25",
+    "endDate": "2025-09-28",
+    "totalCost": 255
+  },
+  {
+    "id": "561ab8b3-596e-40f8-bcf9-f5611a46a0e5",
+    "userId": "user1",
+    "carId": "1",
+    "startDate": "2025-09-25",
+    "endDate": "2025-09-28",
+    "totalCost": 300
+  },
+  {
+    "id": "9873190d-42a2-41d0-8703-08fc33dfef35",
+    "userId": "user1",
+    "carId": "2",
+    "startDate": "2025-09-25",
+    "endDate": "2025-09-28",
+    "totalCost": 255
   }
 ]
