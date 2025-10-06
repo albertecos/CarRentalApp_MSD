@@ -1,18 +1,17 @@
 import React from 'react';
-import {View, Text, Button, Image, TouchableOpacity} from 'react-native';
+import {View, Text, Image, TouchableOpacity} from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import {bookingService} from "../../../backend/BookingService";
 import {NativeStackNavigationProp} from "@react-navigation/native-stack";
 import {SearchStackParamList} from "../../../App";
 type BookingNavigationProp = NativeStackNavigationProp<SearchStackParamList, 'Booking'>
-import '../../styling/CarCardsStyle';
 import {
     flexContainer, infoContainer, priceContainer, brandFont, normalFont,
     imageLogo, priceFont, button, buttonFont, dailyPriceFont
 } from "../../styling/CarCardsStyle";
 
 type CarType = {
-    id: string;
+    id: string,
+    brand: string,
     model: string,
     year: number,
     pricePerDay: number,
@@ -25,11 +24,8 @@ type carProps = {
     car: CarType;
 }
 
-//const image = require('../../assets/favicon.png');
-
 const CarCards: React.FC<carProps> = ({ car }) => {
     const navigation = useNavigation<BookingNavigationProp>();
-    const uri = car.imageUrl || 'https://via.placeholder.com/150';
 
     const handleNavigateToBookingDetails = () => {
         navigation.navigate('BookingDetails', {
@@ -41,9 +37,9 @@ const CarCards: React.FC<carProps> = ({ car }) => {
 
     return (
         <View style={flexContainer.container}>
-            <Image source={{ uri }} style={imageLogo.container}/>
+            <Image source={{uri: car.imageUrl}} style={imageLogo.container}/>
             <View style={infoContainer.container}>
-                <Text style={brandFont.container}> {car.model} {car.year}</Text>
+                <Text style={brandFont.container}> {car.brand + " " + car.model} {car.year}</Text>
                 <Text style={normalFont.container}>{car.description}</Text>
             </View>
             <View style={priceContainer.container}>
