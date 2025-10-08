@@ -11,11 +11,12 @@ const Booking: React.FC = () => {
     const [cars, setCars] = useState<Car[]>([]);
 
     useEffect(() => {
-        axios.get(`${API_BASE_URL}/cars`, {timeout: 5000}).then(
-            res => {
+        axios.get(`${API_BASE_URL}/cars`, { timeout: 5000 })
+            .then(res => {
+                console.log("Cars fetched:", res.data);
                 setCars(res.data);
-            }
-        ).catch(error => console.log(error));
+            })
+            .catch(error => console.log("Error fetching cars:", error));
     }, []);
 
     const filteredCars = cars.filter(car =>
