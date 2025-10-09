@@ -19,7 +19,7 @@ const Booking: React.FC = () => {
     }, []);
 
     const filteredCars = cars.filter(car =>
-        car.model.toLowerCase().includes(search.toLowerCase())
+        car.model.toLowerCase().includes(search.toLowerCase()) || car.brand.toLowerCase().includes(search.toLowerCase())
     );
 
 
@@ -33,10 +33,8 @@ const Booking: React.FC = () => {
                 onChangeText={setSearch}
                 value={search}
             />
+            <Text style={normalFont.container}>Your search gave {filteredCars.length} results</Text>
             <ScrollView>
-
-
-                <Text style={normalFont.container}>Your search gave {filteredCars.length} results</Text>
                 {filteredCars.map((car) => (
                     <CarCards key={car.id} car={car}/>
                 ))}
