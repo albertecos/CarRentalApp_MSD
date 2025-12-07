@@ -1,16 +1,17 @@
 import React from 'react';
-import {View} from 'react-native';
+import {Image, Pressable, Text, View} from 'react-native';
 import {SearchStackParamList} from '../../App';
 import ConfirmationCard from "../components/cards/ConfirmationCard";
 import {NativeStackScreenProps} from "@react-navigation/native-stack";
+import {SafeAreaView} from "react-native-safe-area-context";
 
 type ConfirmationProps = NativeStackScreenProps<SearchStackParamList, 'Confirmation'>;
 
 const Confirmation: React.FC<ConfirmationProps> = ({ route, navigation }) => {
     return (
-        <View>
+        <SafeAreaView edges={["top", "left", "right", "bottom"]}>
             <ConfirmationCard navigation={navigation} route={route} />
-        </View>
+        </SafeAreaView>
     )
 };
 

@@ -5,6 +5,7 @@ import axios from "axios";
 import { normalFont, searchBar, titleFont } from "../styling/BookingPageStyle";
 import {Car} from "../../backend/models";
 import {API_BASE_URL} from "@env";
+import {SafeAreaView} from "react-native-safe-area-context";
 
 const Booking: React.FC = () => {
     const [search, setSearch] = useState('');
@@ -24,7 +25,7 @@ const Booking: React.FC = () => {
 
 
     return (
-        <View>
+        <SafeAreaView edges={["left", "right", "bottom"]}>
             <Text style={titleFont.container}>Book your next ride now</Text>
 
             <TextInput
@@ -39,7 +40,7 @@ const Booking: React.FC = () => {
                     <CarCards key={car.id} car={car}/>
                 ))}
             </ScrollView>
-        </View>
+        </SafeAreaView>
     )
 };
 

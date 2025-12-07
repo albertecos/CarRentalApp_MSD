@@ -2,19 +2,20 @@ import React from 'react';
 import {View, Text, Image, StyleSheet, Pressable} from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import Ionicons from '@expo/vector-icons/Ionicons';
+import {SafeAreaView} from "react-native-safe-area-context";
 
 
 const Contact: React.FC = () => {
     const navigation = useNavigation();
 
     return (
-        <View>
+        <SafeAreaView edges={["top", "left", "right", "bottom"]}>
             <Text>Contact information</Text>
 
             <Pressable style={styles.buttons} onPress={() => navigation.goBack()}>
                 <Text>Back</Text>
             </Pressable>
-        </View>
+        </SafeAreaView>
     )
 };
 

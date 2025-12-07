@@ -6,6 +6,7 @@ import { RootStackParamList } from '../../App';
 import { useFonts, MadimiOne_400Regular } from '@expo-google-fonts/madimi-one';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Home from "./Home";
+import {SafeAreaView} from "react-native-safe-area-context";
 
 type CreateAccountScreenProp = NativeStackNavigationProp<RootStackParamList, 'Create Account'>;
 
@@ -42,7 +43,7 @@ const CreateAccount: React.FC = () => {
     };
 
     return (
-        <View style={styles.container}>
+        <SafeAreaView style={styles.container} edges={["top", "left", "right", "bottom"]}>
             <Text style={[styles.title, { fontFamily: 'MadimiOne' }]}>Create account</Text>
 
             <TextInput
@@ -67,7 +68,7 @@ const CreateAccount: React.FC = () => {
                     <Text style={[styles.buttonText, { fontFamily: 'MadimiOne' }]}>Create account</Text>
                 </TouchableOpacity>
             </View>
-        </View>
+        </SafeAreaView>
     )
 };
 

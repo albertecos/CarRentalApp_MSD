@@ -5,12 +5,17 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2dcc81e5-e0f3-4432-a332-3b82897c4476" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/CarRental/frontend/styling/HeaderStyling.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.env" beforeDir="false" afterPath="$PROJECT_DIR$/CarRental/frontend/components/Header.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CarRental/App.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/CarRental/App.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CarRental/frontend/screens/Booking.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/CarRental/frontend/screens/Booking.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CarRental/frontend/screens/BookingDetails.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/CarRental/frontend/screens/BookingDetails.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CarRental/frontend/screens/Confirmation.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/CarRental/frontend/screens/Confirmation.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CarRental/frontend/screens/Contact.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/CarRental/frontend/screens/Contact.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CarRental/frontend/screens/CreateAccount.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/CarRental/frontend/screens/CreateAccount.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/CarRental/frontend/screens/Home.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/CarRental/frontend/screens/Home.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CarRental/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/CarRental/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CarRental/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/CarRental/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CarRental/frontend/screens/Login.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/CarRental/frontend/screens/Login.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CarRental/frontend/screens/Profile.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/CarRental/frontend/screens/Profile.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CarRental/frontend/screens/Settings.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/CarRental/frontend/screens/Settings.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CarRental/frontend/screens/UserBookings.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/CarRental/frontend/screens/UserBookings.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -96,7 +101,7 @@
       <workItem from="1764582679041" duration="1391000" />
       <workItem from="1764835440213" duration="2220000" />
       <workItem from="1765107529556" duration="7104000" />
-      <workItem from="1765127354199" duration="1517000" />
+      <workItem from="1765127354199" duration="3846000" />
     </task>
     <servers />
   </component>

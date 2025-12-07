@@ -3,6 +3,7 @@ import {View, Text, StyleSheet, TextInput, TouchableOpacity, Image, Alert} from 
 import MapView, {Marker} from 'react-native-maps';
 import * as Location from 'expo-location';
 import Header from "../components/Header";
+import {SafeAreaView} from "react-native-safe-area-context";
 
 
 const Home: React.FC = () => {
@@ -28,7 +29,7 @@ const Home: React.FC = () => {
     }, []);
 
     return (
-        <View style={styles.root}>
+        <SafeAreaView style={styles.root} edges={["left", "right", "bottom"]}>
             <Header/>
 
             <View style={styles.container}>
@@ -74,7 +75,7 @@ const Home: React.FC = () => {
                 />
             </View>
 
-        </View>
+        </SafeAreaView>
     )
 };
 
