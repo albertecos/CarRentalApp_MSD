@@ -1,16 +1,17 @@
 import React, {useEffect} from "react";
-import {View, Text, StyleSheet, TextInput, TouchableOpacity, Image, Alert} from "react-native";
+import {View, Text, StyleSheet, TextInput, TouchableOpacity, Image, Alert, Button} from "react-native";
 import MapView, {Marker} from 'react-native-maps';
 import * as Location from 'expo-location';
 import Header from "../components/Header";
 import {SafeAreaView} from "react-native-safe-area-context";
-
+import Ionicons from "@expo/vector-icons/Ionicons";
 
 const Home: React.FC = () => {
     const [search, setSearch] = React.useState('')
     const [location, setLocation] = React.useState<any>();
     const carCardImage = require("../assets/Car images/Hyundai_Kona_(2022).png");
 
+/*
     useEffect(() => {
         (async () => {
             let {status} = await Location.requestForegroundPermissionsAsync();
@@ -28,53 +29,59 @@ const Home: React.FC = () => {
         })();
     }, []);
 
+ */
+
     return (
         <SafeAreaView style={styles.root} edges={["left", "right", "bottom"]}>
             <Header/>
 
             <View style={styles.container}>
-
-                <Text style={styles.header}>
-                    Near you
-                </Text>
-
-                {/*Under is the card for nearest deal*/}
-                <View style={styles.textContainer}>
-                    {/*Insert an image of car*/}
-
-                    <Text style={styles.carModel}>Hyundai Kona</Text>
-                    <Image source={carCardImage}
-                           style={{width: 150, height: 100, resizeMode: "contain", borderRadius: 20,}}/>
-                    <Text style={styles.carPrice}>67.99/day</Text>
-
-                    <TouchableOpacity style={styles.smallButtonContainer} onPress={() => {
-                    }}>
-                        <Text style={styles.smallButtonText}>
-                            VIEW
-                        </Text>
-                    </TouchableOpacity>
+                <View style={styles.inputBox}>
+                    <TextInput
+                        style={styles.fieldInput}
+                        placeholder="Rental: Pick up point..."
+                        placeholderTextColor="#00000080"
+                    />
                 </View>
-                {/*Search Bar*/}
-                <TextInput
-                    style={styles.searchBar}
-                    value={search}
-                    onChangeText={setSearch}
-                    placeholder="Search for car"
-
-                />
-                <Text style={styles.subHeader}>
-                    Find a car on the map
-                </Text>
-
-
-                {/*Figure out how to make a map*/}
-                <MapView
-                    style={styles.map}
-                    showsUserLocation={true}
-
-                />
+                <View style={styles.inputBox}>
+                    <TextInput
+                        style={styles.fieldInput}
+                        placeholder="Return: Pick up point..."
+                        placeholderTextColor="#00000080"
+                    />
+                </View>
+                <View style={styles.dateInput}>
+                    <View style={[styles.inputBox, styles.half]}>
+                        <Ionicons name="calendar-outline" color="#00000080" style={styles.icon} />
+                        <TextInput
+                            style={styles.fieldInput}
+                            placeholder="From"
+                            placeholderTextColor="#00000080"
+                        />
+                    </View>
+                    <View style={[styles.inputBox, styles.half]}>
+                        <Ionicons name="calendar-outline" color="#00000080" style={styles.icon} />
+                        <TextInput
+                            style={styles.fieldInput}
+                            placeholder="To"
+                            placeholderTextColor="#00000080"
+                        />
+                    </View>
+                </View>
+                <View style={styles.inputBox}>
+                    <TextInput
+                        style={styles.fieldInput}
+                        placeholder="Age of driver"
+                        placeholderTextColor="#00000080"
+                    />
+                </View>
+                <TouchableOpacity style={styles.searchButton} onPress={carCardImage}>
+                    <Text style={styles.searchButtonText}>
+                        Search booking
+                    </Text>
+                </TouchableOpacity>
+                <View style={styles.separator}/>
             </View>
-
         </SafeAreaView>
     )
 };
@@ -86,79 +93,62 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: "#f9f9f9",
     },
-    searchBar: {
-        height: 45,
-        borderRadius: 25,
-        borderWidth: 1,
-        borderColor: "#ccc",
-        paddingHorizontal: 15,
-        backgroundColor: "#fff",
-        verticalAlign: "top",
-        marginBottom: 10,
-    },
-    header: {
-        padding: 16,
-        backgroundColor: "#f9f9f9",
-        fontStyle: "italic",
-        fontWeight: "bold",
-        fontSize: 22,
-    },
     container: {
         flex: 1,
         padding: 16,
         backgroundColor: "#f9f9f9",
+        gap: 12
     },
-    subHeader: {
+    inputBox:{
+        flexDirection: "row",
+        alignItems: "center",
+        backgroundColor: "#e1dfe0",
+        borderRadius: 7,
+        paddingHorizontal: 16,
+        height: 44
+    },
+    fieldInput:{
+        flex: 1,
         fontSize: 18,
-        marginBottom: 5,
-        fontWeight: "bold",
+        color: "#444"
     },
-    carModel: {
-        fontSize: 18,
-        fontWeight: "bold",
+    dateInput:{
+        flexDirection: "row",
+        justifyContent: "space-between",
+        gap: 10
     },
-    carPrice: {
-        fontSize: 16,
-        color: "#000000",
-        marginTop: 5,
-        fontWeight: "bold",
-        textAlign: "right",
-        marginRight: 25,
+    half: {
+        flex: 1,
     },
-    textContainer: {
-        // flex: 1, makes the text container take up all the remaining space (Grows with the View)
-        paddingLeft: 10,
-        justifyContent: "center",
-        backgroundColor: "#48a2ff",
-        borderWidth: 1,
-        borderRadius: 20,
-        shadowColor: "#222020",
-        shadowRadius: 10,
-        marginBottom: 70,
-
+    icon:{
+        fontSize: 30,
+        marginRight: 16
     },
-    smallButtonText: {
-        fontSize: 15,
-        textAlign: "center",
-        color: "#ffffff",
-        fontWeight: "bold",
-    },
-    smallButtonContainer: {
+    searchButton:{
+        flexDirection: "row",
         alignItems: "center",
         justifyContent: "center",
-        backgroundColor: "#30588c",
-        borderRadius: 20,
-        borderWidth: 1,
-        height: 30,
-        marginHorizontal: 70,
-        marginBottom: 10,
+        backgroundColor: "#BA181B",
+        borderRadius: 7,
+        paddingHorizontal: 16,
+        height: 44,
+        shadowColor: "#000000",
+        shadowOffset: { width: 0, height: 4 },
+        shadowOpacity: 0.5,
+        shadowRadius: 4,
+        elevation: 4,
     },
-    map: {
-        width: '100%',
-        height: '50%',
-        borderRadius: 20,
-        borderWidth: 1,
-        flex: 1,
-        marginVertical: 10,
+    searchButtonText:{
+        fontSize: 20,
+        fontWeight: "bold",
+        color: "#FFFFFF",
+        alignSelf: "center",
     },
+    separator:{
+        height: 2,
+        backgroundColor: "#7E7D7E80",
+        width: "90%",
+        alignSelf: "center",
+        marginVertical: 16,
+    }
 })

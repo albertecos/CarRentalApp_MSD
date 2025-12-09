@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="2dcc81e5-e0f3-4432-a332-3b82897c4476" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/CarRental/frontend/screens/HomeDraft.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CarRental/app.json" beforeDir="false" afterPath="$PROJECT_DIR$/CarRental/app.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CarRental/frontend/screens/Home.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/CarRental/frontend/screens/Home.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CarRental/frontend/styling/HeaderStyling.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/CarRental/frontend/styling/HeaderStyling.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CarRental/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/CarRental/package.json" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="searchFunction" />
+      </map>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;albertecos&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;git@github.com:albertecos/CarRentalApp_MSD.git&quot;,
+    &quot;accountId&quot;: &quot;d070c9c9-1075-4704-a6ec-5ff9c3cbecd2&quot;
+  }
+}</component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 7
+}</component>
+  <component name="ProjectId" id="33VMSKadbWFalphfy0LXhHvRGyy" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "JavaScript Debug.localhost:8081.executor": "Run",
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "git-widget-placeholder": "search",
+    "last_opened_file_path": "/Users/albertehjorth/Documents/GitHub/CarRentalApp_MSD",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "ts.external.directory.path": "/Users/albertehjorth/Documents/GitHub/CarRentalApp_MSD/CarRental/node_modules/typescript/lib",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/CarRental" />
+      <recent name="$PROJECT_DIR$/Server" />
+    </key>
+  </component>
+  <component name="RunManager">
+    <configuration name="localhost:8081" type="JavascriptDebugType" temporary="true" nameIsGenerated="true" uri="http://localhost:8081">
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="JavaScript Debug.localhost:8081" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-js-predefined-d6986cc7102b-b598e85cdad2-JavaScript-WS-252.25557.126" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="2dcc81e5-e0f3-4432-a332-3b82897c4476" name="Changes" comment="" />
+      <created>1759397784574</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1759397784574</updated>
+      <workItem from="1759397787540" duration="1010000" />
+      <workItem from="1759494955489" duration="4427000" />
+      <workItem from="1759735501566" duration="876000" />
+      <workItem from="1759744026374" duration="4662000" />
+      <workItem from="1759910799386" duration="117000" />
+      <workItem from="1761315652974" duration="1233000" />
+      <workItem from="1764582679041" duration="1391000" />
+      <workItem from="1764835440213" duration="2220000" />
+      <workItem from="1765107529556" duration="7104000" />
+      <workItem from="1765127354199" duration="4063000" />
+      <workItem from="1765305925238" duration="920000" />
+      <workItem from="1765306858385" duration="4293000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="UnknownFeatures">
+    <option featureType="com.intellij.fileTypeFactory" implementationName=".env" />
+  </component>
+</project>
