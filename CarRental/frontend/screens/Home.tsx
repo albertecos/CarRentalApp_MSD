@@ -1,9 +1,9 @@
 import React, {useEffect} from "react";
 import {View, Text, StyleSheet, TextInput, TouchableOpacity, Image, Alert} from "react-native";
-import MapView, { Marker } from 'react-native-maps';
+import MapView, {Marker} from 'react-native-maps';
 import * as Location from 'expo-location';
-
-
+import Header from "../components/Header";
+import {SafeAreaView} from "react-native-safe-area-context";
 
 
 const Home: React.FC = () => {
@@ -13,12 +13,12 @@ const Home: React.FC = () => {
 
     useEffect(() => {
         (async () => {
-            let { status } = await Location.requestForegroundPermissionsAsync();
+            let {status} = await Location.requestForegroundPermissionsAsync();
             if (status !== 'granted') {
                 Alert.alert(
                     'Permission denied',
                     'Allow the app to use location services',
-                    [{ text: 'OK' }]
+                    [{text: 'OK'}]
                 );
                 return;
             }
@@ -29,54 +29,63 @@ const Home: React.FC = () => {
     }, []);
 
     return (
-        <View style={styles.container}>
-            <Text style={styles.header}>
-                Near you
-            </Text>
+        <SafeAreaView style={styles.root} edges={["left", "right", "bottom"]}>
+            <Header/>
 
-            {/*Under is the card for nearest deal*/}
-            <View style={styles.textContainer}>
-                {/*Insert an image of car*/}
+            <View style={styles.container}>
 
-                <Text style={styles.carModel}>Hyundai Kona</Text>
-                <Image source={carCardImage} style={{ width: 150, height: 100, resizeMode: "contain", borderRadius: 20,}}/>
-                <Text style={styles.carPrice}>67.99/day</Text>
+                <Text style={styles.header}>
+                    Near you
+                </Text>
 
-                <TouchableOpacity style={styles.smallButtonContainer} onPress={() => {}}>
-                    <Text style={styles.smallButtonText}>
-                        VIEW
-                    </Text>
-                </TouchableOpacity>
+                {/*Under is the card for nearest deal*/}
+                <View style={styles.textContainer}>
+                    {/*Insert an image of car*/}
+
+                    <Text style={styles.carModel}>Hyundai Kona</Text>
+                    <Image source={carCardImage}
+                           style={{width: 150, height: 100, resizeMode: "contain", borderRadius: 20,}}/>
+                    <Text style={styles.carPrice}>67.99/day</Text>
+
+                    <TouchableOpacity style={styles.smallButtonContainer} onPress={() => {
+                    }}>
+                        <Text style={styles.smallButtonText}>
+                            VIEW
+                        </Text>
+                    </TouchableOpacity>
+                </View>
+                {/*Search Bar*/}
+                <TextInput
+                    style={styles.searchBar}
+                    value={search}
+                    onChangeText={setSearch}
+                    placeholder="Search for car"
+
+                />
+                <Text style={styles.subHeader}>
+                    Find a car on the map
+                </Text>
+
+
+                {/*Figure out how to make a map*/}
+                <MapView
+                    style={styles.map}
+                    showsUserLocation={true}
+
+                />
             </View>
-            {/*Search Bar*/}
-            <TextInput
-                style={styles.searchBar}
-                value={search}
-                onChangeText={setSearch}
-                placeholder="Search for car"
 
-            />
-            <Text style={styles.subHeader}>
-                Find a car on the map
-            </Text>
-
-
-
-            {/*Figure out how to make a map*/}
-            <MapView
-                style={styles.map}
-                showsUserLocation={true}
-
-            />
-
-
-        </View>
+        </SafeAreaView>
     )
 };
 
 export default Home;
 
 const styles = StyleSheet.create({
+    root: {
+        flex: 1,
+        backgroundColor: "#f9f9f9",
+    },
     searchBar: {
         height: 45,
         borderRadius: 25,

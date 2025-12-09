@@ -1,6 +1,7 @@
 import React from 'react';
 import {View, Text, Image, StyleSheet, Pressable} from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import {SafeAreaView} from "react-native-safe-area-context";
 
 
 const Profile: React.FC = () => {
@@ -8,7 +9,7 @@ const Profile: React.FC = () => {
     const defaultImage = require('../assets/defaultpp.jpg');
 
     return (
-        <View>
+        <SafeAreaView edges={["top", "left", "right", "bottom"]}>
             <Image source={defaultImage} style={styles.image}/>
             <Pressable style={styles.buttons} onPress={() => navigation.navigate('Your Bookings')}>
                 <Text>Your bookings</Text>
@@ -19,7 +20,7 @@ const Profile: React.FC = () => {
             <Pressable style={styles.buttons} onPress={() => navigation.navigate('Contact')}>
                 <Text>Contact</Text>
             </Pressable>
-        </View>
+        </SafeAreaView>
     )
 };
 

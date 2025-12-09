@@ -4,6 +4,7 @@ import axios from "axios";
 import {UseUserContext} from "../../UserContext";
 import {API_BASE_URL} from "@env";
 import BookingCard from "../components/cards/BookingCard";
+import {SafeAreaView} from "react-native-safe-area-context";
 
 const UserBookings: React.FC = () => {
 
@@ -33,18 +34,18 @@ const UserBookings: React.FC = () => {
 
     if (loading) {
         return (
-            <View>
+            <SafeAreaView edges={["top", "left", "right", "bottom"]}>
                 <Text style={styles.text}>Loading your bookings...</Text>
                 <ActivityIndicator size="large" color={'#7c0808'}/>
-            </View>
+            </SafeAreaView>
         )
     }
 
     if (error) {
         return (
-            <View>
+            <SafeAreaView edges={["top", "left", "right", "bottom"]}>
                 <Text style={{alignSelf: 'center'}}>{error}</Text>
-            </View>
+            </SafeAreaView>
         )
     }
 
@@ -67,7 +68,7 @@ const UserBookings: React.FC = () => {
     //     </View>
     // )
     return (
-        <View style={{flex: 1, backgroundColor: "#f8f9fa"}}>
+        <SafeAreaView style={{flex: 1, backgroundColor: "#f8f9fa"}} edges={["top", "left", "right", "bottom"]}>
             <Text style={{fontSize: 24, fontWeight: "bold", margin: 20}}>
                 Your bookings
             </Text>
@@ -78,7 +79,7 @@ const UserBookings: React.FC = () => {
             renderItem={({item}) => <BookingCard booking={item}/>}
                 contentContainerStyle={{paddingBottom: 20}}/>
 
-        </View>
+        </SafeAreaView>
     )
 };
 

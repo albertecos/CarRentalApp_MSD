@@ -5,6 +5,7 @@ import { SearchStackParamList } from '../../App'; // Adjust path as needed
 import { bookingService} from '../../backend/BookingService';
 import {CarService } from '../../backend/CarService';
 import { Booking, Car } from '../../backend/models';
+import {SafeAreaView} from "react-native-safe-area-context";
 
 
 type BookingDetailsProps = StackScreenProps<SearchStackParamList, 'BookingDetails'>;
@@ -54,7 +55,7 @@ const BookingDetails: React.FC<BookingDetailsProps> = ({ route, navigation }) =>
   }
 
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container} edges={["top", "left", "right", "bottom"]}>
       <View style={styles.carInfo}>
         <Image source={{ uri }} style={styles.carImage} />
         <View style={styles.carDetails}>
@@ -117,7 +118,7 @@ const BookingDetails: React.FC<BookingDetailsProps> = ({ route, navigation }) =>
           <Button title="Confirm Booking" onPress={handleBooking} />
         </View>
       </View>
-    </View>
+    </SafeAreaView>
   );
 };
 

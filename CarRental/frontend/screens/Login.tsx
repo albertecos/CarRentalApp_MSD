@@ -5,6 +5,7 @@ import {useNavigation} from '@react-navigation/native';
 import {RootStackParamList} from '../../App';
 import {useFonts, MadimiOne_400Regular} from '@expo-google-fonts/madimi-one';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import {SafeAreaView} from "react-native-safe-area-context";
 
 type LoginScreenProp = NativeStackNavigationProp<RootStackParamList, 'Login'>;
 
@@ -45,7 +46,7 @@ const Login: React.FC = () => {
     };
 
     return (
-        <View style={styles.container}>
+        <SafeAreaView style={styles.container} edges={["top", "left", "right", "bottom"]}>
             <Text style={[styles.title, {fontFamily: 'MadimiOne'}]}>Login</Text>
 
             <TextInput
@@ -73,7 +74,7 @@ const Login: React.FC = () => {
                     <Text style={[styles.buttonText, {fontFamily: 'MadimiOne'}]}>Create Account</Text>
                 </TouchableOpacity>
             </View>
-        </View>
+        </SafeAreaView>
     )
 };
 

@@ -14,6 +14,8 @@ import CreateAccount from "./frontend/screens/CreateAccount";
 import Login from "./frontend/screens/Login";
 import BookingDetails from "./frontend/screens/BookingDetails";
 import Settings from "./frontend/screens/Settings";
+import ConfirmationCard from "./frontend/components/cards/ConfirmationCard";
+import {SafeAreaProvider} from "react-native-safe-area-context";
 
 export type RootStackParamList = {
     Login: undefined;
@@ -98,15 +100,17 @@ function Tabs() {
 
 export default function App() {
     return (
-        <UserContextProvider>
-            <NavigationContainer>
-                <RootStack.Navigator screenOptions={{headerShown: false}}>
-                    <RootStack.Screen name="Login" component={Login}/>
-                    <RootStack.Screen name="Create Account" component={CreateAccount}/>
-                    <RootStack.Screen name="Tabs" component={Tabs}/>
-                </RootStack.Navigator>
-            </NavigationContainer>
-        </UserContextProvider>
+        <SafeAreaProvider>
+            <UserContextProvider>
+                <NavigationContainer>
+                    <RootStack.Navigator screenOptions={{headerShown: false}}>
+                        <RootStack.Screen name="Login" component={Login}/>
+                        <RootStack.Screen name="Create Account" component={CreateAccount}/>
+                        <RootStack.Screen name="Tabs" component={Tabs}/>
+                    </RootStack.Navigator>
+                </NavigationContainer>
+            </UserContextProvider>
+        </SafeAreaProvider>
     );
 }
 
