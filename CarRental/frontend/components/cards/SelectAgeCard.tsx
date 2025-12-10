@@ -1,33 +1,56 @@
-import DateTimePicker, {DateTimePickerEvent} from "@react-native-community/datetimepicker";
 import React, {useEffect, useState} from "react";
-import {Modal, View, StyleSheet, Text, TouchableOpacity} from "react-native";
+import DateTimePicker, {DateTimePickerEvent} from "@react-native-community/datetimepicker";
+import {Alert, Modal, StyleSheet, Text, TouchableOpacity, View} from "react-native";
 
-type CalendarCardProps = {
+type SelectAgeCardProps = {
     visible: boolean;
     initialDate?: Date;
     title?: string;
-    minimumDate?: Date;
-    maximumDate?: Date;
+    minAge?: number;
     onConfirm: (date: Date) => void;
     onClose: () => void;
 }
 
-const CalendarCard: React.FC<CalendarCardProps> = ({
+const getAge = (birthdate: Date) => {
+    const today = new Date();
+    let age = today.getFullYear() - birthdate.getFullYear();
+
+    const month = today.getMonth() - birthdate.getMonth();
+    const day = today.getDate() - birthdate.getDate();
+
+    if (month < 0 || (month === 0 && day < 0)) {
+        age--;
+    }
+    return age;
+}
+
+const SelectAgeCard: React.FC<SelectAgeCardProps> = ({
     visible,
     initialDate,
-    title,
-    minimumDate,
-    maximumDate,
+    title = "Select date of birth",
+    minAge = 18,
     onConfirm,
     onClose,
 }) => {
-    const [selectedDate, setSelectedDate] = useState<Date>(initialDate || new Date());
+    const maxAllowedDate = (() => {
+        const d = new Date();
+        d.setFullYear(d.getFullYear() - minAge);
+        d.setHours(0, 0, 0, 0);
+        return d;
+    })();
+
+    const getInitialSelectedDate = () => {
+        if(initialDate) {
+            return initialDate > maxAllowedDate ? maxAllowedDate : initialDate;
+        }
+        return maxAllowedDate;
+    };
+
+    const [selectedDate, setSelectedDate] = useState<Date>(getInitialSelectedDate());
 
     useEffect(() => {
-        if (initialDate) {
-            setSelectedDate(initialDate);
-        }
-    }, [initialDate]);
+        setSelectedDate(getInitialSelectedDate());
+    }, [initialDate, minAge]);
 
     const handleChange = (_event: DateTimePickerEvent, date?: Date) => {
         if (date) {
@@ -36,9 +59,18 @@ const CalendarCard: React.FC<CalendarCardProps> = ({
     };
 
     const handleOk = () => {
+        const age = getAge(selectedDate);
+        if (age < minAge ) {
+            Alert.alert(
+                "Age restriction",
+                `You must be at least ${minAge} years old.`
+            )
+            return;
+        }
+
         onConfirm(selectedDate);
         onClose();
-    }
+    };
 
     return (
         <Modal
@@ -53,8 +85,9 @@ const CalendarCard: React.FC<CalendarCardProps> = ({
                         <DateTimePicker
                             value={selectedDate}
                             mode="date"
-                            display={"inline"}
+                            display={"spinner"}
                             onChange={handleChange}
+                            maximumDate={maxAllowedDate}
                             style={styles.calendar}
                         />
                     </View>
@@ -73,7 +106,7 @@ const CalendarCard: React.FC<CalendarCardProps> = ({
     )
 };
 
-export default CalendarCard;
+export default SelectAgeCard;
 
 const styles = StyleSheet.create({
     background: {

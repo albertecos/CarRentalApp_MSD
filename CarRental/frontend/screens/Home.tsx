@@ -17,6 +17,7 @@ import Header from "../components/Header";
 import {SafeAreaView} from "react-native-safe-area-context";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import CalendarCard from "../components/cards/CalendarCard";
+import SelectAgeCard from "../components/cards/SelectAgeCard";
 
 const Home: React.FC = () => {
     const [search, setSearch] = React.useState('')
@@ -25,6 +26,9 @@ const Home: React.FC = () => {
     const [fromDate, setFromDate] = useState<Date | null>(null);
     const [showToPicker, setShowToPicker] = useState<boolean>(false);
     const [toDate, setToDate] = useState<Date | null>(null);
+    const [showSelectedAge, setShowSelectedAge] = React.useState<boolean>(false);
+    const [selectedAge, setSelectedAge] = useState<Date | null>(null);
+
 
     /*
         useEffect(() => {
@@ -47,6 +51,22 @@ const Home: React.FC = () => {
      */
 
     const today = normalizeDate(new Date());
+
+    const handleAge = (birthdate: Date) => {
+        const date = normalizeDate(birthdate);
+        const today = normalizeDate(new Date());
+
+        if (date > today) {
+            Alert.alert(
+                "Invalid date",
+                "Birth date cannot be in the future."
+            );
+            setSelectedAge(null);
+            return;
+        }
+
+        setSelectedAge(date);
+    };
 
     const handlePickUpDate = (date: Date) => {
         const picked = normalizeDate(date);
@@ -88,7 +108,7 @@ const Home: React.FC = () => {
             return;
         }
 
-        setToDate(date);
+        setToDate(picked);
     }
 
     return (
@@ -101,6 +121,14 @@ const Home: React.FC = () => {
                     <TextInput
                         style={styles.fieldInput}
                         placeholder="Pick-up point..."
+                        placeholderTextColor="#00000080"
+                    />
+                </View>
+                <View style={styles.inputBox}>
+                    <Ionicons name="location-outline" color="#00000080" style={styles.icon}/>
+                    <TextInput
+                        style={styles.fieldInput}
+                        placeholder="Delivery point..."
                         placeholderTextColor="#00000080"
                     />
                 </View>
@@ -122,20 +150,26 @@ const Home: React.FC = () => {
                 <CalendarCard
                     visible={showFromPicker}
                     title={"Pick-up date"}
+                    initialDate={fromDate || today}
+                    minimumDate={today}
                     onConfirm={handlePickUpDate}
                     onClose={() => setShowFromPicker(false)}/>
                 <CalendarCard
                     visible={showToPicker}
                     title={"Pick deliver date"}
+                    initialDate={toDate || fromDate || today}
+                    minimumDate={fromDate || today}
                     onConfirm={handleDeliverDate}
-                    onClose={() => setShowToPicker(false)}/>
-                <View style={styles.inputBox}>
-                    <TextInput
-                        style={styles.fieldInput}
-                        placeholder="Age of driver"
-                        placeholderTextColor="#00000080"
-                    />
-                </View>
+                    onClose={() => setShowToPicker(false)}
+                />
+
+                <Pressable onPress={() => setShowSelectedAge(true)} style={styles.inputBox}>
+                    <Text style={styles.fieldInput}>
+                        {selectedAge ? selectedAge.toLocaleDateString() : "Age of driver"}
+                    </Text>
+                </Pressable>
+                <SelectAgeCard visible={showSelectedAge} onConfirm={handleAge} onClose={() => setShowSelectedAge(false)}/>
+
                 <TouchableOpacity style={styles.searchButton} onPress={() => {
                     //TODO
                 }}
