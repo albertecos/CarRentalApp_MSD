@@ -1,43 +1,119 @@
 import React from 'react';
-import {View, Text, Image, StyleSheet, Pressable} from 'react-native';
-import { useNavigation } from '@react-navigation/native';
-import Ionicons from '@expo/vector-icons/Ionicons';
+import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
+import {useNavigation} from '@react-navigation/native';
 import {SafeAreaView} from "react-native-safe-area-context";
-
+import UserInfoCard from "../components/cards/UserInfoCard"
 
 const Settings: React.FC = () => {
-    const navigation = useNavigation();
+    const navigation = useNavigation<any>();
+
+    const onLogout = () => {
+        navigation.navigate('Login')
+    }
 
     return (
-        <SafeAreaView edges={["top", "left", "right", "bottom"]}>
-            <Text>Settings</Text>
+        <SafeAreaView edges={["top", "left", "right", "bottom"]} style={styles.container}>
 
-            <Pressable style={styles.buttons} onPress={() => navigation.goBack()}>
-                <Text>Back</Text>
-            </Pressable>
+            <Text style={styles.title}>Settings</Text>
+
+            <UserInfoCard
+                name="Maria Tuesen"
+                birth="26 April 2003"
+                phone="+45 60547013"
+                location="Odense V, Denmark"
+                email="mariatuesen03@gmail.com"
+            />
+
+            <View style={styles.buttonWrapper}>
+                <View style={styles.row}>
+                    <TouchableOpacity style={styles.smallButton}>
+                        <Text style={styles.smallButtonText}>Change name</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={styles.smallButton}>
+                        <Text style={styles.smallButtonText}>Change email</Text>
+                    </TouchableOpacity>
+                </View>
+
+                <View style={styles.row}>
+                    <TouchableOpacity style={styles.smallButton}>
+                        <Text style={styles.smallButtonText}>Change number</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={styles.smallButton}>
+                        <Text style={styles.smallButtonText}>Change location</Text>
+                    </TouchableOpacity>
+                </View>
+
+                <TouchableOpacity style={styles.logOutBtn} onPress={onLogout}>
+                    <Text style={styles.logoutText}>Logout</Text>
+                </TouchableOpacity>
+
+            </View>
         </SafeAreaView>
     )
 };
 
-export default Settings;
 
 const styles = StyleSheet.create({
-    image: {
-        width: 100,
-        height: 100,
-        borderStyle: 'solid',
-        borderWidth: 1,
-        borderRadius: 50,
-        alignSelf: 'center',
+    container: {
+        flex: 1,
+        backgroundColor: "#F5F5F5",
+        paddingTop: 24,
     },
-    buttons: {
-        marginTop: 35,
-        alignSelf: 'center',
-        borderStyle: 'solid',
-        borderColor: 'black',
-        borderWidth: 1,
-        borderRadius: 50,
-        paddingBlock: 15,
-        paddingInline: 35,
-    }
+    title: {
+        fontSize: 26,
+        fontWeight: "700",
+        textAlign: "center",
+        marginVertical: 16,
+    },
+    buttonWrapper: {
+        width: "90%",
+        marginTop: 18,
+        alignSelf: "center",
+    },
+    row: {
+        flexDirection: "row",
+        justifyContent: "space-between",
+        marginBottom: 10,
+    },
+    smallButton: {
+        flex: 1,
+        marginHorizontal: 4,
+        borderRadius: 20,
+        paddingVertical: 10,
+        backgroundColor: "#ffffff",
+        justifyContent: "center",
+        alignItems: "center",
+        shadowColor: "#000",
+        shadowOffset: {width: 0, height: 2},
+        shadowOpacity: 0.12,
+        shadowRadius: 4,
+        elevation: 3,
+    },
+    smallButtonText: {
+        fontSize: 13,
+        color: "#7A7A7A",
+        fontWeight: "700",
+    },
+    logOutBtn: {
+        width: "100%",
+        marginTop: 18,
+        paddingVertical: 12,
+        borderRadius: 22,
+        backgroundColor: "#E3342F",
+        justifyContent: "center",
+        alignItems: "center",
+
+        shadowColor: "#000",
+        shadowOffset: {width: 0, height: 3},
+        shadowOpacity: 0.25,
+        shadowRadius: 5,
+        elevation: 4,
+    },
+    logoutText: {
+        color: "#FFFFFF",
+        fontSize: 15,
+        fontWeight: "700",
+    },
 });
+
+export default Settings;
