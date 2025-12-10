@@ -13,8 +13,7 @@ const Home: React.FC = () => {
     const [car, setCar] = useState<Car | null>(null);
 
     useEffect(() => {
-        axios
-            .get(`${API_BASE_URL}/cars`, { timeout: 5000 })
+        axios.get(`${API_BASE_URL}/cars`, { timeout: 5000 })
             .then((res) => {
                 if (res.data && res.data.length > 0) {
                     setCar(res.data[0]); // just show the first car
@@ -54,12 +53,12 @@ const Home: React.FC = () => {
                 placeholder="Search for car"
             />
 
-            {/*<Text style={styles.subHeader}>Find a car on the map</Text>
+            <Text style={styles.subHeader}>Find a car on the map</Text>
 
             <MapView
                 style={styles.map}
                 showsUserLocation={true}
-            />*/}
+            />
         </View>
     );
 };
