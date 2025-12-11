@@ -41,6 +41,8 @@ function registerGroupEndpoints(endPoints) {
             app.get(endpoint.path, oapi.path(endpoint.oapi), endpoint.handler);
         } else if (endpoint.method === 'POST') {
             app.post(endpoint.path, oapi.path(endpoint.oapi), endpoint.handler);
+        }else if(endpoint.method === 'PUT') {
+            app.put(endpoint.path, oapi.path(endpoint.oapi), endpoint.handler);
         }
     }
 }
