@@ -80,6 +80,29 @@ app.post('/login', (req, res) => {
         id: user.id,
         name: user.name,
     });
+});
+
+app.put('user/:id', (req, res) => {
+    const usersJson = readJsonFile('data/users.json');
+    const userId = req.params.id;
+
+    const userIndex = usersJson.findIndex(
+        (user) => user.id === userId
+    );
+    if(userIndex === -1){
+        return res.status(404).send({error: 'User not found'});
+    }
+
+    const updatedUser = {
+        ...usersJson[userIndex],
+        ...req.body,
+    };
+
+    usersJson[userIndex] = updatedUser;
+    writeToJsonFile('data/users.json', usersJson);
+
+    res.json(updatedUser);
+
 })
 
 app.post('/create/booking', (req, res) => {

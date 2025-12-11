@@ -1,5 +1,6 @@
 import React from 'react';
-import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
+import {View, Text, StyleSheet, TouchableOpacity,
+Modal, TextInput, Alert} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import {SafeAreaView} from "react-native-safe-area-context";
 import UserInfoCard from "../components/cards/UserInfoCard"
@@ -7,14 +8,19 @@ import {UseUserContext} from "../../UserContext";
 
 const Settings: React.FC = () => {
     const navigation = useNavigation<any>();
-    const {setUser} = UseUserContext();
-    const {user} = UseUserContext();
+    const {user, setUser} = UseUserContext();
+
+    const [isModalVisible, setIsModalVisible] = React.useState(false);
+    const [fieldValue, setFieldValue] = React.useState("");
+    const [fieldKey, setFieldKey] = React.useState<'name' | 'email' | 'phone' | 'location'>('email');
+    const [fieldLabel, setFieldLabel] = React.useState('Email');
 
     const onLogout = () => {
         setUser(null)
         navigation.replace('Login')
     };
 
+    // const openEditField = (key: )
 
 
     return (
