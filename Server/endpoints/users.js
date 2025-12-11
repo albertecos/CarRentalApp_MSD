@@ -130,7 +130,7 @@ endPoints.push({
         const userDb = Database.getInstance('users');
         const users = userDb.all();
 
-        const currentUser = users.findIndex((user) => user.id === userId);
+        const currentUser = users.find((user) => user.id === userId);
 
         if(!currentUser) {
             return res.status(401).send({error: 'User not found'});
