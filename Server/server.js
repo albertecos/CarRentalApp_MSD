@@ -46,9 +46,9 @@ app.post('/create/user', (req, res) => {
   res.status(201).json(newUser);
 });
 
-app.get(`/bookings/:userId`, (req, res) => {
+app.get(`/bookings/:id`, (req, res) => {
     const bookingsJson = readJsonFile('data/bookings.json');
-    const userBookings = bookingsJson.filter((b) => b.userId === req.params.userId);
+    const userBookings = bookingsJson.filter((b) => b.userId === req.params.id);
     res.json(userBookings);
 });
 
@@ -59,6 +59,51 @@ app.get('/bookings/bookingId/:id', (req, res) => {
     if (!booking) return res.status(404).send({error: 'Booking not found'});
     res.json(booking);
 });
+
+app.post('/login', (req, res) => {
+    const usersJson = readJsonFile('data/users.json');
+    const {name, password} = req.body;
+
+    if(!name || !password) {
+        return res.status(400).send({error: 'Please enter a valid name and password'});
+    }
+
+    const user = usersJson.find(
+        user => user.name === name && user.password === password
+    );
+
+    if(!user) {
+        return res.status(404).send({error: 'User not found'});
+    }
+
+    res.json({
+        id: user.id,
+        name: user.name,
+    });
+});
+
+app.put('user/:id', (req, res) => {
+    const usersJson = readJsonFile('data/users.json');
+    const userId = req.params.id;
+
+    const userIndex = usersJson.findIndex(
+        (user) => user.id === userId
+    );
+    if(userIndex === -1){
+        return res.status(404).send({error: 'User not found'});
+    }
+
+    const updatedUser = {
+        ...usersJson[userIndex],
+        ...req.body,
+    };
+
+    usersJson[userIndex] = updatedUser;
+    writeToJsonFile('data/users.json', usersJson);
+
+    res.json(updatedUser);
+
+})
 
 app.post('/create/booking', (req, res) => {
     try {

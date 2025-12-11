@@ -5,8 +5,10 @@ import { useNavigation } from '@react-navigation/native';
 import { RootStackParamList } from '../../App';
 import { useFonts, MadimiOne_400Regular } from '@expo-google-fonts/madimi-one';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import Home from "./Home";
 import {SafeAreaView} from "react-native-safe-area-context";
+import {API_BASE_URL} from "@env";
+import axios from "axios";
+import {UseUserContext} from "../../UserContext";
 
 type CreateAccountScreenProp = NativeStackNavigationProp<RootStackParamList, 'Create Account'>;
 
@@ -14,6 +16,7 @@ const CreateAccount: React.FC = () => {
     const navigation = useNavigation<CreateAccountScreenProp>();
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
+    const {setUser} = UseUserContext();
 
     const [fontsLoaded] = useFonts({
         MadimiOne: MadimiOne_400Regular,
@@ -28,17 +31,28 @@ const CreateAccount: React.FC = () => {
             return;
         }
         try {
-            await AsyncStorage.setItem('username', username);
-            await AsyncStorage.setItem('password', password);
+            const response = await axios.post(`${API_BASE_URL}/create/user`, {
+                name: username,
+                password: password
+            });
 
-            // //Gør så Booking ikke er i en stack
-            // navigation.reset({
-            //     index: 0,
-            //     routes: [{ name: 'Booking' }],
-            // });
+            const newUser = response.data;
+
+            setUser({
+                id: newUser.id,
+                name: newUser.name,
+                email: "placeholder@example.com",
+                phone: "+45 12345678",
+                birthday: "01-01-01",
+                location: "Odense, Denmark",
+            })
+
+
+            
             navigation.replace('Tabs');
         } catch (error) {
             Alert.alert('Error', 'Failed to create account');
+            console.error(error);
         }
     };
 
