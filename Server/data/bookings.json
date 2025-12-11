@@ -1,2 +1,10 @@
 [
+  {
+    "id": "booking2",
+    "userId": "user2",
+    "carId": "1",
+    "startDate": "2026-07-01",
+    "endDate": "2026-07-10",
+    "totalCost": 2500
+  }
 ]

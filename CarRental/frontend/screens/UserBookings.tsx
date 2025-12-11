@@ -5,6 +5,7 @@ import {UseUserContext} from "../../UserContext";
 import {API_BASE_URL} from "@env";
 import BookingCard from "../components/cards/BookingCard";
 import {SafeAreaView} from "react-native-safe-area-context";
+import Header from "../components/Header";
 
 const UserBookings: React.FC = () => {
 
@@ -43,7 +44,8 @@ const UserBookings: React.FC = () => {
 
     if (error) {
         return (
-            <SafeAreaView edges={["top", "left", "right", "bottom"]}>
+            <SafeAreaView edges={["left", "right", "bottom"]}>
+                <Header/>
                 <Text style={{alignSelf: 'center'}}>{error}</Text>
             </SafeAreaView>
         )
