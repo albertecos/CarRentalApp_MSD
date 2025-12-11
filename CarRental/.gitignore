@@ -41,5 +41,5 @@ yarn-error.*
 /android
 
 #other
-.idea
+../.idea
 .env

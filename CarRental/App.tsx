@@ -17,6 +17,7 @@ import Settings from "./frontend/screens/Settings";
 import ConfirmationCard from "./frontend/components/cards/ConfirmationCard";
 import {SafeAreaProvider} from "react-native-safe-area-context";
 import LoadingScreen from "./frontend/screens/LoadingScreen";
+import BottomTabs from "./frontend/components/BottomNav";
 
 export type RootStackParamList = {
     Login: undefined;
@@ -76,29 +77,29 @@ function ProfileStackScreen() {
         </ProfileStack.Navigator>
     );
 }
-
-function Tabs() {
-    return (
-        <Tab.Navigator screenOptions={{headerShown: false}} initialRouteName="Home">
-            <Tab.Screen name={"Search"} component={SearchStackScreen}
-                        options={{
-                            tabBarIcon: () => (
-                                <Feather name="search" size={24} color="black"/>)
-                        }}/>
-            <Tab.Screen name={"Home"} component={Home}
-                        options={{
-                            tabBarIcon: () => (
-                                <AntDesign name="car" size={24} color="black"/>),
-                        }}/>
-            <Tab.Screen name={"Profile Page"} component={ProfileStackScreen}
-                        options={{
-                            tabBarIcon: () => (
-                                <MaterialIcons name="face" size={24} color="black"/>)
-                        }}/>
-        </Tab.Navigator>
-    );
-}
-
+//
+// function Tabs() {
+//     return (
+//         <Tab.Navigator screenOptions={{headerShown: false}} initialRouteName="Home">
+//             <Tab.Screen name={"Search"} component={SearchStackScreen}
+//                         options={{
+//                             tabBarIcon: () => (
+//                                 <Feather name="search" size={24} color="black"/>)
+//                         }}/>
+//             <Tab.Screen name={"Home"} component={Home}
+//                         options={{
+//                             tabBarIcon: () => (
+//                                 <AntDesign name="car" size={24} color="black"/>),
+//                         }}/>
+//             <Tab.Screen name={"Profile Page"} component={ProfileStackScreen}
+//                         options={{
+//                             tabBarIcon: () => (
+//                                 <MaterialIcons name="face" size={24} color="black"/>)
+//                         }}/>
+//         </Tab.Navigator>
+//     );
+// }
+//
 export default function App() {
     const [loading, setLoading] = useState(true);
     useEffect(() => {
@@ -117,7 +118,7 @@ export default function App() {
                     <RootStack.Navigator screenOptions={{headerShown: false}}>
                         <RootStack.Screen name="Login" component={Login}/>
                         <RootStack.Screen name="Create Account" component={CreateAccount}/>
-                        <RootStack.Screen name="Tabs" component={Tabs}/>
+                        <RootStack.Screen name="Tabs" component={BottomTabs}/>
                     </RootStack.Navigator>
                 </NavigationContainer>
             </UserContextProvider>
