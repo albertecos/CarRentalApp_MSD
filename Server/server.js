@@ -46,9 +46,9 @@ app.post('/create/user', (req, res) => {
   res.status(201).json(newUser);
 });
 
-app.get(`/bookings/:userId`, (req, res) => {
+app.get(`/bookings/:id`, (req, res) => {
     const bookingsJson = readJsonFile('data/bookings.json');
-    const userBookings = bookingsJson.filter((b) => b.userId === req.params.userId);
+    const userBookings = bookingsJson.filter((b) => b.userId === req.params.id);
     res.json(userBookings);
 });
 

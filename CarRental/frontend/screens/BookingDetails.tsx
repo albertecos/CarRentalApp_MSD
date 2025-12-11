@@ -1,11 +1,13 @@
 import React from 'react';
 import { View, Text, Button, Image, StyleSheet } from 'react-native'; // Add Image here
-import { StackScreenProps } from '@react-navigation/stack';
-import { SearchStackParamList } from '../../App'; // Adjust path as needed
+import {SearchStackParamList} from "../components/BottomNav";
+
 import { bookingService} from '../../backend/BookingService';
 import {CarService } from '../../backend/CarService';
 import { Booking, Car } from '../../backend/models';
 import {SafeAreaView} from "react-native-safe-area-context";
+import {UseUserContext} from "../../UserContext";
+import {StackScreenProps} from "@react-navigation/stack";
 
 
 type BookingDetailsProps = StackScreenProps<SearchStackParamList, 'BookingDetails'>;
@@ -19,6 +21,7 @@ const BookingDetails: React.FC<BookingDetailsProps> = ({ route, navigation }) =>
     fuel: "data:image/png;base64,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",
   }
   const [car, setCar] = React.useState<Car | null>(null);
+  const {user} = UseUserContext();
 
   React.useEffect(() => {
     async function fetchCar() {
@@ -40,7 +43,7 @@ const BookingDetails: React.FC<BookingDetailsProps> = ({ route, navigation }) =>
       
   const handleBooking = async () => {
     let newBooking: Booking = await bookingService.createBooking({
-      userId: "user1", // TODO: Replace with actual user ID from auth/session
+      userId: user?.id ?? "",
       carId: carId,
       startDate: startDate,
       endDate: endDate,
