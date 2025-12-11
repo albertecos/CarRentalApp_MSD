@@ -6,16 +6,16 @@ interface UserInfoCardProps{
     name: string;
     birthday: string;
     phone: string;
-    location: string;
     email: string;
+    location: string;
 }
 
 const UserInfoCard: React.FC<UserInfoCardProps> = ({
     name,
     birthday,
     phone,
+    email,
     location,
-    email
     }) => {
         return (
             <View style={styles.card}>

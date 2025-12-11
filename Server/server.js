@@ -34,12 +34,23 @@ app.get('/cars', (req, res) => {
 app.post('/create/user', (req, res) => {
   const usersJson = readJsonFile('data/users.json');
   const {name, password} = req.body;
+  //TODO: should also take phone, birthday and
+  //TODO: email, and should write that information to db as well
 
   if(!name || !password) {
       return res.status(400).send({error: 'Please enter a valid name and password'});
   }
+  //email, phone and location values are placeholders
+  //until createAccount is updated
+  const newUser = {
+      id: uuidv4(),
+      name: name,
+      password: password,
+      birthday: "2001-01-01",
+      email: "example@mail.com",
+      phone: "+45 12345678",
+      location: "Unknown location"};
 
-  const newUser = {id: uuidv4(), name, password};
   usersJson.push(newUser);
   writeToJsonFile('data/users.json', usersJson);
 
@@ -79,6 +90,10 @@ app.post('/login', (req, res) => {
     res.json({
         id: user.id,
         name: user.name,
+        email: user.email,
+        phone: user.phone,
+        birthday: user.birthday,
+        location: user.location,
     });
 });
 

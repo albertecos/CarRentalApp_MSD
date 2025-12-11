@@ -75,10 +75,10 @@ const Settings: React.FC = () => {
 
             <UserInfoCard
                 name={user?.name ?? "Unknown"}
-                birthday={user?.birthday ?? ""}
-                phone={user?.phone ?? ""}
+                birthday={user?.birthday ?? "No birthday"}
+                phone={user?.phone ?? "No phone number"}
                 location={user?.location ?? "Unknown location"}
-                email={user?.email ?? ""}
+                email={user?.email ?? "No email"}
             />
 
             <View style={styles.buttonWrapper}>
