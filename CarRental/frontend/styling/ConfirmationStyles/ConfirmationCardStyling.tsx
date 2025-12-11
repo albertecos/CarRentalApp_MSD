@@ -1,22 +1,11 @@
 import { StyleSheet } from 'react-native';
 
 export const confStyles = StyleSheet.create({
-    confContainer: {
-        flex: 1,
-        backgroundColor: '#fff',
-    },
-    scrollContent: {
-        padding: 16
-    },
-    banner: {
-        height: 72,
-        backgroundColor: '#E5383B',
-        borderRadius: 12,
-        paddingHorizontal: 20,
-        flexDirection: 'row',
-        alignItems: 'center',
-        justifyContent: 'space-between',
-        marginBottom: 12,
+    content: {
+        paddingHorizontal: 16,
+        paddingTop: 8,
+        paddingBottom: 24,
+
     },
     brand: {
         color: '#fff',
@@ -27,10 +16,8 @@ export const confStyles = StyleSheet.create({
     card: {
         backgroundColor: '#fff',
         borderRadius: 12,
-        padding: 20,
-        overflow: 'hidden',
         shadowColor: '#000',
-        shadowOpacity: 0.8,
+        shadowOpacity: 0.3,
         shadowRadius: 10,
         shadowOffset: {
             width: 0,
@@ -38,18 +25,23 @@ export const confStyles = StyleSheet.create({
         },
         elevation: 3,
     },
+    cardInner:{
+        borderRadius: 12,
+        overflow: "hidden",
+    },
     cardHeader: {
-        backgroundColor: '#f5f3f4',
+        backgroundColor: '#BA181B',
         paddingVertical: 12,
         paddingHorizontal: 16,
         borderBottomWidth: StyleSheet.hairlineWidth,
         borderBottomColor: "#e7e7e7",
+        width: '100%',
     },
     cardHeaderText: {
         fontWeight: '700',
         textAlign: 'center',
         fontSize: 16,
-        color: '#6a1b1f',
+        color: '#fff',
     },
     cardBody: {
         paddingVertical: 16,
@@ -134,4 +126,30 @@ export const confStyles = StyleSheet.create({
         marginTop: 12,
         marginBottom: 8,
     },
+    topRow:{
+        paddingHorizontal: 16,
+        paddingTop: 8,
+    },
+    backButton: {
+        width: 70,
+        height: 70,
+    },
+
+    infoBox:{
+        marginTop: 10,
+        borderRadius: 12,
+        backgroundColor: '#e1dfe0',
+        padding: 14,
+    },
+    infoRowHeader:{
+        flexDirection: 'row',
+        alignItems: 'center',
+        marginBottom: 4,
+    },
+    infoHeaderText: {
+        marginLeft: 8,
+        fontWeight: '700',
+        color: '#000',
+    },
+
 })

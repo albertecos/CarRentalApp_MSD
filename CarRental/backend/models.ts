@@ -19,8 +19,8 @@ export type Car = {
 
 export type Booking = {
     id: string;
-    carId: string;
     userId: string;
+    carId: string;
     startDate: string; // ISO date string
     endDate: string;   // ISO date string
     totalCost: number; // -1 indicates not calculated yet

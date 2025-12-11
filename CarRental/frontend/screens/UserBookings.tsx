@@ -7,6 +7,11 @@ import BookingCard from "../components/cards/BookingCard";
 import {SafeAreaView} from "react-native-safe-area-context";
 import {useIsFocused} from "@react-navigation/native";
 import Header from "../components/Header";
+import {NativeStackNavigationProp} from "@react-navigation/native-stack";
+import {useNavigation} from "@react-navigation/native";
+import {SearchStackParamList, UserBookingsStackParamList} from "../components/BottomNav";
+
+
 const UserBookings: React.FC = () => {
 
     const [bookings, setBookings] = useState<any[]>([]);
@@ -14,6 +19,10 @@ const UserBookings: React.FC = () => {
     const [error, setError] = useState<string | null>(null);
     const {user} = UseUserContext();
     const isFocused = useIsFocused();
+
+    type UserBookingNavProps = NativeStackNavigationProp<UserBookingsStackParamList, "UserBookings">;
+
+    const navigation = useNavigation<UserBookingNavProps>();
 
     const getBookings = useCallback(() => {
         if (!user) {
@@ -75,7 +84,14 @@ const UserBookings: React.FC = () => {
             <FlatList
                 data={bookings}
                 keyExtractor={(b, index) => b.id?.toString() ?? index.toString()}
-                renderItem={({item}) => <BookingCard booking={item}/>}
+                renderItem={({item}) => (
+                    <BookingCard
+                        booking={item}
+                        onPress={() =>
+                            navigation.navigate('Confirmation', {bookingId: item.id})
+                        }
+                    />
+                )}
                 contentContainerStyle={{paddingBottom: 20}}/>
 
         </SafeAreaView>
