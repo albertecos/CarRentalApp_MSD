@@ -8,7 +8,7 @@ import Confirmation from './frontend/screens/Confirmation';
 import {AntDesign, Feather, MaterialIcons} from "@expo/vector-icons";
 import UserBookings from "./frontend/screens/UserBookings";
 import ContactPage from "./frontend/screens/Contact";
-import React from "react";
+import React, {useEffect, useState} from "react";
 import UserContextProvider from './UserContext';
 import CreateAccount from "./frontend/screens/CreateAccount";
 import Login from "./frontend/screens/Login";
@@ -16,6 +16,7 @@ import BookingDetails from "./frontend/screens/BookingDetails";
 import Settings from "./frontend/screens/Settings";
 import ConfirmationCard from "./frontend/components/cards/ConfirmationCard";
 import {SafeAreaProvider} from "react-native-safe-area-context";
+import LoadingScreen from "./frontend/screens/LoadingScreen";
 
 export type RootStackParamList = {
     Login: undefined;
@@ -99,6 +100,16 @@ function Tabs() {
 }
 
 export default function App() {
+    const [loading, setLoading] = useState(true);
+    useEffect(() => {
+        setTimeout(() => {
+            setLoading(false);
+        }, 2000);
+    }, []);
+
+    if (loading) {
+        return <LoadingScreen/>;
+    }
     return (
         <SafeAreaProvider>
             <UserContextProvider>
@@ -113,4 +124,3 @@ export default function App() {
         </SafeAreaProvider>
     );
 }
-
