@@ -27,7 +27,7 @@ const UserBookings: React.FC = () => {
         setLoading(true);
         setError(null);
 
-        axios.get(`${API_BASE_URL}/bookings/${user.id}`, {timeout: 5000})
+        axios.get(`${API_BASE_URL}/bookings?id=${user.id}`, {timeout: 5000})
             .then(res => {
                 setBookings(res.data);
                 console.log("Fetched bookings: " + res.data);
