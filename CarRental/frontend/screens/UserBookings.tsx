@@ -1,5 +1,5 @@
 import React, {useCallback, useEffect, useState} from 'react';
-import {View, Text, Image, StyleSheet, ActivityIndicator, FlatList} from 'react-native';
+import {View, Text, StyleSheet, ActivityIndicator, SectionList} from 'react-native';
 import axios from "axios";
 import {UseUserContext} from "../../UserContext";
 import {API_BASE_URL} from "@env";
@@ -7,6 +7,12 @@ import BookingCard from "../components/cards/BookingCard";
 import {SafeAreaView} from "react-native-safe-area-context";
 import {useIsFocused} from "@react-navigation/native";
 import Header from "../components/Header";
+import {Booking} from "../../backend/models";
+
+type BookingSection = {
+    title: 'Active' | 'Expired';
+    data: Booking[];
+}
 
 const UserBookings: React.FC = () => {
 
@@ -27,7 +33,7 @@ const UserBookings: React.FC = () => {
         setLoading(true);
         setError(null);
 
-        axios.get(`${API_BASE_URL}/bookings/${user.id}`, {timeout: 5000})
+        axios.get(`${API_BASE_URL}/bookings?id=${user.id}`, {timeout: 5000})
             .then(res => {
                 setBookings(res.data);
                 console.log("Fetched bookings: " + res.data);
@@ -67,20 +73,56 @@ const UserBookings: React.FC = () => {
         )
     }
 
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+
+    const isActive = (booking: Booking) =>
+        new Date(booking.endDate) >= today;
+
+    const activeBookings = bookings
+        .filter(isActive)
+        .sort((a, b) => new Date(a.startDate).getTime() - new Date(b.startDate).getTime());
+
+    const expiredBookings = bookings
+        .filter((booking) => !isActive(booking))
+        .sort((a, b) => new Date(a.endDate).getTime() - new Date(b.endDate).getTime());
+
+    const sections: BookingSection[] = [];
+    if (activeBookings.length > 0) {
+        sections.push({title: 'Active', data: activeBookings});
+    }
+
+    if (expiredBookings.length > 0) {
+        sections.push({title: 'Expired', data: expiredBookings});
+    }
+
+
     return (
-        <SafeAreaView style={{flex: 1, backgroundColor: "#f8f9fa"}} edges={["top", "left", "right", "bottom"]}>
+        <SafeAreaView
+            style={{flex: 1, backgroundColor: "#f8f9fa"}}
+            edges={["top", "left", "right", "bottom"]}>
             <Text style={{fontSize: 24, fontWeight: "bold", margin: 20}}>
                 Your bookings
             </Text>
 
-            <FlatList
-                data={bookings}
-                keyExtractor={(b, index) => b.id?.toString() ?? index.toString()}
-                renderItem={({item}) => <BookingCard booking={item}/>}
-                contentContainerStyle={{paddingBottom: 20}}/>
-
+            <SectionList sections={sections}
+                         keyExtractor={(item) => item.id}
+                         contentContainerStyle={{paddingBottom: 20}}
+                         renderItem={({item}) => <BookingCard booking={item}/>}
+                         renderSectionHeader={({section}) => (
+                             <View style={styles.sectionHeaderWrapper}>
+                                 <View style={styles.sectionLine}>
+                                     <View style={styles.sectionLabelWrapper}>
+                                         <Text style={styles.sectionLabel}>
+                                             {section.title.toUpperCase()}
+                                         </Text>
+                                     </View>
+                                 </View>
+                             </View>
+                         )}
+            />
         </SafeAreaView>
-    )
+    );
 };
 
 export default UserBookings;
@@ -111,5 +153,27 @@ const styles = StyleSheet.create({
         alignSelf: 'center',
         paddingBottom: 200,
         paddingTop: 20,
+    },
+    sectionHeaderWrapper: {
+        marginHorizontal: 20,
+        marginTop: 10,
+        marginBottom: 4,
+        position: 'relative',
+        justifyContent: 'center',
+    },
+    sectionLine: {
+        height: 1,
+        backgroundColor: '#ddd',
+    },
+    sectionLabelWrapper: {
+        position: 'absolute',
+        alignSelf: 'center',
+        paddingHorizontal: 8,
+        backgroundColor: '#f8f9fa'
+    },
+    sectionLabel: {
+        fontSize: 12,
+        fontWeight: '700',
+        color: '#555',
     }
 });

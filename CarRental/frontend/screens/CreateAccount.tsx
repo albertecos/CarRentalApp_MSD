@@ -4,7 +4,6 @@ import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { useNavigation } from '@react-navigation/native';
 import { RootStackParamList } from '../../App';
 import { useFonts, MadimiOne_400Regular } from '@expo-google-fonts/madimi-one';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import {SafeAreaView} from "react-native-safe-area-context";
 import {API_BASE_URL} from "@env";
 import axios from "axios";
@@ -41,10 +40,10 @@ const CreateAccount: React.FC = () => {
             setUser({
                 id: newUser.id,
                 name: newUser.name,
-                email: "placeholder@example.com",
-                phone: "+45 12345678",
-                birthday: "01-01-01",
-                location: "Odense, Denmark",
+                email: newUser.email,
+                phone: newUser.phone,
+                birthday: newUser.birthday,
+                location: newUser.location,
             })
 
 
