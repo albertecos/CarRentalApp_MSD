@@ -6,6 +6,9 @@ import {RootStackParamList} from '../../App';
 import {useFonts, MadimiOne_400Regular} from '@expo-google-fonts/madimi-one';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {SafeAreaView} from "react-native-safe-area-context";
+import {UseUserContext} from "../../UserContext";
+import axios from "axios";
+import {API_BASE_URL} from "@env";
 
 type LoginScreenProp = NativeStackNavigationProp<RootStackParamList, 'Login'>;
 
@@ -13,6 +16,7 @@ const Login: React.FC = () => {
     const navigation = useNavigation<LoginScreenProp>();
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
+    const {setUser} = UseUserContext();
 
     const [fontsLoaded] = useFonts({
         MadimiOne: MadimiOne_400Regular,
@@ -28,16 +32,27 @@ const Login: React.FC = () => {
         }
 
         try {
-            const savedUsername = await AsyncStorage.getItem('username');
-            const savedPassword = await AsyncStorage.getItem('password');
+            const response = await axios.post(`${API_BASE_URL}/login`, {
+                name: username,
+                password: password,
+            });
 
-            if (username === savedUsername && password === savedPassword) {
-                navigation.replace('Tabs');
-            } else {
-                Alert.alert('Error', 'Invalid username or password');
-            }
-        } catch (error) {
+            const currentUser = response.data;
+
+            setUser({
+                id: currentUser.id,
+                name: currentUser.name,
+                email: "placeholder@example.com",
+                phone: "+45 12345678",
+                birthday: "01-01-01",
+                location: "Odense, Denmark",
+            });
+            navigation.replace('Tabs');
+
+        } catch (error: any) {
             Alert.alert('Error', 'Failed to login');
+            console.error(error.response.data);
+            console.error(error.message);
         }
     };
 

@@ -60,6 +60,28 @@ app.get('/bookings/bookingId/:id', (req, res) => {
     res.json(booking);
 });
 
+app.post('/login', (req, res) => {
+    const usersJson = readJsonFile('data/users.json');
+    const {name, password} = req.body;
+
+    if(!name || !password) {
+        return res.status(400).send({error: 'Please enter a valid name and password'});
+    }
+
+    const user = usersJson.find(
+        user => user.name === name && user.password === password
+    );
+
+    if(!user) {
+        return res.status(404).send({error: 'User not found'});
+    }
+
+    res.json({
+        id: user.id,
+        name: user.name,
+    });
+})
+
 app.post('/create/booking', (req, res) => {
     try {
         const bookingsJson = readJsonFile('data/bookings.json');

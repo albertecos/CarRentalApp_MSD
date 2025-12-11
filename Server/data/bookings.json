@@ -1,2 +1,10 @@
 [
+  {
+    "id": "99ba64d9-f101-453f-ac1f-5c374ed726bf",
+    "userId": "user1",
+    "carId": "1",
+    "startDate": "2025-09-25",
+    "endDate": "2025-09-28",
+    "totalCost": 750
+  }
 ]

@@ -1,14 +1,17 @@
 [
   {
-    "id": "user1",
-    "name": "Alice",
-    "password": "password123",
-    "profilePic": "gh"
+    "id": "f321621e-125d-4bb4-9d2e-932161f6a700",
+    "name": "tester",
+    "password": "tester"
   },
   {
-    "id": "user2",
-    "name": "Bob",
-    "password": "securepass",
-    "profilePic": "gh"
+    "id": "03a66185-6d0d-4016-a92e-1cbd225d3ded",
+    "name": "asta",
+    "password": "1234"
+  },
+  {
+    "id": "a7e427c5-1d07-4c83-adc8-2461d5ff8089",
+    "name": "user4",
+    "password": "1234"
   }
 ]

@@ -3,13 +3,19 @@ import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import {SafeAreaView} from "react-native-safe-area-context";
 import UserInfoCard from "../components/cards/UserInfoCard"
+import {UseUserContext} from "../../UserContext";
 
 const Settings: React.FC = () => {
     const navigation = useNavigation<any>();
+    const {setUser} = UseUserContext();
+    const {user} = UseUserContext();
 
     const onLogout = () => {
-        navigation.navigate('Login')
-    }
+        setUser(null)
+        navigation.replace('Login')
+    };
+
+
 
     return (
         <SafeAreaView edges={["top", "left", "right", "bottom"]} style={styles.container}>
@@ -17,11 +23,11 @@ const Settings: React.FC = () => {
             <Text style={styles.title}>Settings</Text>
 
             <UserInfoCard
-                name="Maria Tuesen"
-                birth="26 April 2003"
-                phone="+45 60547013"
-                location="Odense V, Denmark"
-                email="mariatuesen03@gmail.com"
+                name={user?.name ?? "Unknown"}
+                birth={user?.birthday ?? ""}
+                phone={user?.phone ?? ""}
+                location={user?.location ?? "Unknown location"}
+                email={user?.email ?? ""}
             />
 
             <View style={styles.buttonWrapper}>

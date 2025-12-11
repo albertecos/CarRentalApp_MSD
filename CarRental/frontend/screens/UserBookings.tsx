@@ -11,26 +11,26 @@ const UserBookings: React.FC = () => {
     const [bookings, setBookings] = useState<any[]>([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
-    const {userId} = UseUserContext();
+    const {user} = UseUserContext();
 
     useEffect(() => {
-        if(!userId){
+        if(!user){
             setError("User not logged in");
             console.log("User not logged in");
             setLoading(false);
             return;
         }
 
-        axios.get(`${API_BASE_URL}/bookings/${userId}`, {timeout: 5000}).then(
+        axios.get(`${API_BASE_URL}/bookings/${user.id}`, {timeout: 5000}).then(
             res => {
                 setBookings(res.data);
-                // console.log(res.data);
+                console.log(res.data);
             }
         ).catch(err => {
             console.error("error: ", err, err?.response?.status);
             setError("Could not load bookings.");
         }).finally(() => setLoading(false))
-    }, [userId]);
+    }, [user]);
 
     if (loading) {
         return (
@@ -49,24 +49,6 @@ const UserBookings: React.FC = () => {
         )
     }
 
-    // return (
-    //     <View>
-    //         <Text style={styles.text}>Your bookings</Text>
-    //
-    //         <FlatList data={bookings}
-    //           keyExtractor={(b, index) => b.id?.toString() ?? index.toString()}
-    //           renderItem={({item}) => (
-    //               <View>
-    //                   <Text>{item.id}</Text>
-    //                   <Text>{item.userId}</Text>
-    //                   <Text>{item.carId}</Text>
-    //                   <Text>{item.startDate}</Text>
-    //                   <Text>{item.endDate}</Text>
-    //                   <Text>{item.totalCost}</Text>
-    //               </View>
-    //           )}/>
-    //     </View>
-    // )
     return (
         <SafeAreaView style={{flex: 1, backgroundColor: "#f8f9fa"}} edges={["top", "left", "right", "bottom"]}>
             <Text style={{fontSize: 24, fontWeight: "bold", margin: 20}}>
