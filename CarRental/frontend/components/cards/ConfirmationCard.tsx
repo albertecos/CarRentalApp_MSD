@@ -3,10 +3,10 @@ import {View, Text, Image, ActivityIndicator} from 'react-native';
 import {confStyles} from "../../styling/ConfirmationStyles/ConfirmationCardStyling";
 import {noConfStyles} from "../../styling/ConfirmationStyles/NoBookings";
 import {NativeStackScreenProps} from "@react-navigation/native-stack";
-import {SearchStackParamList} from "../../../App";
 import {ScrollView} from "react-native";
 import {SafeAreaView} from 'react-native-safe-area-context'
 import { bookingService } from '../../../backend/BookingService';
+import {SearchStackParamList} from "../BottomNav";
 
 type ConfirmationProps = NativeStackScreenProps<SearchStackParamList, 'Confirmation'>;
 
