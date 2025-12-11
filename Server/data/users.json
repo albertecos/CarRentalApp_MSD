@@ -6,8 +6,10 @@
   },
   {
     "id": "03a66185-6d0d-4016-a92e-1cbd225d3ded",
-    "name": "asta",
-    "password": "1234"
+    "name": "Asta",
+    "password": "1234",
+    "email": "updatedmail@example.com",
+    "phone": "+45 77777777"
   },
   {
     "id": "a7e427c5-1d07-4c83-adc8-2461d5ff8089",

@@ -30,5 +30,13 @@
     "startDate": "2025-09-25",
     "endDate": "2025-09-28",
     "totalCost": 690
+  },
+  {
+    "id": "ecd0fcab-16bf-4cce-9bff-735fa957aa84",
+    "userId": "03a66185-6d0d-4016-a92e-1cbd225d3ded",
+    "carId": "1",
+    "startDate": "2025-09-25",
+    "endDate": "2025-09-28",
+    "totalCost": 750
   }
 ]

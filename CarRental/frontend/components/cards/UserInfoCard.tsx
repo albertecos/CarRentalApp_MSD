@@ -4,7 +4,7 @@ import { Feather } from "@expo/vector-icons";
 
 interface UserInfoCardProps{
     name: string;
-    birth: string;
+    birthday: string;
     phone: string;
     location: string;
     email: string;
@@ -12,7 +12,7 @@ interface UserInfoCardProps{
 
 const UserInfoCard: React.FC<UserInfoCardProps> = ({
     name,
-    birth,
+    birthday,
     phone,
     location,
     email
@@ -24,7 +24,7 @@ const UserInfoCard: React.FC<UserInfoCardProps> = ({
                     <Feather name="user" size={22} style={styles.icon}/>
                 </View>
 
-                <Text style={styles.infoText}>{birth}</Text>
+                <Text style={styles.infoText}>{birthday}</Text>
                 <Text style={styles.infoText}>{phone}</Text>
                 <Text style={styles.infoText}>{location}</Text>
                 <Text style={styles.infoText}>{email}</Text>

@@ -82,7 +82,7 @@ app.post('/login', (req, res) => {
     });
 });
 
-app.put('user/:id', (req, res) => {
+app.put('/user/:id', (req, res) => {
     const usersJson = readJsonFile('data/users.json');
     const userId = req.params.id;
 
