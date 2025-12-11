@@ -7,10 +7,37 @@ import Home from "../screens/Home";
 import Booking from "../screens/Booking";
 import UserBookings from "../screens/UserBookings";
 import Settings from "../screens/Settings";
+import {createNativeStackNavigator} from "@react-navigation/native-stack";
+import BookingDetails from "../screens/BookingDetails";
+import Confirmation from "../screens/Confirmation";
+
+export type SearchStackParamList = {
+    Booking: undefined;
+    BookingDetails: {
+        carId: string;
+        startDate: string;
+        endDate: string;
+    };
+    Confirmation: {
+        bookingId: string;
+    };
+};
+const SearchStack = createNativeStackNavigator<SearchStackParamList>();
+
+function SearchStackScreen(){
+    return(
+        <SearchStack.Navigator>
+            <SearchStack.Screen name="Booking" component={Booking} />
+            <SearchStack.Screen name="BookingDetails" component={BookingDetails} />
+            <SearchStack.Screen name="Confirmation" component={Confirmation} />
+        </SearchStack.Navigator>
+    )
+}
+
 
 export type BottomTabParams = {
     Home: undefined;
-    Booking: undefined;
+    Search: undefined;
     UserBooking: undefined;
     Settings: undefined;
 };
@@ -37,8 +64,8 @@ const BottomTabs = () => {
                         }}
             />
 
-            <Tab.Screen name="Booking"
-                        component={Booking}
+            <Tab.Screen name="Search"
+                        component={SearchStackScreen}
                         options={{
                             tabBarIcon: ({focused}) => (
                                 <IconWithDot focused={focused}>

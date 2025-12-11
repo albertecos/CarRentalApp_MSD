@@ -1,37 +1,48 @@
-import React, {useEffect, useState} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import {View, Text, Image, StyleSheet, ActivityIndicator, FlatList} from 'react-native';
 import axios from "axios";
 import {UseUserContext} from "../../UserContext";
 import {API_BASE_URL} from "@env";
 import BookingCard from "../components/cards/BookingCard";
 import {SafeAreaView} from "react-native-safe-area-context";
+import {useIsFocused} from "@react-navigation/native";
 import Header from "../components/Header";
-
 const UserBookings: React.FC = () => {
 
     const [bookings, setBookings] = useState<any[]>([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
-    const {userId} = UseUserContext();
+    const {user} = UseUserContext();
+    const isFocused = useIsFocused();
 
-    useEffect(() => {
-        if(!userId){
+    const getBookings = useCallback(() => {
+        if (!user) {
             setError("User not logged in");
             console.log("User not logged in");
             setLoading(false);
             return;
         }
 
-        axios.get(`${API_BASE_URL}/bookings/${userId}`, {timeout: 5000}).then(
-            res => {
+        setLoading(true);
+        setError(null);
+
+        axios.get(`${API_BASE_URL}/bookings/${user.id}`, {timeout: 5000})
+            .then(res => {
                 setBookings(res.data);
-                // console.log(res.data);
-            }
-        ).catch(err => {
-            console.error("error: ", err, err?.response?.status);
-            setError("Could not load bookings.");
-        }).finally(() => setLoading(false))
-    }, [userId]);
+                console.log("Fetched bookings: " + res.data);
+            })
+            .catch(err => {
+                console.error("error: ", err, err?.response?.status);
+                setError("Could not load bookings.");
+            })
+            .finally(() => setLoading(false))
+    }, [user]);
+
+    useEffect(() => {
+        if (isFocused) {
+            getBookings();
+        }
+    }, [isFocused, getBookings]);
 
     if (loading) {
         return (
@@ -46,29 +57,15 @@ const UserBookings: React.FC = () => {
         return (
             <SafeAreaView edges={["left", "right", "bottom"]}>
                 <Header/>
-                <Text style={{alignSelf: 'center'}}>{error}</Text>
+                <Text style={{
+                    alignSelf: 'center',
+                    textAlignVertical: 'center'
+                }}
+                >{error}</Text>
             </SafeAreaView>
         )
     }
 
-    // return (
-    //     <View>
-    //         <Text style={styles.text}>Your bookings</Text>
-    //
-    //         <FlatList data={bookings}
-    //           keyExtractor={(b, index) => b.id?.toString() ?? index.toString()}
-    //           renderItem={({item}) => (
-    //               <View>
-    //                   <Text>{item.id}</Text>
-    //                   <Text>{item.userId}</Text>
-    //                   <Text>{item.carId}</Text>
-    //                   <Text>{item.startDate}</Text>
-    //                   <Text>{item.endDate}</Text>
-    //                   <Text>{item.totalCost}</Text>
-    //               </View>
-    //           )}/>
-    //     </View>
-    // )
     return (
         <SafeAreaView style={{flex: 1, backgroundColor: "#f8f9fa"}} edges={["top", "left", "right", "bottom"]}>
             <Text style={{fontSize: 24, fontWeight: "bold", margin: 20}}>
@@ -78,7 +75,7 @@ const UserBookings: React.FC = () => {
             <FlatList
                 data={bookings}
                 keyExtractor={(b, index) => b.id?.toString() ?? index.toString()}
-            renderItem={({item}) => <BookingCard booking={item}/>}
+                renderItem={({item}) => <BookingCard booking={item}/>}
                 contentContainerStyle={{paddingBottom: 20}}/>
 
         </SafeAreaView>
