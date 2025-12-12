@@ -108,7 +108,7 @@ const Confirmation: React.FC<ConfirmationProps> = ({route}) => {
 
         <SafeAreaView edges={["left", "right", "bottom"]}>
             <Header/>
-            <ScrollView style={confStyles.scrollContent}>
+            <ScrollView contentContainerStyle={confStyles.scrollContent}>
                 <View style={confStyles.backButton}>
                     <Pressable
                         style={confStyles.backButton}
@@ -127,7 +127,8 @@ export default Confirmation;
 
 export const confStyles = StyleSheet.create({
     scrollContent: {
-        padding: 16
+        padding: 16,
+        paddingBottom: 76
     },
     backButton: {
         width: 70,
