@@ -8,31 +8,92 @@ import {SafeAreaView} from "react-native-safe-area-context";
 import {API_BASE_URL} from "@env";
 import axios from "axios";
 import {UseUserContext} from "../../UserContext";
+import { ScrollView } from 'react-native';
 
 type CreateAccountScreenProp = NativeStackNavigationProp<RootStackParamList, 'Create Account'>;
 
 const CreateAccount: React.FC = () => {
     const navigation = useNavigation<CreateAccountScreenProp>();
     const [username, setUsername] = useState('');
+    const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const {setUser} = UseUserContext();
+    const [confirmPassword, setConfirmPassword] = useState('');
+    const [day, setDay] = useState('');
+    const [month, setMonth] = useState('');
+    const [year, setYear] = useState('');
+    const [checked, setChecked] = useState(false);
+
+    const { setUser } = UseUserContext();
 
     const [fontsLoaded] = useFonts({
         MadimiOne: MadimiOne_400Regular,
     });
-    if (!fontsLoaded) {
-        return null;
-    }
+    if (!fontsLoaded) return null;
 
-    const handleCreateAccount = async () => {
-        if (!username || !password) {
-            Alert.alert('Error', 'Please enter username and password');
+    const currentYear = new Date().getFullYear();
+    const handleDayChange = (text: string) => {
+        const numeric = text.replace(/[^0-9]/g, '').slice(0, 2);
+        setDay(numeric);
+    };
+    const handleMonthChange = (text: string) => {
+        const numeric = text.replace(/[^0-9]/g, '').slice(0, 2);
+        setMonth(numeric);
+    };
+    const handleYearChange = (text: string) => {
+        const numeric = text.replace(/[^0-9]/g, '').slice(0, 4);
+        setYear(numeric);
+    };
+    const handleDayBlur = () => {
+        if (!day) return;
+        let num = parseInt(day, 10);
+        if (num < 1) num = 1;
+        else if (num > 31) num = 31;
+        setDay(num.toString().padStart(2, '0'));
+    };
+    const handleMonthBlur = () => {
+        if (!month) return;
+        let num = parseInt(month, 10);
+        if (num < 1) num = 1;
+        else if (num > 12) num = 12;
+        setMonth(num.toString().padStart(2, '0'));
+    };
+    const handleYearBlur = () => {
+        if (year.length !== 4) {
+            Alert.alert('Invalid year', 'Year must be exactly 4 digits');
+            setYear('');
             return;
         }
+        let num = parseInt(year, 10);
+        if (num < 1900) num = 1900;
+        else if (num > currentYear) num = currentYear;
+        setYear(num.toString());
+    };
+
+    const handleCreateAccount = async () => {
+        console.log("URL:", `${API_BASE_URL}/create/user`);
+        if (!username || !password || !email || !confirmPassword || !day || !month || !year) {
+            Alert.alert('Error', 'Please fill all fields');
+            return;
+        }
+
+        if (!checked) {
+            Alert.alert('Terms not accepted', 'You must agree to the terms and conditions before signing up.');
+            return;
+        }
+
+        if (password !== confirmPassword) {
+            Alert.alert('Password mismatch', 'Confirm password must match password.');
+            return;
+        }
+
         try {
             const response = await axios.post(`${API_BASE_URL}/create/user`, {
                 name: username,
-                password: password
+                password: password,
+                email: email,
+                birthday: `${String(year).padStart(4,'0')}-${String(month).padStart(2,'0')}-${String(day).padStart(2,'0')}`,
+                phone: "Unknown",
+                location: "Unknown"
             });
 
             const newUser = response.data;
@@ -47,7 +108,7 @@ const CreateAccount: React.FC = () => {
             })
 
 
-            
+
             navigation.replace('Tabs');
         } catch (error) {
             Alert.alert('Error', 'Failed to create account');
@@ -56,12 +117,23 @@ const CreateAccount: React.FC = () => {
     };
 
     return (
-        <SafeAreaView style={styles.container} edges={["top", "left", "right", "bottom"]}>
-            <Text style={[styles.title, { fontFamily: 'MadimiOne' }]}>Create account</Text>
+        <SafeAreaView style={styles.container}>
+            <ScrollView
+                contentContainerStyle={{ paddingBottom: 20 }}
+                showsVerticalScrollIndicator={false}
+            >
+
+            <TouchableOpacity style={styles.backButton} onPress={() => navigation.goBack()}>
+                <Text style={styles.backArrow}>←</Text>
+            </TouchableOpacity>
+
+            <Text style={[styles.title, { fontFamily: 'MadimiOne' }]}>
+                Register to get{'\n'}started!
+            </Text>
 
             <TextInput
                 style={[styles.input, { fontFamily: 'MadimiOne' }]}
-                placeholder="Username"
+                placeholder="Username..."
                 value={username}
                 onChangeText={setUsername}
                 autoCapitalize="none"
@@ -69,18 +141,76 @@ const CreateAccount: React.FC = () => {
 
             <TextInput
                 style={[styles.input, { fontFamily: 'MadimiOne' }]}
-                placeholder="Password"
-                value={password}
-                onChangeText={setPassword}
-                secureTextEntry
+                placeholder="Email..."
+                value={email}
+                onChangeText={setEmail}
                 autoCapitalize="none"
             />
 
-            <View style={styles.buttonRow}>
-                <TouchableOpacity style={styles.button} onPress={handleCreateAccount}>
-                    <Text style={[styles.buttonText, { fontFamily: 'MadimiOne' }]}>Create account</Text>
-                </TouchableOpacity>
+            <TextInput
+                style={[styles.input, { fontFamily: 'MadimiOne' }]}
+                placeholder="Password..."
+                value={password}
+                onChangeText={setPassword}
+                secureTextEntry
+            />
+
+            <TextInput
+                style={[styles.input, { fontFamily: 'MadimiOne' }]}
+                placeholder="Confirm password..."
+                value={confirmPassword}
+                onChangeText={setConfirmPassword}
+                secureTextEntry
+            />
+
+            <Text style={styles.birthdayLabel}>Birthday:</Text>
+
+            <View style={styles.birthdayRow}>
+                <TextInput
+                    style={styles.birthdayInput}
+                    placeholder="DD"
+                    value={day}
+                    onChangeText={handleDayChange}
+                    onBlur={handleDayBlur}
+                    keyboardType="numeric"
+                    maxLength={2}
+                />
+                <TextInput
+                    style={styles.birthdayInput}
+                    placeholder="MM"
+                    value={month}
+                    onChangeText={handleMonthChange}
+                    onBlur={handleMonthBlur}
+                    keyboardType="numeric"
+                    maxLength={2}
+                />
+                <TextInput
+                    style={styles.birthdayInput}
+                    placeholder="YYYY"
+                    value={year}
+                    onChangeText={handleYearChange}
+                    onBlur={handleYearBlur}
+                    keyboardType="numeric"
+                    maxLength={4}
+                />
             </View>
+
+            <TouchableOpacity
+                style={styles.checkboxRow}
+                onPress={() => setChecked(!checked)}
+                activeOpacity={0.7}
+            >
+                <View style={[styles.checkbox, checked && styles.checkboxChecked]} />
+                <Text style={styles.checkboxText}>
+                    I have read the <Text style={styles.link}>terms</Text> and{' '}
+                    <Text style={styles.link}>conditions</Text>,{'\n'}and wish to sign up
+                </Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity style={styles.signupButton} onPress={handleCreateAccount}>
+                <Text style={[styles.signupText, { fontFamily: 'MadimiOne' }]}>Sign up</Text>
+            </TouchableOpacity>
+            </ScrollView>
         </SafeAreaView>
     )
 };
@@ -90,42 +220,96 @@ export default CreateAccount;
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        padding: 20,
-        justifyContent: 'center',
+        paddingHorizontal: 25,
         backgroundColor: '#fff',
     },
-    title: {
-        fontSize: 32,
-        marginBottom: 40,
-        textAlign: 'center',
+
+    backButton: {
+        width: 40,
+        height: 40,
+        borderRadius: 20,
+        borderWidth: 1,
+        borderColor: '#ccc',
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginTop: 10,
+        marginBottom: 15,
     },
+    backArrow: { fontSize: 20 },
+
+    title: {
+        fontSize: 26,
+        textAlign: 'center',
+        marginBottom: 35,
+        lineHeight: 32,
+    },
+
     input: {
         height: 50,
-        borderColor: '#ccc',
-        borderWidth: 1,
-        marginBottom: 20,
-        paddingHorizontal: 10,
-        borderRadius: 8,
+        backgroundColor: '#f1eeee',
+        borderRadius: 12,
+        paddingHorizontal: 15,
+        marginBottom: 15,
+        borderWidth: 0,
     },
-    buttonRow: {
+
+    birthdayLabel: {
+        marginTop: 5,
+        marginBottom: 8,
+        fontSize: 14,
+        fontWeight: '600',
+    },
+
+    birthdayRow: {
         flexDirection: 'row',
-        justifyContent: 'space-between',
+        gap: 10,
+        marginBottom: 20,
     },
-    button: {
+
+    birthdayInput: {
         flex: 1,
-        backgroundColor: '#f5f3f4',
+        height: 45,
+        backgroundColor: '#f1eeee',
+        borderRadius: 8,
+        paddingHorizontal: 10,
+    },
+
+    checkboxRow: {
+        flexDirection: 'row',
+        alignItems: 'flex-start',
+        marginBottom: 25,
+        gap: 10,
+    },
+
+    checkbox: {
+        width: 20,
+        height: 20,
+        borderWidth: 1,
+        borderColor: '#888',
+        borderRadius: 4,
+    },
+    checkboxChecked: {
+        backgroundColor: '#cc3b2f',
+        borderColor: '#cc3b2f',
+    },
+
+    checkboxText: {
+        fontSize: 12,
+        color: '#333',
+    },
+    link: {
+        textDecorationLine: 'underline',
+    },
+
+    signupButton: {
+        backgroundColor: '#cc3b2f',
         paddingVertical: 15,
-        marginHorizontal: 5,
         borderRadius: 12,
         alignItems: 'center',
-        shadowColor: '#000',
-        shadowOffset: { width: 0, height: 2 },
-        shadowOpacity: 0.2,
-        shadowRadius: 3,
-        elevation: 3,
     },
-    buttonText: {
+
+    signupText: {
         fontSize: 18,
-        color: '#000',
+        color: '#fff',
     },
 });
