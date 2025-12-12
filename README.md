@@ -22,5 +22,5 @@ From the Server folder run the command
 
 ```bash
 npm install
-node server.js
+node main.js
 ```

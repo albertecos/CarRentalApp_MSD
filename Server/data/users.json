@@ -1,22 +1,11 @@
 [
   {
-    "id": "f321621e-125d-4bb4-9d2e-932161f6a700",
-    "name": "tester",
-    "password": "tester"
-  },
-  {
-    "id": "03a66185-6d0d-4016-a92e-1cbd225d3ded",
-    "name": "asta",
-    "password": "1234"
-  },
-  {
-    "id": "a7e427c5-1d07-4c83-adc8-2461d5ff8089",
-    "name": "user4",
-    "password": "1234"
-  },
-  {
-    "id": "657f1e1a-43b1-4143-8cfe-b3ad6e4c9e92",
+    "id": "132857b4-fb91-4125-a699-2e6eb0029de0",
     "name": "test",
-    "password": "test"
+    "password": "test",
+    "birthday": "2001-01-01",
+    "email": "example@mail.com",
+    "phone": "+45 12345678",
+    "location": "Unknown location"
   }
 ]

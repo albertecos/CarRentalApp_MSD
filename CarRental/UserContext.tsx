@@ -1,4 +1,4 @@
-import {createContext, ReactNode, useContext, useState} from "react";
+import {createContext, Dispatch, ReactNode, SetStateAction, useContext, useState} from "react";
 
 export type User = {
     id: string;
@@ -11,7 +11,7 @@ export type User = {
 
 type UserContextType = {
     user: User;
-    setUser: (user: User) => void;
+    setUser: Dispatch<SetStateAction<User>>;
 }
 
 const UserContext = createContext<UserContextType | undefined>(undefined);

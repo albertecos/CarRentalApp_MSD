@@ -1,14 +1,6 @@
 import {API_BASE_URL} from "@env";
 import axios from "axios";
-
-export type Booking = {
-    id: string;
-    userId: string;
-    carId: string;
-    startDate: string;
-    endDate: string;
-    totalCost: number;
-}
+import {Booking} from "./models";
 
 class BookingService {
     private static instance: BookingService;
@@ -20,7 +12,7 @@ class BookingService {
     }
 
     async getBookById(id: string): Promise<Booking | null> {
-        const res = await fetch(`${this.base}/bookings/bookingId/${id}`);
+        const res = await fetch(`${this.base}/bookings/bookingId?id=${id}`);
         if (res.status === 404) return null;
         return res.json();
     }
