@@ -1,17 +1,27 @@
 import {Text, View, StyleSheet} from "react-native";
+import {Booking} from "../../../backend/models";
 
 
-type Booking = {
-    id: string,
-    userId: string,
-    carId: string
-    startDate: string,
-    endDate: string,
-    totalCost: number,
-};
+// export type Booking = {
+//     id: string;
+//     userId: string;
+//     carId: string;
+//     startDate: string; // ISO date string
+//     endDate: string;   // ISO date string
+//     totalCost: number; // -1 indicates not calculated yet
+//     pickUp: string;
+//     delivery: string;
+//     payMethod: string;
+// }
 
 type Props = {
     booking: Booking;
+    onPress: () => void;
+
+    carModel: string;
+    carYear: string;
+    imageUrl: string;
+    pickUpLocation: string;
 }
 
 const BookingCard: React.FC<Props> = ({booking}) => {
