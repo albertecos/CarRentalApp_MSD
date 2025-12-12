@@ -9,6 +9,7 @@ import UserInfoCard from "../components/cards/UserInfoCard"
 import {UseUserContext} from "../../UserContext";
 import axios from "axios";
 import {API_BASE_URL} from "@env";
+import Ionicons from "@expo/vector-icons/Ionicons";
 
 const Settings: React.FC = () => {
     const navigation = useNavigation<any>();
@@ -16,22 +17,28 @@ const Settings: React.FC = () => {
 
     const [isModalVisible, setIsModalVisible] = React.useState(false);
     const [fieldValue, setFieldValue] = React.useState("");
-    const [fieldKey, setFieldKey] = React.useState<'name' | 'email' | 'phone' | 'location'>('email');
+    const [fieldKey, setFieldKey] = React.useState<'name' | 'email' | 'phone' | 'password'>('email');
     const [fieldLabel, setFieldLabel] = React.useState('Email');
+    const [showPassword, setShowPassword] = React.useState(false);
+    const [confirmPassword, setConfirmPassword] = React.useState("");
 
     const onLogout = () => {
         setUser(null)
         navigation.replace('Login')
     };
 
-    const openEditField = (key: 'name' | 'email' | 'phone' | 'location', label: string) => {
+    const openEditField = (key: 'name' | 'email' | 'phone' | 'password', label: string) => {
         if (!user) {
             Alert.alert("Error", "No user is logged in");
             return;
         }
         setFieldKey(key);
-        setFieldValue((user as any)[key] ?? "");
         setFieldLabel(label);
+
+        setFieldValue(key === "password" ? "" : (user as any)[key] ?? "");
+        setConfirmPassword("");
+        setShowPassword(false);
+
         setIsModalVisible(true);
     }
 
@@ -39,6 +46,12 @@ const Settings: React.FC = () => {
         if (!user) {
             Alert.alert("Error", "No user is logged in");
             return;
+        }
+        if (fieldKey === "password") {
+            if (fieldValue !== confirmPassword) {
+                Alert.alert("Error", "Passwords do not match");
+                return;
+            }
         }
         try {
             const response = await axios.put(`${API_BASE_URL}/user/${user.id}`, {
@@ -65,6 +78,8 @@ const Settings: React.FC = () => {
     const handleCancel = () => {
         setIsModalVisible(false);
         setFieldValue("");
+        setConfirmPassword("");
+        setShowPassword(false);
     }
 
 
@@ -104,8 +119,8 @@ const Settings: React.FC = () => {
                     </TouchableOpacity>
                     <TouchableOpacity
                         style={styles.smallButton}
-                        onPress={() => openEditField('location', 'Location')}>
-                        <Text style={styles.smallButtonText}>Change location</Text>
+                        onPress={() => openEditField('password', 'Password')}>
+                        <Text style={styles.smallButtonText}>Change password</Text>
                     </TouchableOpacity>
                 </View>
 
@@ -124,12 +139,47 @@ const Settings: React.FC = () => {
                 <View style={styles.modalOverlay}>
                     <View style={styles.modalContent}>
                         <Text style={styles.modalTitle}>Change {fieldLabel}</Text>
-                        <TextInput
-                            style={styles.modalInput}
-                            value={fieldValue}
-                            onChangeText={setFieldValue}
-                            placeholder={fieldLabel}
-                            autoCapitalize="none"/>
+                        {fieldKey === "password" ? (
+                            <>
+                                <View style={styles.inputRow}>
+                                    <TextInput
+                                        style={styles.passwordInput}
+                                        value={fieldValue}
+                                        onChangeText={setFieldValue}
+                                        placeholder="New password"
+                                        autoCapitalize="none"
+                                        secureTextEntry={!showPassword}
+                                    />
+                                    <TouchableOpacity
+                                        onPress={() => setShowPassword(s => !s)}
+                                        style={styles.eyeButton}
+                                        accessibilityLabel={showPassword ? "Hide" : "Show"}>
+                                        <Ionicons name={showPassword ? "eye-off" : "eye"} size={20}
+                                                  color="#7A7A7A"/>
+                                    </TouchableOpacity>
+                                </View>
+                                <View style={styles.inputRow}>
+                                    <TextInput
+                                        style={styles.passwordInput}
+                                        value={confirmPassword}
+                                        onChangeText={setConfirmPassword}
+                                        placeholder="Confirm password"
+                                        autoCapitalize="none"
+                                        secureTextEntry={!showPassword}
+                                    />
+                                </View>
+                            </>
+                        ) : (
+                            <View style={styles.inputRow}>
+                                <TextInput
+                                    style={styles.modalInput}
+                                    value={fieldValue}
+                                    onChangeText={setFieldValue}
+                                    placeholder={fieldLabel}
+                                    autoCapitalize="none"
+                                />
+                            </View>
+                        )}
 
                         <View style={styles.modalButtonRow}>
                             <TouchableOpacity style={styles.modalButtonCancel} onPress={handleCancel}>
@@ -143,7 +193,7 @@ const Settings: React.FC = () => {
                 </View>
             </Modal>
         </SafeAreaView>
-    );
+    )
 };
 
 
@@ -260,6 +310,24 @@ const styles = StyleSheet.create({
         paddingHorizontal: 14,
         borderRadius: 8,
         backgroundColor: "#E3342F",
+    },
+    inputRow: {
+        flexDirection: "row",
+        alignItems: "center",
+        borderWidth: 1,
+        borderColor: "#ccc",
+        borderRadius: 10,
+        paddingHorizontal: 12,
+        marginBottom: 16,
+        backgroundColor: "#fff",
+    },
+    eyeButton: {
+        paddingLeft: 12,
+        paddingVertical: 8,
+    },
+    passwordInput: {
+        flex: 1,
+        paddingVertical: 10,
     }
 
 

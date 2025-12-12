@@ -23,7 +23,6 @@ const BookingCard: React.FC<Props> = ({
                 <Text style={styles.title}>
                     Booking - {car.model} ({car.year})
                 </Text>
-            </View>
 
             <View style={styles.bottomRow}>
                 <View style={styles.leftCol}>
@@ -44,6 +43,7 @@ const BookingCard: React.FC<Props> = ({
                     <Text style={styles.locationText}>{booking.pickUpLocation}</Text>
                 </View>
 
+            </View>
             </View>
         </Pressable>
     );
@@ -82,6 +82,7 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         alignItems: "flex-end",
         justifyContent: "space-between",
+        paddingRight: 4,
     },
     leftCol: {
         flex: 1,
