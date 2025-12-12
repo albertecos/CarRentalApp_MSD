@@ -30,6 +30,10 @@ endPoints.push({
         }
     }, handler: (req, res) => {
         const {name, password} = req.body;
+
+        console.log('Login attempt:', { name, password });
+        console.log('Current users:', Database.getInstance('users').all());
+
         if (!name || !password) {
             return res.status(400).send({error: 'Please enter a valid name and password'});
         }
@@ -66,7 +70,7 @@ endPoints.push({
             }
         }
     }, handler: (req, res) => {
-        const {name, password} = req.body;
+        const {name, password, email, birthday, phone, location} = req.body;
 
         if (!name || !password) {
             return res.status(400).send({error: 'Please enter a valid name and password'});
@@ -76,10 +80,10 @@ endPoints.push({
             id: uuidv4(),
             name: name,
             password: password,
-            birthday: "2001-01-01",
-            email: "example@mail.com",
-            phone: "+45 12345678",
-            location: "Unknown location"
+            birthday: birthday || "Unknown",
+            email: email || "Unknown",
+            phone: phone || "Unknown",
+            location: location || "Unknown location"
         };
         Database.getInstance('users').insert(newUser);
 

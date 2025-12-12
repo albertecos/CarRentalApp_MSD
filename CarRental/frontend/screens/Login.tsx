@@ -25,6 +25,7 @@ const Login: React.FC = () => {
     }
 
     const handleLogin = async () => {
+        console.log("URL:", `${API_BASE_URL}/login/user`);
         if (!username || !password) {
             Alert.alert('Error', 'Please enter username and password');
             return;
@@ -60,12 +61,14 @@ const Login: React.FC = () => {
     };
 
     return (
-        <SafeAreaView style={styles.container} edges={["top", "left", "right", "bottom"]}>
-            <Text style={[styles.title, {fontFamily: 'MadimiOne'}]}>Login</Text>
+        <SafeAreaView style={styles.container}>
+            <Text style={[styles.title, {fontFamily: 'MadimiOne'}]}>
+                Welcome back!
+            </Text>
 
             <TextInput
                 style={[styles.input, {fontFamily: 'MadimiOne'}]}
-                placeholder="Username"
+                placeholder="Username..."
                 value={username}
                 onChangeText={setUsername}
                 autoCapitalize="none"
@@ -73,23 +76,27 @@ const Login: React.FC = () => {
 
             <TextInput
                 style={[styles.input, {fontFamily: 'MadimiOne'}]}
-                placeholder="Password"
+                placeholder="Password..."
                 value={password}
                 onChangeText={setPassword}
                 secureTextEntry
                 autoCapitalize="none"
             />
 
-            <View style={styles.buttonRow}>
-                <TouchableOpacity style={styles.button} onPress={handleLogin}>
-                    <Text style={[styles.buttonText, {fontFamily: 'MadimiOne'}]}>Login</Text>
-                </TouchableOpacity>
-                <TouchableOpacity style={styles.button} onPress={handleCreateAccount}>
-                    <Text style={[styles.buttonText, {fontFamily: 'MadimiOne'}]}>Create Account</Text>
-                </TouchableOpacity>
-            </View>
+            <TouchableOpacity style={styles.loginButton} onPress={handleLogin}>
+                <Text style={[styles.loginText, {fontFamily: 'MadimiOne'}]}>
+                    Login
+                </Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity onPress={handleCreateAccount}>
+                <Text style={styles.registerText}>
+                    Not registered yet? <Text style={styles.registerBold}>Create an account</Text>
+                </Text>
+            </TouchableOpacity>
         </SafeAreaView>
-    )
+    );
+
 };
 
 export default Login;
@@ -97,42 +104,61 @@ export default Login;
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        padding: 20,
-        justifyContent: 'center',
-        backgroundColor: '#fff',
+        backgroundColor: "#ffffff",
+        alignItems: "center",
+        justifyContent: "center",
+        paddingHorizontal: 20,
     },
+
     title: {
-        fontSize: 32,
+        fontSize: 28,
+        fontWeight: "700",
         marginBottom: 40,
-        textAlign: 'center',
+        textAlign: "center",
     },
+
     input: {
+        width: "100%",
         height: 50,
-        borderColor: '#ccc',
-        borderWidth: 1,
-        marginBottom: 20,
-        paddingHorizontal: 10,
-        borderRadius: 8,
-    },
-    buttonRow: {
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-    },
-    button: {
-        flex: 1,
-        backgroundColor: '#f5f3f4',
-        paddingVertical: 15,
-        marginHorizontal: 5,
+        backgroundColor: "#f3f1f1",
         borderRadius: 12,
-        alignItems: 'center',
-        shadowColor: '#000',
-        shadowOffset: {width: 0, height: 2},
-        shadowOpacity: 0.2,
+        paddingHorizontal: 15,
+        fontSize: 16,
+        marginBottom: 20,
+        shadowColor: "#000",
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.1,
         shadowRadius: 3,
-        elevation: 3,
+        elevation: 2,
     },
-    buttonText: {
+
+    loginButton: {
+        width: "100%",
+        backgroundColor: "#c43d32",   // matches the red button from screenshot
+        paddingVertical: 14,
+        borderRadius: 12,
+        alignItems: "center",
+        shadowColor: "#000",
+        shadowOffset: { width: 0, height: 4 },
+        shadowOpacity: 0.3,
+        shadowRadius: 4,
+        elevation: 5,
+        marginTop: 10,
+    },
+
+    loginText: {
+        color: "#fff",
         fontSize: 18,
-        color: '#000',
+        fontWeight: "700",
+    },
+
+    registerText: {
+        marginTop: 15,
+        fontSize: 14,
+        color: "#000",
+    },
+
+    registerBold: {
+        fontWeight: "700",
     },
 });
