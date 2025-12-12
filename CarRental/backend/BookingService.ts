@@ -1,14 +1,6 @@
 import {API_BASE_URL} from "@env";
 import axios from "axios";
-
-export type Booking = {
-    id: string;
-    userId: string;
-    carId: string;
-    startDate: string;
-    endDate: string;
-    totalCost: number;
-}
+import {Booking} from "./models";
 
 class BookingService {
     private static instance: BookingService;

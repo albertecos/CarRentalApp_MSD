@@ -7,12 +7,6 @@ export const confStyles = StyleSheet.create({
         paddingBottom: 24,
 
     },
-    brand: {
-        color: '#fff',
-        fontSize: 26,
-        fontWeight: 'bold',
-        letterSpacing: 0.5,
-    },
     card: {
         backgroundColor: '#fff',
         borderRadius: 12,
@@ -50,7 +44,7 @@ export const confStyles = StyleSheet.create({
     h1: {
         fontSize: 24,
         fontWeight: '800',
-        color: '#0f172a',
+        color: '#000',
         textAlign: 'center'
     },
     carImage: {
@@ -60,81 +54,6 @@ export const confStyles = StyleSheet.create({
         marginTop: 8,
         marginBottom: 8,
     },
-    section: {
-        marginTop: 8,
-    },
-    sectionTitle: {
-        fontWeight: "700",
-        fontSize: 16,
-        marginBottom: 10,
-        color: '#1f2937',
-    },
-    row: {
-        flexDirection: 'row',
-        alignItems: 'center',
-    },
-    rowIcon: {
-        fontSize: 18,
-        marginRight: 10,
-    },
-    rowTextWrap: {
-        flexShrink: 1
-    },
-    rowTitle: {
-        fontSize: 16,
-        color: '#334155',
-    },
-    rowSub:{
-        fontSize: 14,
-        color: '#6b7280',
-        marginTop: 2,
-    },
-    bold: {
-
-    },
-    priceRow: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        justifyContent: 'space-between',
-        paddingVertical: 6,
-    },
-    priceLabel: {
-        fontSize: 15,
-        color: '#374151',
-    },
-    totalValue: {
-        fontSize: 20,
-        fontWeight: '900',
-        color: '#111827',
-    },
-    totalLabel:{
-        fontWeight: '800',
-    },
-    included: {
-        fontSize: 15,
-        color: '#15803d',
-        fontWeight: '700',
-    },
-    divider: {
-        height: 1,
-        backgroundColor: '#e8eaee',
-        marginVertical: 16,
-    },
-    dividerLight: {
-        height: 1,
-        backgroundColor: '#f0f1f4',
-        marginTop: 12,
-        marginBottom: 8,
-    },
-    topRow:{
-        paddingHorizontal: 16,
-        paddingTop: 8,
-    },
-    backButton: {
-        width: 70,
-        height: 70,
-    },
-
     infoBox:{
         marginTop: 10,
         borderRadius: 12,
@@ -151,5 +70,54 @@ export const confStyles = StyleSheet.create({
         fontWeight: '700',
         color: '#000',
     },
+    dateRow:{
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        marginTop: 4
+    },
+    dateCol:{
+        flexShrink: 1,
+    },
+    infoMain:{
+        fontWeight: '600',
+        color: "#6b7280"
+    },
+    dividerLight: {
+        height: 1,
+        backgroundColor: '#6b7280',
+        marginVertical: 8,
+    },
+    carRow:{
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'flex-end',
+    },
+    bold:{
+        fontWeight: '600',
+        color: '#000',
+    },
 
+    paymentSection:{
+        marginTop: 18,
+    },
+    paymentTitle:{
+        fontWeight:'700',
+        marginBottom: 8,
+        color: '#000',
+    },
+    paymentRow:{
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        paddingVertical: 2,
+    },
+    paymentTotalLabel:{
+        fontWeight: '800',
+        fontSize: 18,
+    },
+    paymentTotalValue:{
+        fontWeight: '800',
+        fontSize: 18,
+        color: '#BA181B',
+    },
 })

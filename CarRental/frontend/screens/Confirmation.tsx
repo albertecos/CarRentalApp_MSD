@@ -1,13 +1,11 @@
 import React from 'react';
-import {ActivityIndicator, Image, Pressable, Text, View} from 'react-native';
+import {ActivityIndicator, Image, Pressable, StyleSheet, Text, View} from 'react-native';
 // import {SearchStackParamList} from '../../App';
 import ConfirmationCard from "../components/cards/ConfirmationCard";
 import {NativeStackScreenProps} from "@react-navigation/native-stack";
 import {SafeAreaView} from "react-native-safe-area-context";
 import {SearchStackParamList, UserBookingsStackParamList} from "../components/BottomNav";
 import {bookingService} from "../../backend/BookingService";
-import {noConfStyles} from "../styling/ConfirmationStyles/NoBookings";
-import {confStyles} from "../styling/ConfirmationStyles/ConfirmationCardStyling";
 import Header from "../components/Header";
 import {Booking, Car} from "../../backend/models";
 import {useNavigation} from "@react-navigation/native";
@@ -70,7 +68,7 @@ const Confirmation: React.FC<ConfirmationProps> = ({route}) => {
                         <Ionicons name="chevron-back-circle-outline" size={70} color="#7E7D7E80"/>
                     </Pressable>
                 </View>
-                <View style={noConfStyles.noBookingContainer}>
+                <View style={confStyles.noBookingContainer}>
                     <ActivityIndicator
                         style={{
                             alignSelf: "center",
@@ -96,9 +94,9 @@ const Confirmation: React.FC<ConfirmationProps> = ({route}) => {
                         <Ionicons name="chevron-back-circle-outline" size={70} color="#7E7D7E80"/>
                     </Pressable>
                 </View>
-                <View style={noConfStyles.noBookingContainer}>
-                    <View style={noConfStyles.emptyState}>
-                        <Text style={noConfStyles.emptyTitle}>
+                <View style={confStyles.noBookingContainer}>
+                    <View style={confStyles.emptyState}>
+                        <Text style={confStyles.emptyTitle}>
                             {error ?? 'No bookings were found'}
                         </Text>
                     </View>
@@ -123,3 +121,31 @@ const Confirmation: React.FC<ConfirmationProps> = ({route}) => {
 };
 
 export default Confirmation;
+
+export const confStyles = StyleSheet.create({
+    backButton: {
+        width: 70,
+        height: 70,
+    },
+    noBookingContainer: {
+        flex: 1,
+        backgroundColor: '#fff',
+    },
+    emptyState: {
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center',
+        padding: 24
+    },
+    emptyTitle: {
+        fontSize: 20,
+        fontWeight: 'bold',
+        marginBottom: 8,
+    },
+    h1: {
+        fontSize: 24,
+        fontWeight: '800',
+        color: '#0f172a',
+        textAlign: 'center'
+    }
+})

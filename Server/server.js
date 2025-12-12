@@ -108,15 +108,15 @@ app.put('user/:id', (req, res) => {
 app.post('/create/booking', (req, res) => {
     try {
         const bookingsJson = readJsonFile('data/bookings.json');
-        const {userId, carId, startDate, endDate, totalCost} = req.body;
+        const {userId, carId, startDate, endDate, totalCost, pickUp, delivery} = req.body;
 
         console.log("creating booking in server.js: ", req.body);
 
-        if (!userId || !carId || !startDate || !endDate || !totalCost) {
+        if (!userId || !carId || !startDate || !endDate || !totalCost || !pickUp || !delivery) {
             return res.status(400).send({error: 'No valid values.'});
         }
 
-        const newBooking = {id: uuidv4(), userId, carId, startDate, endDate, totalCost};
+        const newBooking = {id: uuidv4(), userId, carId, startDate, endDate, totalCost, pickUp, delivery};
         bookingsJson.push(newBooking);
         writeToJsonFile('data/bookings.json', bookingsJson);
         console.log("booking from server: ", newBooking);
