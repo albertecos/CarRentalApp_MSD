@@ -8,6 +8,7 @@ import {SafeAreaView} from "react-native-safe-area-context";
 import {API_BASE_URL} from "@env";
 import axios from "axios";
 import {UseUserContext} from "../../UserContext";
+import { ScrollView } from 'react-native';
 
 type CreateAccountScreenProp = NativeStackNavigationProp<RootStackParamList, 'Create Account'>;
 
@@ -29,10 +30,59 @@ const CreateAccount: React.FC = () => {
     });
     if (!fontsLoaded) return null;
 
+    const currentYear = new Date().getFullYear();
+    const handleDayChange = (text: string) => {
+        const numeric = text.replace(/[^0-9]/g, '').slice(0, 2);
+        setDay(numeric);
+    };
+    const handleMonthChange = (text: string) => {
+        const numeric = text.replace(/[^0-9]/g, '').slice(0, 2);
+        setMonth(numeric);
+    };
+    const handleYearChange = (text: string) => {
+        const numeric = text.replace(/[^0-9]/g, '').slice(0, 4);
+        setYear(numeric);
+    };
+    const handleDayBlur = () => {
+        if (!day) return;
+        let num = parseInt(day, 10);
+        if (num < 1) num = 1;
+        else if (num > 31) num = 31;
+        setDay(num.toString().padStart(2, '0'));
+    };
+    const handleMonthBlur = () => {
+        if (!month) return;
+        let num = parseInt(month, 10);
+        if (num < 1) num = 1;
+        else if (num > 12) num = 12;
+        setMonth(num.toString().padStart(2, '0'));
+    };
+    const handleYearBlur = () => {
+        if (year.length !== 4) {
+            Alert.alert('Invalid year', 'Year must be exactly 4 digits');
+            setYear('');
+            return;
+        }
+        let num = parseInt(year, 10);
+        if (num < 1900) num = 1900;
+        else if (num > currentYear) num = currentYear;
+        setYear(num.toString());
+    };
+
     const handleCreateAccount = async () => {
         console.log("URL:", `${API_BASE_URL}/create/user`);
-        if (!username || !password) {
+        if (!username || !password || !email || !confirmPassword || !day || !month || !year) {
             Alert.alert('Error', 'Please fill all fields');
+            return;
+        }
+
+        if (!checked) {
+            Alert.alert('Terms not accepted', 'You must agree to the terms and conditions before signing up.');
+            return;
+        }
+
+        if (password !== confirmPassword) {
+            Alert.alert('Password mismatch', 'Confirm password must match password.');
             return;
         }
 
@@ -68,6 +118,10 @@ const CreateAccount: React.FC = () => {
 
     return (
         <SafeAreaView style={styles.container}>
+            <ScrollView
+                contentContainerStyle={{ paddingBottom: 20 }}
+                showsVerticalScrollIndicator={false}
+            >
 
             <TouchableOpacity style={styles.backButton} onPress={() => navigation.goBack()}>
                 <Text style={styles.backArrow}>←</Text>
@@ -116,7 +170,8 @@ const CreateAccount: React.FC = () => {
                     style={styles.birthdayInput}
                     placeholder="DD"
                     value={day}
-                    onChangeText={setDay}
+                    onChangeText={handleDayChange}
+                    onBlur={handleDayBlur}
                     keyboardType="numeric"
                     maxLength={2}
                 />
@@ -124,7 +179,8 @@ const CreateAccount: React.FC = () => {
                     style={styles.birthdayInput}
                     placeholder="MM"
                     value={month}
-                    onChangeText={setMonth}
+                    onChangeText={handleMonthChange}
+                    onBlur={handleMonthBlur}
                     keyboardType="numeric"
                     maxLength={2}
                 />
@@ -132,7 +188,8 @@ const CreateAccount: React.FC = () => {
                     style={styles.birthdayInput}
                     placeholder="YYYY"
                     value={year}
-                    onChangeText={setYear}
+                    onChangeText={handleYearChange}
+                    onBlur={handleYearBlur}
                     keyboardType="numeric"
                     maxLength={4}
                 />
@@ -153,6 +210,7 @@ const CreateAccount: React.FC = () => {
             <TouchableOpacity style={styles.signupButton} onPress={handleCreateAccount}>
                 <Text style={[styles.signupText, { fontFamily: 'MadimiOne' }]}>Sign up</Text>
             </TouchableOpacity>
+            </ScrollView>
         </SafeAreaView>
     )
 };
