@@ -26,6 +26,7 @@ export type Booking = {
     totalCost: number; // -1 indicates not calculated yet
     pickUp: string;
     delivery: string;
+    payMethod: string;
 }
 
 export type User = {

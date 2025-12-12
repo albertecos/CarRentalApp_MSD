@@ -65,10 +65,16 @@ export const confStyles = StyleSheet.create({
         alignItems: 'center',
         marginBottom: 4,
     },
+    iconCol:{
+        width: 24,
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
     infoHeaderText: {
-        marginLeft: 8,
         fontWeight: '700',
         color: '#000',
+        lineHeight: 16,
+        marginLeft: 8,
     },
     dateRow:{
         flexDirection: 'row',

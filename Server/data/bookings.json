@@ -7,7 +7,8 @@
     "endDate": "2025-09-28",
     "totalCost": 750,
     "pickUp": "Odense V, DK",
-    "delivery": "Odense C, DK"
+    "delivery": "Odense C, DK",
+    "payMethod": "Credit card"
   },
   {
     "id": "4ee64653-0dcb-4ba0-bb9c-7376a54e7d50",
@@ -17,7 +18,8 @@
     "endDate": "2025-09-28",
     "totalCost": 870,
     "pickUp": "Rome, IT",
-    "delivery": "Paris, FR"
+    "delivery": "Paris, FR",
+    "payMethod": "Credit card"
   },
   {
     "id": "82ede324-b735-470c-ba46-8d9cc15ed432",
@@ -27,7 +29,8 @@
     "endDate": "2025-09-28",
     "totalCost": 735,
     "pickUp": "London, GB",
-    "delivery": "Bath, GB"
+    "delivery": "Bath, GB",
+    "payMethod": "Credit card"
   },
   {
     "id": "731b2e3f-0545-483b-9025-2edba3c39339",
@@ -37,6 +40,7 @@
     "endDate": "2025-09-28",
     "totalCost": 690,
     "pickUp": "Stockholm, SV",
-    "delivery": "Oslo, NO"
+    "delivery": "Oslo, NO",
+    "payMethod": "Credit card"
   }
 ]
