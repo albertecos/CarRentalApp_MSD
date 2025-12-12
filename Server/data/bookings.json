@@ -1,3 +1,13 @@
 [
-
+ {
+    "id": "4d300844-2a05-476e-ad78-f19752d02d7b",
+    "userId": "132857b4-fb91-4125-a699-2e6eb0029de0",
+    "carId": "2",
+    "startDate": "2025-09-25",
+    "endDate": "2025-09-28",
+    "totalCost": 870,
+    "pickUpLocation": "Somewhere",
+    "deliveryLocation": "Somewhere else",
+    "payMethod": "Cash"
+  }
 ]

@@ -9,8 +9,7 @@ import {SafeAreaView} from "react-native-safe-area-context";
 import {UseUserContext} from "../../UserContext";
 import {StackScreenProps} from "@react-navigation/stack";
 
-
-    type BookingDetailsProps = StackScreenProps<SearchStackParamList, 'BookingDetails'>;
+type BookingDetailsProps = StackScreenProps<SearchStackParamList, 'BookingDetails', 'Payment'>;
 
 const BookingDetails: React.FC<BookingDetailsProps> = ({ route, navigation }) => {
   const { carId, startDate, endDate } = route.params;
@@ -42,7 +41,7 @@ const BookingDetails: React.FC<BookingDetailsProps> = ({ route, navigation }) =>
   const uri = car?.imageUrl || 'https://via.placeholder.com/150';
 
   const handlePayment = async () => {
-    let newBooking: Booking = await bookingService.createBooking({
+    let newBooking = {
         userId: user?.id ?? "",
         carId: carId,
         startDate: startDate,
@@ -51,8 +50,8 @@ const BookingDetails: React.FC<BookingDetailsProps> = ({ route, navigation }) =>
         pickUpLocation: "Somewhere",
         deliveryLocation: "Somewhere else",
         payMethod: "With money"
-    });
-    navigation.navigate('Payment', {bookingId: newBooking.id, carId: carId, startDate: startDate, endDate: endDate, totalCost: totalCost});
+    };
+    navigation.navigate('Payment', {booking: newBooking});
   }
 
   function makeFirstLetterUpperCase(str: string | undefined) {
