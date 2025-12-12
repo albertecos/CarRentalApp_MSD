@@ -172,7 +172,7 @@ const Settings: React.FC = () => {
                         ) : (
                             <View style={styles.inputRow}>
                                 <TextInput
-                                    style={styles.modalInput}
+                                    style={styles.modalInputInner}
                                     value={fieldValue}
                                     onChangeText={setFieldValue}
                                     placeholder={fieldLabel}
@@ -328,6 +328,12 @@ const styles = StyleSheet.create({
     passwordInput: {
         flex: 1,
         paddingVertical: 10,
+    },
+    modalInputInner: {
+        flex: 1,
+        paddingVertical: 10,
+        paddingHorizontal: 0,
+        backgroundColor: "transparent",
     }
 
 
