@@ -1,6 +1,5 @@
-import {Text, View, StyleSheet} from "react-native";
+import {Text, View, StyleSheet, Pressable} from "react-native";
 import {Booking} from "../../../backend/models";
-
 
 // export type Booking = {
 //     id: string;
@@ -24,9 +23,9 @@ type Props = {
     pickUpLocation: string;
 }
 
-const BookingCard: React.FC<Props> = ({booking}) => {
+const BookingCard: React.FC<Props> = ({booking, onPress}) => {
     return (
-        <View style={styles.card}>
+        <Pressable onPress={onPress} style={styles.card}>
             <View style={styles.header}>
                 <Text style={styles.headerText}>Booking #{booking.id.slice(0, 6)}</Text>
             </View>
@@ -42,7 +41,7 @@ const BookingCard: React.FC<Props> = ({booking}) => {
                     <Text style={styles.label}>Total cost: {booking.totalCost}</Text>
                 </Text>
             </View>
-        </View>
+        </Pressable>
     );
 };
 

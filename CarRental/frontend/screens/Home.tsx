@@ -18,6 +18,7 @@ import {SafeAreaView} from "react-native-safe-area-context";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import CalendarCard from "../components/cards/CalendarCard";
 import SelectAgeCard from "../components/cards/SelectAgeCard";
+import Confirmation from "./Confirmation";
 
 const Home: React.FC = () => {
     const [search, setSearch] = React.useState('')

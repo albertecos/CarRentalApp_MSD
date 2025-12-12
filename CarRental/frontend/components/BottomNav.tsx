@@ -18,19 +18,32 @@ export type SearchStackParamList = {
         startDate: string;
         endDate: string;
     };
+
+};
+
+export type UserBookingsStackParamList = {
+    UserBookings: undefined;
     Confirmation: {
         bookingId: string;
     };
-};
+}
 const SearchStack = createNativeStackNavigator<SearchStackParamList>();
+const UserBookingsStack = createNativeStackNavigator<UserBookingsStackParamList>();
 
 function SearchStackScreen(){
     return(
         <SearchStack.Navigator>
             <SearchStack.Screen name="Booking" component={Booking} />
             <SearchStack.Screen name="BookingDetails" component={BookingDetails} />
-            <SearchStack.Screen name="Confirmation" component={Confirmation} />
         </SearchStack.Navigator>
+    )
+}
+function UserBookingsStackNavigator(){
+    return(
+        <UserBookingsStack.Navigator screenOptions={{headerShown: false}}>
+            <UserBookingsStack.Screen name="UserBookings" component={UserBookings} />
+            <UserBookingsStack.Screen name="Confirmation" component={Confirmation} />
+        </UserBookingsStack.Navigator>
     )
 }
 
@@ -76,7 +89,7 @@ const BottomTabs = () => {
             />
 
             <Tab.Screen name="UserBooking"
-                        component={UserBookings}
+                        component={UserBookingsStackNavigator}
                         options={{
                             tabBarIcon: ({focused}) => (
                                 <IconWithDot focused={focused}>

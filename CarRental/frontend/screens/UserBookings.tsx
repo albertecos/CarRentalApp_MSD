@@ -7,6 +7,10 @@ import BookingCard from "../components/cards/BookingCard";
 import {SafeAreaView} from "react-native-safe-area-context";
 import {useIsFocused} from "@react-navigation/native";
 import Header from "../components/Header";
+import {NativeStackNavigationProp} from "@react-navigation/native-stack";
+import {useNavigation} from "@react-navigation/native";
+import {SearchStackParamList, UserBookingsStackParamList} from "../components/BottomNav";
+
 import {Booking} from "../../backend/models";
 
 type BookingSection = {
@@ -21,6 +25,10 @@ const UserBookings: React.FC = () => {
     const [error, setError] = useState<string | null>(null);
     const {user} = UseUserContext();
     const isFocused = useIsFocused();
+
+    type UserBookingNavProps = NativeStackNavigationProp<UserBookingsStackParamList, "UserBookings">;
+
+    const navigation = useNavigation<UserBookingNavProps>();
 
     const getBookings = useCallback(() => {
         if (!user) {
@@ -108,7 +116,14 @@ const UserBookings: React.FC = () => {
             <SectionList sections={sections}
                          keyExtractor={(item) => item.id}
                          contentContainerStyle={{paddingBottom: 20}}
-                         renderItem={({item}) => <BookingCard booking={item}/>}
+                         renderItem={({item}) =>
+                             <BookingCard
+                                 booking={item}
+                                 onPress={() =>
+                                     navigation.navigate('Confirmation', {bookingId: item.id})
+                                 }
+                             />
+                         }
                          renderSectionHeader={({section}) => (
                              <View style={styles.sectionHeaderWrapper}>
                                  <View style={styles.sectionLine}>
@@ -122,7 +137,7 @@ const UserBookings: React.FC = () => {
                          )}
             />
         </SafeAreaView>
-    );
+    )
 };
 
 export default UserBookings;
