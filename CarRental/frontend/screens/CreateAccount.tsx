@@ -29,6 +29,7 @@ const CreateAccount: React.FC = () => {
         MadimiOne: MadimiOne_400Regular,
     });
     if (!fontsLoaded) return null;
+    if (!fontsLoaded) return null;
 
     const currentYear = new Date().getFullYear();
     const handleDayChange = (text: string) => {
@@ -70,6 +71,9 @@ const CreateAccount: React.FC = () => {
     };
 
     const handleCreateAccount = async () => {
+        console.log("URL:", `${API_BASE_URL}/create/user`);
+        if (!username || !password) {
+            Alert.alert('Error', 'Please fill all fields');
         console.log("URL:", `${API_BASE_URL}/create/user`);
         if (!username || !password || !email || !confirmPassword || !day || !month || !year) {
             Alert.alert('Error', 'Please fill all fields');
@@ -122,6 +126,15 @@ const CreateAccount: React.FC = () => {
                 contentContainerStyle={{ paddingBottom: 20 }}
                 showsVerticalScrollIndicator={false}
             >
+
+            <TouchableOpacity style={styles.backButton} onPress={() => navigation.goBack()}>
+                <Text style={styles.backArrow}>←</Text>
+            </TouchableOpacity>
+
+            <Text style={[styles.title, { fontFamily: 'MadimiOne' }]}>
+                Register to get{'\n'}started!
+            </Text>
+        <SafeAreaView style={styles.container}>
 
             <TouchableOpacity style={styles.backButton} onPress={() => navigation.goBack()}>
                 <Text style={styles.backArrow}>←</Text>
@@ -211,6 +224,50 @@ const CreateAccount: React.FC = () => {
                 <Text style={[styles.signupText, { fontFamily: 'MadimiOne' }]}>Sign up</Text>
             </TouchableOpacity>
             </ScrollView>
+            <Text style={styles.birthdayLabel}>Birthday:</Text>
+
+            <View style={styles.birthdayRow}>
+                <TextInput
+                    style={styles.birthdayInput}
+                    placeholder="DD"
+                    value={day}
+                    onChangeText={setDay}
+                    keyboardType="numeric"
+                    maxLength={2}
+                />
+                <TextInput
+                    style={styles.birthdayInput}
+                    placeholder="MM"
+                    value={month}
+                    onChangeText={setMonth}
+                    keyboardType="numeric"
+                    maxLength={2}
+                />
+                <TextInput
+                    style={styles.birthdayInput}
+                    placeholder="YYYY"
+                    value={year}
+                    onChangeText={setYear}
+                    keyboardType="numeric"
+                    maxLength={4}
+                />
+            </View>
+
+            <TouchableOpacity
+                style={styles.checkboxRow}
+                onPress={() => setChecked(!checked)}
+                activeOpacity={0.7}
+            >
+                <View style={[styles.checkbox, checked && styles.checkboxChecked]} />
+                <Text style={styles.checkboxText}>
+                    I have read the <Text style={styles.link}>terms</Text> and{' '}
+                    <Text style={styles.link}>conditions</Text>,{'\n'}and wish to sign up
+                </Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity style={styles.signupButton} onPress={handleCreateAccount}>
+                <Text style={[styles.signupText, { fontFamily: 'MadimiOne' }]}>Sign up</Text>
+            </TouchableOpacity>
         </SafeAreaView>
     )
 };
@@ -234,7 +291,23 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         marginTop: 10,
         marginBottom: 15,
+        paddingHorizontal: 25,
+        backgroundColor: '#fff',
     },
+
+    backButton: {
+        width: 40,
+        height: 40,
+        borderRadius: 20,
+        borderWidth: 1,
+        borderColor: '#ccc',
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginTop: 10,
+        marginBottom: 15,
+    },
+    backArrow: { fontSize: 20 },
+
     backArrow: { fontSize: 20 },
 
     title: {
