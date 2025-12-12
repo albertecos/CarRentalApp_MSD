@@ -1,5 +1,5 @@
 import React from 'react';
-import {ActivityIndicator, Image, Pressable, StyleSheet, Text, View} from 'react-native';
+import {ActivityIndicator, Image, Pressable, ScrollView, StyleSheet, Text, View} from 'react-native';
 // import {SearchStackParamList} from '../../App';
 import ConfirmationCard from "../components/cards/ConfirmationCard";
 import {NativeStackScreenProps} from "@react-navigation/native-stack";
@@ -11,7 +11,6 @@ import {Booking, Car} from "../../backend/models";
 import {useNavigation} from "@react-navigation/native";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import {CarService} from "../../backend/CarService";
-
 
 type ConfirmationProps = NativeStackScreenProps<UserBookingsStackParamList, 'Confirmation'>;
 
@@ -39,7 +38,7 @@ const Confirmation: React.FC<ConfirmationProps> = ({route}) => {
 
                 const carService = await CarService.getInstance();
                 const foundCar = carService.getCarById(b.carId);
-                if(!isMount || !foundCar) {
+                if (!isMount || !foundCar) {
                     setError("Car not found");
                     return;
                 }
@@ -106,46 +105,67 @@ const Confirmation: React.FC<ConfirmationProps> = ({route}) => {
     }
 
     return (
+
         <SafeAreaView edges={["left", "right", "bottom"]}>
             <Header/>
-            <View style={confStyles.backButton}>
-                <Pressable
-                    style={confStyles.backButton}
-                    onPress={() => navigation.goBack()}>
-                    <Ionicons name="chevron-back-circle-outline" size={70} color="#7E7D7E80"/>
-                </Pressable>
-            </View>
-            <ConfirmationCard booking={booking} car={car}/>
+            <ScrollView style={confStyles.scrollContent}>
+                <View style={confStyles.backButton}>
+                    <Pressable
+                        style={confStyles.backButton}
+                        onPress={() => navigation.goBack()}>
+                        <Ionicons name="chevron-back-circle-outline" size={70} color="#7E7D7E80"/>
+                    </Pressable>
+                </View>
+                <ConfirmationCard booking={booking} car={car}/>
+            </ScrollView>
         </SafeAreaView>
-    )
+
+    );
 };
 
 export default Confirmation;
 
 export const confStyles = StyleSheet.create({
+    scrollContent: {
+        padding: 16
+    },
     backButton: {
         width: 70,
-        height: 70,
-    },
+        height:
+            70,
+    }
+    ,
     noBookingContainer: {
         flex: 1,
-        backgroundColor: '#fff',
-    },
+        backgroundColor:
+            '#fff',
+    }
+    ,
     emptyState: {
         flex: 1,
-        alignItems: 'center',
-        justifyContent: 'center',
-        padding: 24
-    },
+        alignItems:
+            'center',
+        justifyContent:
+            'center',
+        padding:
+            24
+    }
+    ,
     emptyTitle: {
         fontSize: 20,
-        fontWeight: 'bold',
-        marginBottom: 8,
-    },
+        fontWeight:
+            'bold',
+        marginBottom:
+            8,
+    }
+    ,
     h1: {
         fontSize: 24,
-        fontWeight: '800',
-        color: '#0f172a',
-        textAlign: 'center'
+        fontWeight:
+            '800',
+        color:
+            '#0f172a',
+        textAlign:
+            'center'
     }
 })

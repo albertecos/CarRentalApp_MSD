@@ -1,16 +1,7 @@
 import React from 'react';
-import {View, Text, Image, ActivityIndicator} from 'react-native';
+import {View, Text, Image} from 'react-native';
 import {confStyles} from "../../styling/ConfirmationStyles/ConfirmationCardStyling";
-import {NativeStackScreenProps} from "@react-navigation/native-stack";
-import {ScrollView} from "react-native";
-import {SafeAreaView} from 'react-native-safe-area-context'
-import {bookingService} from '../../../backend/BookingService';
-import {SearchStackParamList} from "../BottomNav";
 import {Booking, Car} from "../../../backend/models";
-import axios from "axios";
-import {API_BASE_URL} from "@env";
-import Ionicons from "@expo/vector-icons/Ionicons";
-import {styles} from "../../styling/HeaderStyling";
 import BookingInfoBox from "./BookingInfoBox";
 
 type ConfirmationProps = {
@@ -20,7 +11,7 @@ type ConfirmationProps = {
 
 
 const ConfirmationCard: React.FC<ConfirmationProps> = ({booking, car}) => {
-    if(!car){
+    if (!car) {
         return null;
     }
     return (
