@@ -40,8 +40,8 @@ const BookingDetails: React.FC<BookingDetailsProps> = ({ route, navigation }) =>
   let toFromDateStr = `${new Date(startDate).getDate()}/${new Date(startDate).getMonth() + 1} - ${new Date(endDate).getDate()}/${new Date(endDate).getMonth() + 1}/${new Date(endDate).getFullYear()}`;
   
   const uri = car?.imageUrl || 'https://via.placeholder.com/150';
-      
-  const handleBooking = async () => {
+
+  const handlePayment = async () => {
     let newBooking: Booking = await bookingService.createBooking({
       userId: user?.id ?? "",
       carId: carId,
@@ -49,7 +49,7 @@ const BookingDetails: React.FC<BookingDetailsProps> = ({ route, navigation }) =>
       endDate: endDate,
       totalCost: totalCost,
     });
-    navigation.navigate('Confirmation', {bookingId: newBooking.id});
+    navigation.navigate('Payment', {bookingId: newBooking.id, carId: carId, startDate: startDate, endDate: endDate, totalCost: totalCost});
   }
 
   function makeFirstLetterUpperCase(str: string | undefined) {
@@ -118,7 +118,7 @@ const BookingDetails: React.FC<BookingDetailsProps> = ({ route, navigation }) =>
           <Text>{toFromDateStr}</Text>
         </View>
         <View style={{ justifyContent: 'center'}}>
-          <Button title="Confirm Booking" onPress={handleBooking} />
+          <Button title="Purchase" onPress={handlePayment} />
         </View>
       </View>
     </SafeAreaView>

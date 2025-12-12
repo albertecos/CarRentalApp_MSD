@@ -10,6 +10,7 @@ import Settings from "../screens/Settings";
 import {createNativeStackNavigator} from "@react-navigation/native-stack";
 import BookingDetails from "../screens/BookingDetails";
 import Confirmation from "../screens/Confirmation";
+import Payment from "../screens/Payment";
 
 export type SearchStackParamList = {
     Booking: undefined;
@@ -17,6 +18,13 @@ export type SearchStackParamList = {
         carId: string;
         startDate: string;
         endDate: string;
+    };
+    Payment: {
+        bookingId: string;
+        carId: string;
+        startDate: string;
+        endDate: string;
+        totalCost: number;
     };
     Confirmation: {
         bookingId: string;
@@ -29,6 +37,7 @@ function SearchStackScreen(){
         <SearchStack.Navigator>
             <SearchStack.Screen name="Booking" component={Booking} />
             <SearchStack.Screen name="BookingDetails" component={BookingDetails} />
+            <SearchStack.Screen name="Payment" component={Payment}/>
             <SearchStack.Screen name="Confirmation" component={Confirmation} />
         </SearchStack.Navigator>
     )
