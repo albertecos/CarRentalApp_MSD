@@ -5,20 +5,15 @@ import {
     StyleSheet,
     TextInput,
     TouchableOpacity,
-    Image,
     Alert,
-    Button,
     Pressable,
-    Platform
 } from "react-native";
-import MapView, {Marker} from 'react-native-maps';
 import * as Location from 'expo-location';
 import Header from "../components/Header";
 import {SafeAreaView} from "react-native-safe-area-context";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import CalendarCard from "../components/cards/CalendarCard";
 import SelectAgeCard from "../components/cards/SelectAgeCard";
-import Confirmation from "./Confirmation";
 
 const Home: React.FC = () => {
     const [search, setSearch] = React.useState('')
@@ -31,7 +26,7 @@ const Home: React.FC = () => {
     const [selectedAge, setSelectedAge] = useState<Date | null>(null);
 
 
-    /*
+
         useEffect(() => {
             (async () => {
                 let {status} = await Location.requestForegroundPermissionsAsync();
@@ -49,7 +44,7 @@ const Home: React.FC = () => {
             })();
         }, []);
 
-     */
+
 
     const today = normalizeDate(new Date());
 
