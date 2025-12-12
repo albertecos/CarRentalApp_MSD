@@ -4,7 +4,6 @@ import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {useNavigation} from '@react-navigation/native';
 import {RootStackParamList} from '../../App';
 import {useFonts, MadimiOne_400Regular} from '@expo-google-fonts/madimi-one';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import {SafeAreaView} from "react-native-safe-area-context";
 import {UseUserContext} from "../../UserContext";
 import axios from "axios";
@@ -42,10 +41,10 @@ const Login: React.FC = () => {
             setUser({
                 id: currentUser.id,
                 name: currentUser.name,
-                email: "placeholder@example.com",
-                phone: "+45 12345678",
-                birthday: "01-01-01",
-                location: "Odense, Denmark",
+                email: currentUser.email ?? "Cannot fetch email",
+                phone: currentUser.phone ?? "Cannot fetch phone number",
+                birthday: currentUser.birthday ?? "Cannot fetch birthday",
+                location: currentUser.location ?? "Cannot fetch location",
             });
             navigation.replace('Tabs');
 

@@ -1,10 +1,14 @@
 import React from 'react';
-import {View, Text, StyleSheet, TouchableOpacity,
-Modal, TextInput, Alert} from 'react-native';
+import {
+    View, Text, StyleSheet, TouchableOpacity,
+    Modal, TextInput, Alert
+} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import {SafeAreaView} from "react-native-safe-area-context";
 import UserInfoCard from "../components/cards/UserInfoCard"
 import {UseUserContext} from "../../UserContext";
+import axios from "axios";
+import {API_BASE_URL} from "@env";
 
 const Settings: React.FC = () => {
     const navigation = useNavigation<any>();
@@ -20,7 +24,48 @@ const Settings: React.FC = () => {
         navigation.replace('Login')
     };
 
-    // const openEditField = (key: )
+    const openEditField = (key: 'name' | 'email' | 'phone' | 'location', label: string) => {
+        if (!user) {
+            Alert.alert("Error", "No user is logged in");
+            return;
+        }
+        setFieldKey(key);
+        setFieldValue((user as any)[key] ?? "");
+        setFieldLabel(label);
+        setIsModalVisible(true);
+    }
+
+    const handleConfirm = async () => {
+        if (!user) {
+            Alert.alert("Error", "No user is logged in");
+            return;
+        }
+        try {
+            const response = await axios.put(`${API_BASE_URL}/user/${user.id}`, {
+                [fieldKey]: fieldValue,
+            });
+            const updatedUser = response.data;
+
+            setUser(old =>
+                old ? {
+                    ...old,
+                    ...updatedUser,
+                } : updatedUser
+            );
+
+            setIsModalVisible(false);
+
+        } catch (error: any) {
+            console.log("Update error", error.response.data)
+            console.log(error.message);
+            Alert.alert("Error", "Something went wrong when updating user information");
+        }
+    };
+
+    const handleCancel = () => {
+        setIsModalVisible(false);
+        setFieldValue("");
+    }
 
 
     return (
@@ -30,27 +75,36 @@ const Settings: React.FC = () => {
 
             <UserInfoCard
                 name={user?.name ?? "Unknown"}
-                birth={user?.birthday ?? ""}
-                phone={user?.phone ?? ""}
+                birthday={user?.birthday ?? "No birthday"}
+                phone={user?.phone ?? "No phone number"}
                 location={user?.location ?? "Unknown location"}
-                email={user?.email ?? ""}
+                email={user?.email ?? "No email"}
             />
 
             <View style={styles.buttonWrapper}>
                 <View style={styles.row}>
-                    <TouchableOpacity style={styles.smallButton}>
+                    <TouchableOpacity
+                        style={styles.smallButton}
+                        onPress={() => openEditField('name', 'Name')}
+                    >
                         <Text style={styles.smallButtonText}>Change name</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style={styles.smallButton}>
+                    <TouchableOpacity
+                        style={styles.smallButton}
+                        onPress={() => openEditField('email', 'Email')}>
                         <Text style={styles.smallButtonText}>Change email</Text>
                     </TouchableOpacity>
                 </View>
 
                 <View style={styles.row}>
-                    <TouchableOpacity style={styles.smallButton}>
+                    <TouchableOpacity
+                        style={styles.smallButton}
+                        onPress={() => openEditField('phone', 'Phone')}>
                         <Text style={styles.smallButtonText}>Change number</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style={styles.smallButton}>
+                    <TouchableOpacity
+                        style={styles.smallButton}
+                        onPress={() => openEditField('location', 'Location')}>
                         <Text style={styles.smallButtonText}>Change location</Text>
                     </TouchableOpacity>
                 </View>
@@ -60,8 +114,36 @@ const Settings: React.FC = () => {
                 </TouchableOpacity>
 
             </View>
+
+            <Modal
+                visible={isModalVisible}
+                transparent
+                animationType="fade"
+                onRequestClose={handleCancel}
+            >
+                <View style={styles.modalOverlay}>
+                    <View style={styles.modalContent}>
+                        <Text style={styles.modalTitle}>Change {fieldLabel}</Text>
+                        <TextInput
+                            style={styles.modalInput}
+                            value={fieldValue}
+                            onChangeText={setFieldValue}
+                            placeholder={fieldLabel}
+                            autoCapitalize="none"/>
+
+                        <View style={styles.modalButtonRow}>
+                            <TouchableOpacity style={styles.modalButtonCancel} onPress={handleCancel}>
+                                <Text style={styles.modalButtonText}>Cancel</Text>
+                            </TouchableOpacity>
+                            <TouchableOpacity style={styles.modalButtonConfirm} onPress={handleConfirm}>
+                                <Text style={[styles.modalButtonText, {color: '#fff'}]}>Confirm</Text>
+                            </TouchableOpacity>
+                        </View>
+                    </View>
+                </View>
+            </Modal>
         </SafeAreaView>
-    )
+    );
 };
 
 
@@ -126,6 +208,61 @@ const styles = StyleSheet.create({
         fontSize: 15,
         fontWeight: "700",
     },
+    modalOverlay: {
+        flex: 1,
+        backgroundColor: 'rgba(0, 0, 0, 0.4)',
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    modalContent: {
+        width: "85%",
+        backgroundColor: '#fff',
+        borderRadius: 16,
+        padding: 20,
+        shadowColor: "#000",
+        shadowOffset: {width: 0, height: 3},
+        shadowOpacity: 0.25,
+        shadowRadius: 5,
+        elevation: 5,
+    },
+    modalTitle: {
+        fontSize: 18,
+        fontWeight: "700",
+        marginBottom: 12,
+        textAlign: "center",
+    },
+    modalInput: {
+        borderWidth: 1,
+        borderColor: "#ccc",
+        borderRadius: 10,
+        paddingHorizontal: 10,
+        paddingVertical: 8,
+        marginBottom: 16,
+    },
+    modalButtonRow: {
+        flexDirection: "row",
+        justifyContent: "flex-end",
+    },
+    modalButtonText: {
+        fontSize: 14,
+        fontWeight: "600",
+        color: "#333",
+    },
+    modalButtonCancel: {
+        fontSize: 8,
+        paddingHorizontal: 14,
+        borderRadius: 8,
+        marginRight: 8,
+        backgroundColor: "#eee",
+    },
+    modalButtonConfirm: {
+        paddingVertical: 8,
+        paddingHorizontal: 14,
+        borderRadius: 8,
+        backgroundColor: "#E3342F",
+    }
+
+
 });
 
 export default Settings;

@@ -12,7 +12,7 @@ class BookingService {
     }
 
     async getBookById(id: string): Promise<Booking | null> {
-        const res = await fetch(`${this.base}/bookings/bookingId/${id}`);
+        const res = await fetch(`${this.base}/bookings/bookingId?id=${id}`);
         if (res.status === 404) return null;
         return res.json();
     }
