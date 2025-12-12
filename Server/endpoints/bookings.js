@@ -70,7 +70,10 @@ endPoints.push({method: 'POST', path: '/create/booking', oapi: {
                         carId: {type: 'string', format: 'uuid'},
                         startDate: {type: 'string', format: 'date'},
                         endDate: {type: 'string', format: 'date'},
-                        totalCost: {type: 'number'}
+                        totalCost: {type: 'number'},
+                        pickUp: {type: 'string'},
+                        delivery: {type: 'string'},
+                        payMethod: {type: 'string'}
                     }
                 }
             }
@@ -82,14 +85,14 @@ endPoints.push({method: 'POST', path: '/create/booking', oapi: {
         }
     }
 }, handler: (req, res) => {
-    const {userId, carId, startDate, endDate, totalCost} = req.body;
+    const {userId, carId, startDate, endDate, totalCost, pickUp, delivery, payMethod} = req.body;
 
-    if (!userId || !carId || !startDate || !endDate || !totalCost) {
-        console.log(userId, carId, startDate, endDate, totalCost);
+    if (!userId || !carId || !startDate || !endDate || !totalCost || !pickUp || !delivery || !payMethod) {
+        console.log(userId, carId, startDate, endDate, totalCost, pickUp, delivery, payMethod);
         return res.status(400).send({error: 'No valid values.'});
     }
 
-    const newBooking = {id: uuidv4(), userId, carId, startDate, endDate, totalCost};
+    const newBooking = {id: uuidv4(), userId, carId, startDate, endDate, totalCost, pickUp, delivery, payMethod};
     Database.getInstance('bookings').insert(newBooking);
 
     res.status(201).json(newBooking);

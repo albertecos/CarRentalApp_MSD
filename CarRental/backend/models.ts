@@ -24,6 +24,9 @@ export type Booking = {
     startDate: string; // ISO date string
     endDate: string;   // ISO date string
     totalCost: number; // -1 indicates not calculated yet
+    pickUp: string;
+    delivery: string;
+    payMethod: string;
 }
 
 export type User = {

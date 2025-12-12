@@ -14,7 +14,7 @@ export type RootStackParamList = {
     Tabs: undefined;
 };
 
-const RootStack = createNativeStackNavigator();
+const RootStack = createNativeStackNavigator<RootStackParamList>();
 
 export default function App() {
     const [loading, setLoading] = useState(true);

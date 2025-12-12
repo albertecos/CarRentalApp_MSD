@@ -1,36 +1,17 @@
 import { StyleSheet } from 'react-native';
 
 export const confStyles = StyleSheet.create({
-    confContainer: {
-        flex: 1,
-        backgroundColor: '#fff',
-    },
-    scrollContent: {
-        padding: 16
-    },
-    banner: {
-        height: 72,
-        backgroundColor: '#E5383B',
-        borderRadius: 12,
-        paddingHorizontal: 20,
-        flexDirection: 'row',
-        alignItems: 'center',
-        justifyContent: 'space-between',
-        marginBottom: 12,
-    },
-    brand: {
-        color: '#fff',
-        fontSize: 26,
-        fontWeight: 'bold',
-        letterSpacing: 0.5,
+    content: {
+        paddingHorizontal: 16,
+        paddingTop: 8,
+        paddingBottom: 24,
+
     },
     card: {
         backgroundColor: '#fff',
         borderRadius: 12,
-        padding: 20,
-        overflow: 'hidden',
         shadowColor: '#000',
-        shadowOpacity: 0.8,
+        shadowOpacity: 0.3,
         shadowRadius: 10,
         shadowOffset: {
             width: 0,
@@ -38,18 +19,23 @@ export const confStyles = StyleSheet.create({
         },
         elevation: 3,
     },
+    cardInner:{
+        borderRadius: 12,
+        overflow: "hidden",
+    },
     cardHeader: {
-        backgroundColor: '#f5f3f4',
+        backgroundColor: '#BA181B',
         paddingVertical: 12,
         paddingHorizontal: 16,
         borderBottomWidth: StyleSheet.hairlineWidth,
         borderBottomColor: "#e7e7e7",
+        width: '100%',
     },
     cardHeaderText: {
         fontWeight: '700',
         textAlign: 'center',
         fontSize: 16,
-        color: '#6a1b1f',
+        color: '#fff',
     },
     cardBody: {
         paddingVertical: 16,
@@ -58,7 +44,7 @@ export const confStyles = StyleSheet.create({
     h1: {
         fontSize: 24,
         fontWeight: '800',
-        color: '#0f172a',
+        color: '#000',
         textAlign: 'center'
     },
     carImage: {
@@ -68,70 +54,76 @@ export const confStyles = StyleSheet.create({
         marginTop: 8,
         marginBottom: 8,
     },
-    section: {
-        marginTop: 8,
+    infoBox:{
+        marginTop: 10,
+        borderRadius: 12,
+        backgroundColor: '#e1dfe0',
+        padding: 14,
     },
-    sectionTitle: {
-        fontWeight: "700",
-        fontSize: 16,
-        marginBottom: 10,
-        color: '#1f2937',
-    },
-    row: {
+    infoRowHeader:{
         flexDirection: 'row',
         alignItems: 'center',
+        marginBottom: 4,
     },
-    rowIcon: {
-        fontSize: 18,
-        marginRight: 10,
-    },
-    rowTextWrap: {
-        flexShrink: 1
-    },
-    rowTitle: {
-        fontSize: 16,
-        color: '#334155',
-    },
-    rowSub:{
-        fontSize: 14,
-        color: '#6b7280',
-        marginTop: 2,
-    },
-    bold: {
-
-    },
-    priceRow: {
-        flexDirection: 'row',
+    iconCol:{
+        width: 24,
         alignItems: 'center',
-        justifyContent: 'space-between',
-        paddingVertical: 6,
+        justifyContent: 'center',
     },
-    priceLabel: {
-        fontSize: 15,
-        color: '#374151',
-    },
-    totalValue: {
-        fontSize: 20,
-        fontWeight: '900',
-        color: '#111827',
-    },
-    totalLabel:{
-        fontWeight: '800',
-    },
-    included: {
-        fontSize: 15,
-        color: '#15803d',
+    infoHeaderText: {
         fontWeight: '700',
+        color: '#000',
+        lineHeight: 16,
+        marginLeft: 8,
     },
-    divider: {
-        height: 1,
-        backgroundColor: '#e8eaee',
-        marginVertical: 16,
+    dateRow:{
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        marginTop: 4
+    },
+    dateCol:{
+        flexShrink: 1,
+    },
+    infoMain:{
+        fontWeight: '600',
+        color: "#6b7280"
     },
     dividerLight: {
         height: 1,
-        backgroundColor: '#f0f1f4',
-        marginTop: 12,
+        backgroundColor: '#6b7280',
+        marginVertical: 8,
+    },
+    carRow:{
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'flex-end',
+    },
+    bold:{
+        fontWeight: '600',
+        color: '#000',
+    },
+
+    paymentSection:{
+        marginTop: 18,
+    },
+    paymentTitle:{
+        fontWeight:'700',
         marginBottom: 8,
+        color: '#000',
+    },
+    paymentRow:{
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        paddingVertical: 2,
+    },
+    paymentTotalLabel:{
+        fontWeight: '800',
+        fontSize: 18,
+    },
+    paymentTotalValue:{
+        fontWeight: '800',
+        fontSize: 18,
+        color: '#BA181B',
     },
 })
