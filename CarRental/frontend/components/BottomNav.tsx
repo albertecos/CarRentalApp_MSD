@@ -18,7 +18,9 @@ export type SearchStackParamList = {
         startDate: string;
         endDate: string;
     };
-
+    Confirmation: {
+        bookingId: string;
+    };
 };
 
 export type UserBookingsStackParamList = {
@@ -35,6 +37,7 @@ function SearchStackScreen(){
         <SearchStack.Navigator>
             <SearchStack.Screen name="Booking" component={Booking} />
             <SearchStack.Screen name="BookingDetails" component={BookingDetails} />
+            <SearchStack.Screen name="Confirmation" component={Confirmation}/>
         </SearchStack.Navigator>
     )
 }

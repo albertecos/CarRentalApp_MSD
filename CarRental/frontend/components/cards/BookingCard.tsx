@@ -1,45 +1,49 @@
-import {Text, View, StyleSheet, Pressable} from "react-native";
-import {Booking} from "../../../backend/models";
-
-// export type Booking = {
-//     id: string;
-//     userId: string;
-//     carId: string;
-//     startDate: string; // ISO date string
-//     endDate: string;   // ISO date string
-//     totalCost: number; // -1 indicates not calculated yet
-//     pickUp: string;
-//     delivery: string;
-//     payMethod: string;
-// }
+import {Text, View, StyleSheet, Pressable, Image} from "react-native";
+import {Booking, Car} from "../../../backend/models";
+import {Feather} from "@expo/vector-icons";
 
 type Props = {
     booking: Booking;
+    car: Car;
     onPress: () => void;
-
-    carModel: string;
-    carYear: string;
-    imageUrl: string;
-    pickUpLocation: string;
 }
 
-const BookingCard: React.FC<Props> = ({booking, onPress}) => {
+const BookingCard: React.FC<Props> = ({
+                                          booking,
+                                          onPress,
+                                          car,
+                                      }) => {
+
+    const shortBookingId = booking.id.slice(0, 6);
     return (
         <Pressable onPress={onPress} style={styles.card}>
-            <View style={styles.header}>
-                <Text style={styles.headerText}>Booking #{booking.id.slice(0, 6)}</Text>
+            <Image source={{uri: car.imageUrl}} style={styles.image} resizeMode={"cover"}/>
+
+            <View style={styles.content}>
+                <Text style={styles.title}>
+                    Booking - {car.model} ({car.year})
+                </Text>
             </View>
 
-            <View style={styles.body}>
-                <Text style={styles.detail}>
-                    <Text style={styles.label}>Car ID: {booking.carId}</Text>
-                </Text>
-                <Text style={styles.detail}>
-                    <Text style={styles.label}>Dates: {booking.startDate} - {booking.endDate}</Text>
-                </Text>
-                <Text style={styles.detail}>
-                    <Text style={styles.label}>Total cost: {booking.totalCost}</Text>
-                </Text>
+            <View style={styles.bottomRow}>
+                <View style={styles.leftCol}>
+
+                    <Text style={styles.metaLine}>
+                        <Text style={styles.metaLabel}>Booking ID: </Text>
+                        <Text style={styles.metaLabel}>#{shortBookingId}</Text>
+                    </Text>
+
+                    <Text style={styles.metaLine}>
+                        <Text style={styles.metaLabel}>Pickup date: </Text>
+                        <Text style={styles.metaLabel}>{booking.startDate}</Text>
+                    </Text>
+                </View>
+
+                <View style={styles.rightCol}>
+                    <Feather name="map-pin" size={18} color="#9A9A9A"/>
+                    <Text style={styles.locationText}>{booking.pickUpLocation}</Text>
+                </View>
+
             </View>
         </Pressable>
     );
@@ -49,36 +53,57 @@ const styles = StyleSheet.create({
     card: {
         backgroundColor: "#fff",
         borderRadius: 16,
-        padding: 16,
         marginVertical: 10,
-        marginHorizontal: 20,
+        marginHorizontal: 16,
+
         shadowColor: "#000",
-        shadowOpacity: 0.1,
+        shadowOpacity: 0.12,
         shadowOffset: {width: 0, height: 2},
         shadowRadius: 6,
         elevation: 3,
+
+        overflow: "hidden",
     },
-    header: {
-        borderBottomColor: "#eee",
-        borderBottomWidth: 1,
-        marginBottom: 8,
-        paddingBottom: 4,
+    image: {
+        width: "100%",
+        height: 110,
     },
-    headerText: {
-        fontSize: 16,
-        fontWeight: "bold",
-        color: "#333",
+    content: {
+        paddingHorizontal: 14,
+        paddingVertical: 10,
     },
-    body: {
-        marginTop: 4,
+    title: {
+        fontSize: 18,
+        fontWeight: "800",
+        color: "#111",
+        marginBottom: 6,
     },
-    detail: {
-        fontSize: 14,
-        marginVertical: 2,
+    bottomRow: {
+        flexDirection: "row",
+        alignItems: "flex-end",
+        justifyContent: "space-between",
     },
-    label: {
-        fontWeight: "600",
-        color: "#444",
+    leftCol: {
+        flex: 1,
+        paddingRight: 10,
+    },
+    metaLine: {
+        marginTop: 2,
+    },
+    metaLabel: {
+        fontSize: 13,
+        fontWeight: "700",
+        color: "#B8B8B8",
+    },
+    rightCol: {
+        flexDirection: "row",
+        alignItems: "center",
+        gap: 6,
+    },
+    locationText: {
+        fontSize: 12.5,
+        fontWeight: "700",
+        color: "#B8B8B8",
     },
 });
 

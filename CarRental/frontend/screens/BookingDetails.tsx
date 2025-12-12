@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, Text, Button, Image, StyleSheet } from 'react-native'; // Add Image here
-import {SearchStackParamList} from "../components/BottomNav";
+import {SearchStackParamList, UserBookingsStackParamList} from "../components/BottomNav";
 
 import { bookingService} from '../../backend/BookingService';
 import {CarService } from '../../backend/CarService';
@@ -10,7 +10,7 @@ import {UseUserContext} from "../../UserContext";
 import {StackScreenProps} from "@react-navigation/stack";
 
 
-type BookingDetailsProps = StackScreenProps<SearchStackParamList, 'BookingDetails'>;
+    type BookingDetailsProps = StackScreenProps<SearchStackParamList, 'BookingDetails'>;
 
 const BookingDetails: React.FC<BookingDetailsProps> = ({ route, navigation }) => {
   const { carId, startDate, endDate } = route.params;
@@ -43,11 +43,14 @@ const BookingDetails: React.FC<BookingDetailsProps> = ({ route, navigation }) =>
       
   const handleBooking = async () => {
     let newBooking: Booking = await bookingService.createBooking({
-      userId: user?.id ?? "",
-      carId: carId,
-      startDate: startDate,
-      endDate: endDate,
-      totalCost: totalCost,
+        userId: user?.id ?? "",
+        carId: carId,
+        startDate: startDate,
+        endDate: endDate,
+        totalCost: totalCost,
+        pickUpLocation: "Somewhere",
+        deliveryLocation: "Somewhere else",
+        payMethod: "With money"
     });
     navigation.navigate('Confirmation', {bookingId: newBooking.id});
   }
