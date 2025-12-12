@@ -1,4 +1,5 @@
 const fs = require('fs');
+const path = require('path');
 
 class Database {
     static databaseInstances = {};
@@ -13,7 +14,13 @@ class Database {
 
     // private constructor (use getInstance instead)
     constructor(name) {
-        this.filePath = `data/${name}.json`;
+        this.filePath = path.join(__dirname, "data", `${name}.json`);
+
+        const folder = path.dirname(this.filePath);
+        if (!fs.existsSync(folder)) {
+            fs.mkdirSync(folder, { recursive: true });
+        }
+
         this.data = this.readFromFile();
     }
 

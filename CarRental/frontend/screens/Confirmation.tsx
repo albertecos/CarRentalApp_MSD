@@ -1,10 +1,9 @@
 import React from 'react';
-import {ActivityIndicator, Image, Pressable, ScrollView, StyleSheet, Text, View} from 'react-native';
-// import {SearchStackParamList} from '../../App';
+import {ActivityIndicator, Pressable, ScrollView, StyleSheet, Text, View} from 'react-native';
 import ConfirmationCard from "../components/cards/ConfirmationCard";
 import {NativeStackScreenProps} from "@react-navigation/native-stack";
 import {SafeAreaView} from "react-native-safe-area-context";
-import {SearchStackParamList, UserBookingsStackParamList} from "../components/BottomNav";
+import {UserBookingsStackParamList} from "../components/BottomNav";
 import {bookingService} from "../../backend/BookingService";
 import Header from "../components/Header";
 import {Booking, Car} from "../../backend/models";
