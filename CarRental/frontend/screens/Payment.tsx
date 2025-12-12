@@ -58,7 +58,7 @@ const Payment: React.FC<PaymentProps> = ({route, navigation}) => {
         if (!selectedMethod) return false;
 
         // If paying by cash, always valid
-        if (selectedMethod === "cash") return true;
+        if (selectedMethod === "Cash") return true;
 
         // If paying by card, all fields required
         return (
