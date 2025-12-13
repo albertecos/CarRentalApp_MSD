@@ -10,6 +10,7 @@ import {UseUserContext} from "../../UserContext";
 import axios from "axios";
 import {API_BASE_URL} from "@env";
 import Ionicons from "@expo/vector-icons/Ionicons";
+import BookHeader from "../components/BookHeader";
 
 const Settings: React.FC = () => {
     const navigation = useNavigation<any>();
@@ -84,8 +85,8 @@ const Settings: React.FC = () => {
 
 
     return (
-        <SafeAreaView edges={["top", "left", "right", "bottom"]} style={styles.container}>
-
+        <SafeAreaView edges={["left", "right", "bottom"]} style={styles.container}>
+            <BookHeader title={"Settings"} navigation={navigation} />
             <Text style={styles.title}>Settings</Text>
 
             <UserInfoCard
@@ -201,7 +202,6 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: "#F5F5F5",
-        paddingTop: 24,
     },
     title: {
         fontSize: 26,
