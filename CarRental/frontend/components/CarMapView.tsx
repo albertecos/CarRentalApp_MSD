@@ -135,7 +135,7 @@ const CarMapMarker: React.FC<{ car: Car }> = ({car}) => {
                 console.log(`Marker for ${car.brand} ${car.model} pressed`);
             }}
         >
-            <Callout style={styles.callout} onPress={() => handleNavigateToBookingDetails()}>
+            <Callout tooltip style={styles.callout} onPress={() => handleNavigateToBookingDetails()}>
                 <CarView car={car}/>
             </Callout>
         </Marker>
@@ -151,7 +151,7 @@ const CarView: React.FC<{ car: Car }> = ({car}) => {
                 resizeMode="contain"
                 />
             <View style={styles.calloutContent}>
-                <Text style={styles.calloutTitle}>{`Car Name (${car.year})`}</Text>
+                <Text style={styles.calloutTitle}>{`${car.brand} ${car.model} (${car.year})`}</Text> 
                 <Text style={styles.calloutDescription}>{car.description}</Text>
                 <Text style={styles.calloutPrice}>{car.pricePerDay} DKK<Text style={styles.calloutPriceDaily}>/daily</Text></Text>
             </View>
@@ -188,6 +188,7 @@ const styles = StyleSheet.create({
     callout: {
         width: 200,
         borderRadius: 16,
+        backgroundColor: 'white',
         overflow: 'hidden',
     },
     calloutContainer: {
