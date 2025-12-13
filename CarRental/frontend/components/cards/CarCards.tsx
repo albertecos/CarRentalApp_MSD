@@ -2,45 +2,44 @@ import React from 'react';
 import {View, Text, Image, TouchableOpacity} from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import {NativeStackNavigationProp} from "@react-navigation/native-stack";
-// import {SearchStackParamList} from "../../../App";
 import {HomeStackParamList, SearchStackParamList} from "../BottomNav";
-type BookingNavigationProp = NativeStackNavigationProp<SearchStackParamList, 'Booking'>
 import {
-    flexContainer, infoContainer, priceContainer, brandFont, normalFont,
-    imageLogo, priceFont, button, buttonFont, dailyPriceFont
-} from "../../styling/CarCardsStyle";
+    carCardStyles
+} from "../../styling/CardStyles/CarCardsStyle";
 import { Car, BookingSearch } from "../../../backend/models";
 
-type carProps = {
+type NavigationProp = NativeStackNavigationProp<SearchStackParamList, 'Booking'>
+
+type props = {
     car: Car;
     bookingSearch: BookingSearch;
 }
 
-const CarCards: React.FC<carProps> = ({ car }) => {
-    const navigation = useNavigation<BookingNavigationProp>();
+const CarCards: React.FC<props> = ({ car }) => {
+    const navigation = useNavigation<NavigationProp>();
 
     const handleNavigateToBookingDetails = () => {
         navigation.navigate('BookingDetails', {
             carId: car.id,
-            startDate: '2025-09-25',
-            endDate: '2025-09-28'
+            startDate: '{bookingSearch.startDate}',
+            endDate: '{bookingSearch.endDate}'
         });
     };
 
     return (
-        <View style={flexContainer.container}>
-            <Image source={{uri: car.imageUrl}} style={imageLogo.container}/>
-            <View style={infoContainer.container}>
-                <Text style={brandFont.container}> {car.brand + " " + car.model} {car.year}</Text>
-                <Text style={normalFont.container}>{car.description}</Text>
+        <View style={carCardStyles.flexContainer}>
+            <Image source={{uri: car.imageUrl}} style={carCardStyles.imageLogo}/>
+            <View style={carCardStyles.infoContainer}>
+                <Text style={carCardStyles.brandFont}> {car.brand + " " + car.model} {car.year}</Text>
+                <Text style={carCardStyles.normalFont}>{car.description}</Text>
             </View>
-            <View style={priceContainer.container}>
+            <View style={carCardStyles.priceContainer}>
 
-                <Text style={priceFont.container}>Price for booking</Text>
-                <Text style={dailyPriceFont.container}>{car.pricePerDay}DKK / daily</Text>
-                <Text style={priceFont.container}>Total: 2000DKK (6 days)</Text>
-                <TouchableOpacity style={button.container} onPress={handleNavigateToBookingDetails}>
-                    <Text style={buttonFont.container}>Check offer</Text>
+                <Text style={carCardStyles.priceFont}>Price for booking</Text>
+                <Text style={carCardStyles.dailyPriceFont}>{car.pricePerDay}DKK / daily</Text>
+                <Text style={carCardStyles.priceFont}>Total: 2000DKK (6 days)</Text>
+                <TouchableOpacity style={carCardStyles.button} onPress={handleNavigateToBookingDetails}>
+                    <Text style={carCardStyles.buttonFont}>Check offer</Text>
                 </TouchableOpacity>
             </View>
         </View>

@@ -1,4 +1,4 @@
-import {ScrollView, Text, TouchableOpacity, View} from "react-native";
+import {Pressable, ScrollView, StyleSheet, Text, TouchableOpacity, View} from "react-native";
 import {NativeStackScreenProps} from "@react-navigation/native-stack";
 import {HomeStackParamList, SearchStackParamList} from "../components/BottomNav";
 import React, {useEffect} from "react";
@@ -10,6 +10,7 @@ import axios from "axios";
 import {API_BASE_URL} from "@env";
 import {normalFont} from "../styling/BookingPageStyle";
 import CarCards from "../components/cards/CarCards";
+import Ionicons from "@expo/vector-icons/Ionicons";
 
 type ResultPageProps = NativeStackScreenProps<HomeStackParamList, 'ResultPage'>;
 
@@ -31,6 +32,13 @@ const ResultPage: React.FC<ResultPageProps> = ({navigation, route}) => {
         <SafeAreaView edges={["left", "right", "bottom"]}>
             <Header/>
             <View>
+                <View style={backButtonStyle.backButton}>
+                    <Pressable
+                        style={backButtonStyle.backButton}
+                        onPress={() => navigation.goBack()}>
+                        <Ionicons name="chevron-back-circle-outline" size={70} color="#7E7D7E80"/>
+                    </Pressable>
+                </View>
 
                 {/*
                 <Text>RESULT PAGE</Text>
@@ -65,3 +73,11 @@ const ResultPage: React.FC<ResultPageProps> = ({navigation, route}) => {
 }
 
 export default ResultPage;
+
+export const backButtonStyle = StyleSheet.create({
+    backButton: {
+        width: 70,
+        height:
+            70,
+    }
+})
