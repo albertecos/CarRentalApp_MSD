@@ -15,6 +15,7 @@ import {BookingSearch, TempBooking} from "../../backend/models";
 import SearchBooking from "./SearchBooking";
 import ResultPage from "../screens/ResultPage";
 import CarDetails from "../screens/CarDetails";
+import FinalConfirm from "../screens/FinalConfirm";
 
 export type SearchStackParamList = {
     Booking: undefined;
@@ -54,7 +55,7 @@ export type HomeStackParamList = {
     Payment: {
         booking: TempBooking;
     };
-    Confirmation: {
+    FinalConfirm: {
         bookingId: string;
     };
 }
@@ -89,7 +90,7 @@ function HomeStackNavigator(){
             <HomeStack.Screen name="CarDetails" component={CarDetails}/>
             <HomeStack.Screen name="BookingDetails" component={BookingDetails} />
             <HomeStack.Screen name="Payment" component={Payment}/>
-            <HomeStack.Screen name="Confirmation" component={Confirmation}/>
+            <HomeStack.Screen name="FinalConfirm" component={FinalConfirm}/>
         </HomeStack.Navigator>
     )
 }
