@@ -18,14 +18,11 @@ type BookingNavigationProp = CompositeNavigationProp<
 
 type MapViewProps = {
     type: "small" | "large";
-    initialLocation?: {
-        latitude: number;
-        longitude: number;
-    };
+    camera?: any;
 }
 
 
-const CarMapView: React.FC<MapViewProps> = ({type, initialLocation}) => {
+const CarMapView: React.FC<MapViewProps> = ({type, camera}) => {
     const [location, setLocation] = React.useState<any>();
     const [cars, setCars] = React.useState<Car[]>([]);
     const mapRef = React.useRef<MapView>(null);
@@ -60,18 +57,21 @@ const CarMapView: React.FC<MapViewProps> = ({type, initialLocation}) => {
     useEffect(() => {
         if (mapRef.current) {
             // Use initialLocation if provided, otherwise use current location
-            const targetLocation = initialLocation || location;
-            if (targetLocation) {
+            if (camera) {
+                mapRef.current.setCamera(camera);
+                return;
+            }
+            if (location) {
                 mapRef.current.setCamera({
                     center: {
-                        latitude: targetLocation.latitude,
-                        longitude: targetLocation.longitude,
+                        latitude: location.latitude,
+                        longitude: location.longitude,
                     },
                     zoom: 13,
                 });
             }
         }
-    }, [location, initialLocation]);
+    }, [location, camera]);
 
     
     return (
@@ -83,10 +83,7 @@ const CarMapView: React.FC<MapViewProps> = ({type, initialLocation}) => {
                         if (mapRef.current) {
                             const camera = await mapRef.current.getCamera();
                             navigation.navigate('MapPage', {
-                                location: {
-                                    latitude: camera.center.latitude,
-                                    longitude: camera.center.longitude,
-                                }
+                                camera: camera,
                             });
                         }
                     }}

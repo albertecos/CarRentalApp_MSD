@@ -45,10 +45,7 @@ export type HomeStackParamList = {
         bookingSearch: BookingSearch;
     };
     MapPage: {
-        location?: {
-            latitude: number;
-            longitude: number;
-        };
+        camera?: any;
     };
     CarDetails: {
         carId: string;

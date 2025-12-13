@@ -13,11 +13,11 @@ import { HomeStackParamList } from '../components/BottomNav';
 type MapPageProps = NativeStackScreenProps<HomeStackParamList, 'MapPage'>;
 
 const MapPage: React.FC<MapPageProps> = ({ route }) => {
-    const { location } = route.params || {};
+    const { camera } = route.params || {};
 
     return (
         <SafeAreaView edges={["left", "right", "bottom"]} style={{flex: 1}}>
-            <CarMapView type="large" initialLocation={location}/>
+            <CarMapView type="large" camera={camera}/>
         </SafeAreaView>
     )
 };
