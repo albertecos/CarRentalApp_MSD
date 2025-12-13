@@ -14,37 +14,16 @@ import {SafeAreaView} from "react-native-safe-area-context";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import CalendarCard from "../components/cards/CalendarCard";
 import SelectAgeCard from "../components/cards/SelectAgeCard";
+import CarMapView from "../components/CarMapView";
 
 const Home: React.FC = () => {
-    const [search, setSearch] = React.useState('')
-    const [location, setLocation] = React.useState<any>();
+    const [search, setSearch] = React.useState('');
     const [showFromPicker, setShowFromPicker] = useState<boolean>(false);
     const [fromDate, setFromDate] = useState<Date | null>(null);
     const [showToPicker, setShowToPicker] = useState<boolean>(false);
     const [toDate, setToDate] = useState<Date | null>(null);
     const [showSelectedAge, setShowSelectedAge] = React.useState<boolean>(false);
     const [selectedAge, setSelectedAge] = useState<Date | null>(null);
-
-
-
-        useEffect(() => {
-            (async () => {
-                let {status} = await Location.requestForegroundPermissionsAsync();
-                if (status !== 'granted') {
-                    Alert.alert(
-                        'Permission denied',
-                        'Allow the app to use location services',
-                        [{text: 'OK'}]
-                    );
-                    return;
-                }
-
-                let currentLocation = await Location.getCurrentPositionAsync({});
-                setLocation(currentLocation.coords);
-            })();
-        }, []);
-
-
 
     const today = normalizeDate(new Date());
 
@@ -175,6 +154,7 @@ const Home: React.FC = () => {
                     </Text>
                 </TouchableOpacity>
                 <View style={styles.separator}/>
+                <CarMapView type="small" position={{latitude: 37.78825, longitude: -122.4324}}/>
             </View>
         </SafeAreaView>
     )

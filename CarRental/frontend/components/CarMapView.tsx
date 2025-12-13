@@ -1,0 +1,171 @@
+import React, { useEffect } from 'react';
+import {Car} from "../../backend/models";
+import MapView, {Callout, Marker} from "react-native-maps";
+import {View, Text, StyleSheet, TextInput, TouchableOpacity, Image, Alert} from "react-native";
+import * as Location from 'expo-location';
+
+type MapViewProps = {
+    type: "small" | "large";
+    position: {
+        latitude: number;
+        longitude: number;
+    }
+}
+
+
+const CarMapView: React.FC<MapViewProps> = ({type, position}) => {
+    const [location, setLocation] = React.useState<any>();
+    const [cars, setCars] = React.useState<Car[]>([]);
+    const mapRef = React.useRef<MapView>(null);
+
+    useEffect(() => {
+        (async () => {
+            let {status} = await Location.requestForegroundPermissionsAsync();
+            if (status !== 'granted') {
+                Alert.alert(
+                    'Permission denied',
+                    'Allow the app to use location services',
+                    [{text: 'OK'}]
+                );
+                return;
+            }
+
+            let currentLocation = await Location.getCurrentPositionAsync({});
+            setLocation(currentLocation.coords);
+        })();
+    }, []);
+
+    useEffect(() => {
+        const carService = require('../../backend/CarService').CarService;
+        carService.getInstance().then((service: any) => {
+            const allCars: Car[] = service.getAllCars();
+            console.log("Loaded cars for map:", allCars);
+            setCars(allCars);
+        });
+    }, []);
+
+    useEffect(() => {
+        if (location && mapRef.current) {
+            mapRef.current.animateToRegion({
+                latitude: location.latitude,
+                longitude: location.longitude,
+                latitudeDelta: 0.05,
+                longitudeDelta: 0.05,
+            }, 1000);
+        }
+    }, [location]);
+
+    
+    return (
+        <>
+            <MapView
+                ref={mapRef}
+                provider="google"
+                style={styles.map}
+                showsUserLocation={true}
+            >
+                {cars.map((car) => (
+                    <CarMapMarker key={car.id} car={car}/>
+                ))}
+            </MapView>
+        </>
+    );
+};
+
+const CarMapMarker: React.FC<{ car: Car }> = ({car}) => {
+    return (
+        <Marker
+            coordinate={{
+                latitude: car.location.latitude,
+                longitude: car.location.longitude,
+            }}
+            title={`${car.brand} ${car.model}`}
+            description={car.description}
+            onPress={() => {
+                console.log(`Marker for ${car.brand} ${car.model} pressed`);
+            }}
+        >
+            <Callout style={styles.callout} onPress={() => {
+                console.log(`Callout for ${car.brand} ${car.model} pressed`);
+            }}>
+                <CarView car={car}/>
+            </Callout>
+        </Marker>
+    );
+}
+
+const CarView: React.FC<{ car: Car }> = ({car}) => {
+    return (
+        <View style={styles.calloutContainer}>
+            <Image
+                source={{uri: car.imageUrl}}
+                style={styles.calloutImage}
+                resizeMode="contain"
+                />
+            <View style={styles.calloutContent}>
+                <Text style={styles.calloutTitle}>{`Car Name (${car.year})`}</Text>
+                <Text style={styles.calloutDescription}>{car.description}</Text>
+                <Text style={styles.calloutPrice}>{car.pricePerDay} DKK<Text style={styles.calloutPriceDaily}>/daily</Text></Text>
+            </View>
+        </View>
+    );
+}
+
+
+
+
+export default CarMapView;
+
+const styles = StyleSheet.create({
+    map: {
+        width: '100%',
+        borderRadius: 20,
+        borderWidth: 1,
+        flex: 1,
+        marginVertical: 10,
+    },
+    callout: {
+        width: 200,
+        borderRadius: 16,
+        overflow: 'hidden',
+    },
+    calloutContainer: {
+        backgroundColor: 'white',
+        borderRadius: 16,
+        overflow: 'hidden',
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.25,
+        shadowRadius: 8,
+        elevation: 5,
+    },
+    calloutImage: {
+        width: '100%',
+        height: 100,
+        backgroundColor: '#f0f0f0',
+    },
+    calloutContent: {
+        padding: 12,
+    },
+    calloutTitle: {
+        fontSize: 16,
+        fontWeight: 'bold',
+        color: '#000',
+        marginBottom: 4,
+    },
+    calloutDescription: {
+        fontSize: 12,
+        color: '#666',
+        marginBottom: 6,
+    },
+    calloutPrice: {
+        fontSize: 20,
+        fontWeight: 'bold',
+        color: '#FF0000',
+    },
+    calloutPriceDaily: {
+        fontSize: 14,
+        fontWeight: 'normal',
+        color: '#666',
+    },
+})

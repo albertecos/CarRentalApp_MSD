@@ -14,7 +14,11 @@ export type Car = {
         fuelType: 'petrol' | 'diesel' | 'electric' | 'hybrid';
     }
     extras: string[];
-    location: string;
+    location: {
+        latitude: number;
+        longitude: number;
+        area: string;
+    }
 }
 
 export type Booking = {
