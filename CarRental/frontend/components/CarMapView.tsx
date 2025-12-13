@@ -15,17 +15,14 @@ type BookingNavigationProp = CompositeNavigationProp<
 
 type MapViewProps = {
     type: "small" | "large";
-    position: {
-        latitude: number;
-        longitude: number;
-    }
 }
 
 
-const CarMapView: React.FC<MapViewProps> = ({type, position}) => {
+const CarMapView: React.FC<MapViewProps> = ({type}) => {
     const [location, setLocation] = React.useState<any>();
     const [cars, setCars] = React.useState<Car[]>([]);
     const mapRef = React.useRef<MapView>(null);
+    const navigation = useNavigation<BookingNavigationProp>();
 
     useEffect(() => {
         (async () => {
@@ -66,18 +63,30 @@ const CarMapView: React.FC<MapViewProps> = ({type, position}) => {
 
     
     return (
-        <>
+        <View style={styles.mapContainer}>
+            {type === "small" && (
+                <TouchableOpacity
+                    style={styles.fullScreenButton}
+                    onPress={() => {
+                        navigation.navigate('Search', {
+                            screen: 'Booking'
+                        });
+                    }}
+                >
+                    <Text style={styles.fullScreenButtonText}>View Full Map</Text>
+                </TouchableOpacity>
+            )}
             <MapView
                 ref={mapRef}
                 provider="google"
-                style={styles.map}
+                style={type === "small" ? styles.mapSmall : styles.mapLarge}
                 showsUserLocation={true}
             >
                 {cars.map((car) => (
                     <CarMapMarker key={car.id} car={car}/>
                 ))}
             </MapView>
-        </>
+        </View>
     );
 };
 
@@ -89,7 +98,7 @@ const CarMapMarker: React.FC<{ car: Car }> = ({car}) => {
         let endDate = new Date();
         endDate.setDate(today.getDate() + 1);
 
-        navigation.navigate('Search', { // this shows an error but works at runtime
+        navigation.navigate('Search', {
             screen: 'BookingDetails',
             params: {
                 carId: car.id,
@@ -141,7 +150,18 @@ const CarView: React.FC<{ car: Car }> = ({car}) => {
 export default CarMapView;
 
 const styles = StyleSheet.create({
-    map: {
+    mapContainer: {
+        position: 'relative',
+        width: '100%',
+    },
+    mapSmall: {
+        width: '100%',
+        height: 350,
+        borderRadius: 20,
+        borderWidth: 1,
+        marginVertical: 10,
+    },
+    mapLarge: {
         width: '100%',
         borderRadius: 20,
         borderWidth: 1,
@@ -191,5 +211,24 @@ const styles = StyleSheet.create({
         fontSize: 14,
         fontWeight: 'normal',
         color: '#666',
+    },
+    fullScreenButton: {
+        position: 'absolute',
+        top: 20,
+        right: 20,
+        zIndex: 1000,
+        backgroundColor: 'white',
+        padding: 12,
+        borderRadius: 20,
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.25,
+        shadowRadius: 8,
+        elevation: 5,
+    },
+    fullScreenButtonText: {
+        fontSize: 14,
+        fontWeight: '600',
+        color: '#007AFF',
     },
 })

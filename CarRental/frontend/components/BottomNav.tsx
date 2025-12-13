@@ -59,7 +59,7 @@ function UserBookingsStackNavigator(){
 
 export type BottomTabParams = {
     Home: undefined;
-    Search: undefined;
+    Search: any;
     UserBooking: undefined;
     Settings: undefined;
 };
