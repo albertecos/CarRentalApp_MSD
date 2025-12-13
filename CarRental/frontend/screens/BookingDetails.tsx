@@ -112,7 +112,7 @@ const BookingDetails: React.FC<BookingDetailsProps> = ({ route, navigation }) =>
           <Text>No extras available</Text>
         )}
 
-      <Text>Location: {car?.location}</Text>
+      <Text>Location: {car?.location.area}</Text>
 
       <View style={styles.bookingDetailsBox}>
         <View style={styles.bookingDetails}>
