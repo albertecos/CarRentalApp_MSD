@@ -10,6 +10,7 @@ import Settings from "../screens/Settings";
 import {createNativeStackNavigator} from "@react-navigation/native-stack";
 import BookingDetails from "../screens/BookingDetails";
 import Confirmation from "../screens/Confirmation";
+import MapPage from "../screens/MapPage";
 import Payment from "../screens/Payment";
 import {BookingSearch, TempBooking} from "../../backend/models";
 import SearchBooking from "./SearchBooking";
@@ -42,6 +43,12 @@ export type HomeStackParamList = {
     Home: undefined;
     ResultPage: {
         bookingSearch: BookingSearch;
+    };
+    MapPage: {
+        location?: {
+            latitude: number;
+            longitude: number;
+        };
     };
     CarDetails: {
         carId: string;
@@ -86,6 +93,7 @@ function HomeStackNavigator(){
         <HomeStack.Navigator screenOptions={{headerShown: false}}>
             <HomeStack.Screen name="Home" component={Home} />
             <HomeStack.Screen name="ResultPage" component={ResultPage} />
+            <HomeStack.Screen name="MapPage" component={MapPage} />
             <HomeStack.Screen name="CarDetails" component={CarDetails}/>
             <HomeStack.Screen name="BookingDetails" component={BookingDetails} />
             <HomeStack.Screen name="Payment" component={Payment}/>

@@ -4,21 +4,28 @@ import MapView, {Callout, Marker} from "react-native-maps";
 import {View, Text, StyleSheet, TextInput, TouchableOpacity, Image, Alert} from "react-native";
 import * as Location from 'expo-location';
 import { useNavigation, CompositeNavigationProp } from '@react-navigation/native';
-import { SearchStackParamList, BottomTabParams } from './BottomNav';
+import { SearchStackParamList, BottomTabParams, HomeStackParamList } from './BottomNav';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { BottomTabNavigationProp } from '@react-navigation/bottom-tabs';
 
 type BookingNavigationProp = CompositeNavigationProp<
     BottomTabNavigationProp<BottomTabParams>,
-    NativeStackNavigationProp<SearchStackParamList>
+    CompositeNavigationProp<
+        NativeStackNavigationProp<SearchStackParamList>,
+        NativeStackNavigationProp<HomeStackParamList>
+    >
 >
 
 type MapViewProps = {
     type: "small" | "large";
+    initialLocation?: {
+        latitude: number;
+        longitude: number;
+    };
 }
 
 
-const CarMapView: React.FC<MapViewProps> = ({type}) => {
+const CarMapView: React.FC<MapViewProps> = ({type, initialLocation}) => {
     const [location, setLocation] = React.useState<any>();
     const [cars, setCars] = React.useState<Car[]>([]);
     const mapRef = React.useRef<MapView>(null);
@@ -51,26 +58,37 @@ const CarMapView: React.FC<MapViewProps> = ({type}) => {
     }, []);
 
     useEffect(() => {
-        if (location && mapRef.current) {
-            mapRef.current.animateToRegion({
-                latitude: location.latitude,
-                longitude: location.longitude,
-                latitudeDelta: 0.05,
-                longitudeDelta: 0.05,
-            }, 1000);
+        if (mapRef.current) {
+            // Use initialLocation if provided, otherwise use current location
+            const targetLocation = initialLocation || location;
+            if (targetLocation) {
+                mapRef.current.setCamera({
+                    center: {
+                        latitude: targetLocation.latitude,
+                        longitude: targetLocation.longitude,
+                    },
+                    zoom: 13,
+                });
+            }
         }
-    }, [location]);
+    }, [location, initialLocation]);
 
     
     return (
-        <View style={styles.mapContainer}>
+        <View style={type === "small" ? styles.mapContainer : styles.mapContainerLarge}>
             {type === "small" && (
                 <TouchableOpacity
                     style={styles.fullScreenButton}
-                    onPress={() => {
-                        navigation.navigate('Search', {
-                            screen: 'Booking'
-                        });
+                    onPress={async () => {
+                        if (mapRef.current) {
+                            const camera = await mapRef.current.getCamera();
+                            navigation.navigate('MapPage', {
+                                location: {
+                                    latitude: camera.center.latitude,
+                                    longitude: camera.center.longitude,
+                                }
+                            });
+                        }
                     }}
                 >
                     <Text style={styles.fullScreenButtonText}>View Full Map</Text>
@@ -154,6 +172,11 @@ const styles = StyleSheet.create({
         position: 'relative',
         width: '100%',
     },
+    mapContainerLarge: {
+        position: 'relative',
+        width: '100%',
+        flex: 1,
+    },
     mapSmall: {
         width: '100%',
         height: 350,
@@ -163,10 +186,7 @@ const styles = StyleSheet.create({
     },
     mapLarge: {
         width: '100%',
-        borderRadius: 20,
-        borderWidth: 1,
         flex: 1,
-        marginVertical: 10,
     },
     callout: {
         width: 200,
