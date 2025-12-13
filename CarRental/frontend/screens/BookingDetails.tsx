@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, Text, Button, Image, StyleSheet } from 'react-native'; // Add Image here
-import {SearchStackParamList, UserBookingsStackParamList} from "../components/BottomNav";
+import {HomeStackParamList, SearchStackParamList, UserBookingsStackParamList} from "../components/BottomNav";
 
 import { bookingService} from '../../backend/BookingService';
 import {CarService } from '../../backend/CarService';
@@ -9,7 +9,7 @@ import {SafeAreaView} from "react-native-safe-area-context";
 import {UseUserContext} from "../../UserContext";
 import {StackScreenProps} from "@react-navigation/stack";
 
-type BookingDetailsProps = StackScreenProps<SearchStackParamList, 'BookingDetails', 'Payment'>;
+type BookingDetailsProps = StackScreenProps<HomeStackParamList, 'BookingDetails', 'Payment'>;
 
 const BookingDetails: React.FC<BookingDetailsProps> = ({ route, navigation }) => {
   const { carId, startDate, endDate } = route.params;

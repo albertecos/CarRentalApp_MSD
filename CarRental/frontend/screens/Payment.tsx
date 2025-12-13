@@ -24,7 +24,6 @@ const Payment: React.FC<PaymentProps> = ({route, navigation}) => {
         navigation.navigate('Confirmation', {bookingId: newBooking.id});
     }
     const [saveCard, setSaveCard] = useState(false);
-    const [useCash, setUseCash] = useState(false);
     const [selectedMethod, setSelectedMethod] = useState<"Card" | "Cash" | null>(null);
     const [cardName, setCardName] = useState("");
     const [cardNumber, setCardNumber] = useState("");

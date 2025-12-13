@@ -32,12 +32,19 @@ export type Booking = {
 export type TempBooking = {
     userId: string;
     carId: string;
-    startDate: string; // ISO date string
-    endDate: string;   // ISO date string
-    totalCost: number; // -1 indicates not calculated yet
+    startDate: string;
+    endDate: string;
+    totalCost: number;
     pickUpLocation: string;
     deliveryLocation: string;
     payMethod: string;
+}
+
+export type BookingSearch ={
+    startDate?: string;
+    endDate?: string;
+    pickUpLocation: string;
+    deliveryLocation: string;
 }
 
 export type User = {

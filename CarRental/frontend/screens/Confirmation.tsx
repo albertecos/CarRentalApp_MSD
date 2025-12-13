@@ -3,7 +3,7 @@ import {ActivityIndicator, Pressable, ScrollView, StyleSheet, Text, View} from '
 import ConfirmationCard from "../components/cards/ConfirmationCard";
 import {NativeStackScreenProps} from "@react-navigation/native-stack";
 import {SafeAreaView} from "react-native-safe-area-context";
-import {UserBookingsStackParamList} from "../components/BottomNav";
+import {HomeStackParamList, UserBookingsStackParamList} from "../components/BottomNav";
 import {bookingService} from "../../backend/BookingService";
 import Header from "../components/Header";
 import {Booking, Car} from "../../backend/models";
@@ -11,7 +11,7 @@ import {useNavigation} from "@react-navigation/native";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import {CarService} from "../../backend/CarService";
 
-type ConfirmationProps = NativeStackScreenProps<UserBookingsStackParamList, 'Confirmation'>;
+type ConfirmationProps = NativeStackScreenProps<UserBookingsStackParamList | HomeStackParamList, 'Confirmation'>;
 
 const Confirmation: React.FC<ConfirmationProps> = ({route}) => {
     const navigation = useNavigation();
