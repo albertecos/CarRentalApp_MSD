@@ -291,7 +291,8 @@ const styles = StyleSheet.create({
     },
     modalButtonRow: {
         flexDirection: "row",
-        justifyContent: "flex-end",
+        justifyContent: "center",
+        alignItems: "center",
     },
     modalButtonText: {
         fontSize: 14,
@@ -299,17 +300,22 @@ const styles = StyleSheet.create({
         color: "#333",
     },
     modalButtonCancel: {
-        fontSize: 8,
+        // fontSize: 8,
         paddingHorizontal: 14,
+        paddingVertical: 8,
         borderRadius: 8,
         marginRight: 8,
         backgroundColor: "#eee",
+        alignSelf: "center",
+        justifyContent: "center",
     },
     modalButtonConfirm: {
         paddingVertical: 8,
         paddingHorizontal: 14,
         borderRadius: 8,
         backgroundColor: "#E3342F",
+        alignSelf: "center",
+        justifyContent: "center",
     },
     inputRow: {
         flexDirection: "row",

@@ -150,6 +150,7 @@ const UserBookings: React.FC = () => {
             <SectionList sections={sections}
                          keyExtractor={(item) => item.id}
                          contentContainerStyle={{paddingBottom: 20}}
+                         stickySectionHeadersEnabled={false}
                          renderItem={({item}) => {
                              const car = carById[item.carId];
                              if (!car) return null;
