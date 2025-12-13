@@ -11,7 +11,10 @@ import {createNativeStackNavigator} from "@react-navigation/native-stack";
 import BookingDetails from "../screens/BookingDetails";
 import Confirmation from "../screens/Confirmation";
 import Payment from "../screens/Payment";
-import {TempBooking} from "../../backend/models";
+import {BookingSearch, TempBooking} from "../../backend/models";
+import SearchBooking from "./SearchBooking";
+import ResultPage from "../screens/ResultPage";
+import CarDetails from "../screens/CarDetails";
 
 export type SearchStackParamList = {
     Booking: undefined;
@@ -34,16 +37,38 @@ export type UserBookingsStackParamList = {
         bookingId: string;
     };
 };
+
+export type HomeStackParamList = {
+    Home: undefined;
+    ResultPage: {
+        bookingSearch: BookingSearch;
+    };
+    CarDetails: {
+        carId: string;
+    };
+    BookingDetails: {
+        carId: string;
+        startDate: string;
+        endDate: string;
+    };
+    Payment: {
+        booking: TempBooking;
+    };
+    Confirmation: {
+        bookingId: string;
+    };
+}
 const SearchStack = createNativeStackNavigator<SearchStackParamList>();
 const UserBookingsStack = createNativeStackNavigator<UserBookingsStackParamList>();
+const HomeStack = createNativeStackNavigator<HomeStackParamList>()
 
 function SearchStackScreen(){
     return(
         <SearchStack.Navigator>
             <SearchStack.Screen name="Booking" component={Booking} />
             <SearchStack.Screen name="BookingDetails" component={BookingDetails} />
-            <SearchStack.Screen name="Confirmation" component={Confirmation}/>
             <SearchStack.Screen name="Payment" component={Payment}/>
+            <SearchStack.Screen name="Confirmation" component={Confirmation}/>
         </SearchStack.Navigator>
     )
 }
@@ -53,6 +78,19 @@ function UserBookingsStackNavigator(){
             <UserBookingsStack.Screen name="UserBookings" component={UserBookings} />
             <UserBookingsStack.Screen name="Confirmation" component={Confirmation} />
         </UserBookingsStack.Navigator>
+    )
+}
+
+function HomeStackNavigator(){
+    return(
+        <HomeStack.Navigator screenOptions={{headerShown: false}}>
+            <HomeStack.Screen name="Home" component={Home} />
+            <HomeStack.Screen name="ResultPage" component={ResultPage} />
+            <HomeStack.Screen name="CarDetails" component={CarDetails}/>
+            <HomeStack.Screen name="BookingDetails" component={BookingDetails} />
+            <HomeStack.Screen name="Payment" component={Payment}/>
+            <HomeStack.Screen name="Confirmation" component={Confirmation}/>
+        </HomeStack.Navigator>
     )
 }
 
@@ -76,7 +114,7 @@ const BottomTabs = () => {
             }}
         >
             <Tab.Screen name="Home"
-                        component={Home}
+                        component={HomeStackNavigator}
                         options={{
                             tabBarIcon: ({focused}) => (
                                 <IconWithDot focused={focused}>
