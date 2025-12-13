@@ -22,12 +22,12 @@ const BookingInfoBox: React.FC<Props> = ({booking, car}) => {
                 <View style={confStyles.dateRow}>
                     <View style={confStyles.dateCol}>
                         <Text style={confStyles.infoMain}>{booking.startDate}</Text>
-                        <Text style={confStyles.infoMain}>{booking.pickUp}</Text>
+                        <Text style={confStyles.infoMain}>{booking.pickUpLocation}</Text>
                     </View>
                     <Ionicons name="arrow-forward-outline" size={30} color="#6b7280"/>
                     <View style={confStyles.dateCol}>
                         <Text style={confStyles.infoMain}>{booking.endDate}</Text>
-                        <Text style={confStyles.infoMain}>{booking.delivery}</Text>
+                        <Text style={confStyles.infoMain}>{booking.deliveryLocation}</Text>
                     </View>
                 </View>
 

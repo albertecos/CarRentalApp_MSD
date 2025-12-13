@@ -24,8 +24,19 @@ export type Booking = {
     startDate: string; // ISO date string
     endDate: string;   // ISO date string
     totalCost: number; // -1 indicates not calculated yet
-    pickUp: string;
-    delivery: string;
+    pickUpLocation: string;
+    deliveryLocation: string;
+    payMethod: string;
+}
+
+export type TempBooking = {
+    userId: string;
+    carId: string;
+    startDate: string; // ISO date string
+    endDate: string;   // ISO date string
+    totalCost: number; // -1 indicates not calculated yet
+    pickUpLocation: string;
+    deliveryLocation: string;
     payMethod: string;
 }
 

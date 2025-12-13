@@ -1,35 +1,35 @@
 [
   {
-    "id": "731b2e3f-0545-483b-9025-2edba3c39339",
-    "userId": "132857b4-fb91-4125-a699-2e6eb0029de0",
-    "carId": "1",
-    "startDate": "2025-09-25",
-    "endDate": "2025-09-28",
-    "totalCost": 690,
-    "pickUp": "Stockholm, SV",
-    "delivery": "Oslo, NO",
-    "payMethod": "Credit card"
-  },
-  {
-    "id": "1111111-0545-483b-9025-2edba3c39339",
+    "id": "4d300844-2a05-476e-ad78-f19752d02d7b",
     "userId": "132857b4-fb91-4125-a699-2e6eb0029de0",
     "carId": "2",
     "startDate": "2026-09-25",
     "endDate": "2026-09-28",
-    "totalCost": 690,
-    "pickUp": "Stockholm, SV",
-    "delivery": "Oslo, NO",
-    "payMethod": "Credit card"
+    "totalCost": 870,
+    "pickUpLocation": "Somewhere",
+    "deliveryLocation": "Somewhere else",
+    "payMethod": "Cash"
   },
   {
-    "id": "222222-0545-483b-9025-2edba3c39339",
+    "id": "f9218f1a-cca4-4f65-8b04-a5fae07133d9",
+    "userId": "132857b4-fb91-4125-a699-2e6eb0029de0",
+    "carId": "1",
+    "startDate": "2026-09-25",
+    "endDate": "2026-09-28",
+    "totalCost": 750,
+    "pickUpLocation": "Somewhere",
+    "deliveryLocation": "Somewhere else",
+    "payMethod": "Card"
+  },
+  {
+    "id": "865ad415-060f-45d7-9a22-07e6bb9e70d6",
     "userId": "132857b4-fb91-4125-a699-2e6eb0029de0",
     "carId": "3",
     "startDate": "2025-09-25",
-    "endDate": "2026-09-28",
-    "totalCost": 690,
-    "pickUp": "Stockholm, SV",
-    "delivery": "Oslo, NO",
-    "payMethod": "Credit card"
+    "endDate": "2025-09-28",
+    "totalCost": 735,
+    "pickUpLocation": "Somewhere",
+    "deliveryLocation": "Somewhere else",
+    "payMethod": "Cash"
   }
 ]

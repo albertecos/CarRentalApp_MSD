@@ -9,9 +9,10 @@ import {useIsFocused} from "@react-navigation/native";
 import Header from "../components/Header";
 import {NativeStackNavigationProp} from "@react-navigation/native-stack";
 import {useNavigation} from "@react-navigation/native";
-import {SearchStackParamList, UserBookingsStackParamList} from "../components/BottomNav";
+import {UserBookingsStackParamList} from "../components/BottomNav";
+import {CarService} from "../../backend/CarService";
 
-import {Booking} from "../../backend/models";
+import {Booking, Car} from "../../backend/models";
 
 type BookingSection = {
     title: 'Active' | 'Expired';
@@ -20,9 +21,11 @@ type BookingSection = {
 
 const UserBookings: React.FC = () => {
 
-    const [bookings, setBookings] = useState<any[]>([]);
+    const [bookings, setBookings] = useState<Booking[]>([]);
+    const [carById, setCarById] = useState<{ [id: string]: Car }>({});
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
+
     const {user} = UseUserContext();
     const isFocused = useIsFocused();
 
@@ -30,7 +33,7 @@ const UserBookings: React.FC = () => {
 
     const navigation = useNavigation<UserBookingNavProps>();
 
-    const getBookings = useCallback(() => {
+    const getBookings = useCallback(async () => {
         if (!user) {
             setError("User not logged in");
             console.log("User not logged in");
@@ -41,16 +44,28 @@ const UserBookings: React.FC = () => {
         setLoading(true);
         setError(null);
 
-        axios.get(`${API_BASE_URL}/bookings?id=${user.id}`, {timeout: 5000})
-            .then(res => {
-                setBookings(res.data);
-                console.log("Fetched bookings: " + res.data);
-            })
-            .catch(err => {
-                console.error("error: ", err, err?.response?.status);
-                setError("Could not load bookings.");
-            })
-            .finally(() => setLoading(false))
+        try{
+            const carService = await CarService.getInstance();
+
+            const response = await axios.get(`${API_BASE_URL}/bookings?id=${user.id}`, {timeout: 5000});
+            const fetchedBookings = response.data as Booking[];
+            setBookings(fetchedBookings);
+
+            const carIds = Array.from(new Set(fetchedBookings.map(b => b.carId)));
+            const cars = await Promise.all(carIds.map(id => carService.getCarById(id)));
+
+            const map: {[id: string]: Car} = {};
+            for(const c of cars){
+                if(c){
+                    map[c.id] = c;
+                }
+            }
+            setCarById(map);
+        }catch (error: any) {
+            setError("Could not load bookings");
+        }finally{
+            setLoading(false);
+        }
     }, [user]);
 
     useEffect(() => {
@@ -77,6 +92,25 @@ const UserBookings: React.FC = () => {
                     textAlignVertical: 'center'
                 }}
                 >{error}</Text>
+            </SafeAreaView>
+        )
+    }
+
+    if(!loading && !error && bookings.length === 0){
+        return (
+            <SafeAreaView style={{flex:1,backgroundColor:"#f8f9fa"}} edges={["left", "right", "bottom"]}>
+                <Header/>
+                <Text style={{
+                    fontSize: 24,
+                    fontWeight:"bold",
+                    margin:20,
+                    alignSelf: 'center',
+                    textAlignVertical: 'center'
+                }}
+                >Your bookings</Text>
+                <Text style={{alignSelf: 'center',marginTop:40, color:"#666"}}>
+                    You have no bookings yet
+                </Text>
             </SafeAreaView>
         )
     }
@@ -116,14 +150,20 @@ const UserBookings: React.FC = () => {
             <SectionList sections={sections}
                          keyExtractor={(item) => item.id}
                          contentContainerStyle={{paddingBottom: 20}}
-                         renderItem={({item}) =>
-                             <BookingCard
-                                 booking={item}
-                                 onPress={() =>
-                                     navigation.navigate('Confirmation', {bookingId: item.id})
-                                 }
-                             />
-                         }
+                         stickySectionHeadersEnabled={false}
+                         renderItem={({item}) => {
+                             const car = carById[item.carId];
+                             if (!car) return null;
+                             return (
+                                 <BookingCard
+                                     booking={item}
+                                     car={car}
+                                     onPress={() =>
+                                         navigation.navigate('Confirmation', {bookingId: item.id})
+                                     }
+                                 />
+                             );
+                         }}
                          renderSectionHeader={({section}) => (
                              <View style={styles.sectionHeaderWrapper}>
                                  <View style={styles.sectionLine}>
