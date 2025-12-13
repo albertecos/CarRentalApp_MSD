@@ -9,20 +9,11 @@ import {
     flexContainer, infoContainer, priceContainer, brandFont, normalFont,
     imageLogo, priceFont, button, buttonFont, dailyPriceFont
 } from "../../styling/CarCardsStyle";
-
-type CarType = {
-    id: string,
-    brand: string,
-    model: string,
-    year: number,
-    pricePerDay: number,
-    available: boolean,
-    imageUrl: string,
-    description: string,
-}
+import { Car, BookingSearch } from "../../../backend/models";
 
 type carProps = {
-    car: CarType;
+    car: Car;
+    bookingSearch: BookingSearch;
 }
 
 const CarCards: React.FC<carProps> = ({ car }) => {
