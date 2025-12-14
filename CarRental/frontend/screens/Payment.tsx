@@ -23,7 +23,7 @@ const Payment: React.FC<PaymentProps> = ({route, navigation}) => {
         }
         let newBooking: Booking = await bookingService.createBooking(updatedBooking);
 
-        navigation.navigate('Confirmation', {bookingId: newBooking.id});
+        navigation.navigate('FinalConfirm', {bookingId: newBooking.id});
     }
     const [saveCard, setSaveCard] = useState(false);
     const [selectedMethod, setSelectedMethod] = useState<"Card" | "Cash" | null>(null);
@@ -239,7 +239,6 @@ export default Payment
 const styles = StyleSheet.create({
     container: {
         flexGrow: 1,
-        backgroundColor: "#fff",
         padding: 20,
     },
 

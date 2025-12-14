@@ -1,27 +1,33 @@
-import React from 'react';
-import {ActivityIndicator, Pressable, ScrollView, StyleSheet, Text, View} from 'react-native';
-import ConfirmationCard from "../components/cards/ConfirmationCard";
-import {NativeStackScreenProps} from "@react-navigation/native-stack";
 import {SafeAreaView} from "react-native-safe-area-context";
-import {HomeStackParamList, UserBookingsStackParamList} from "../components/BottomNav";
-import {bookingService} from "../../backend/BookingService";
 import Header from "../components/Header";
-import {Booking, Car} from "../../backend/models";
-import {useNavigation} from "@react-navigation/native";
+import {ActivityIndicator, Pressable, ScrollView, StyleSheet, Text, TouchableOpacity, View} from "react-native";
 import Ionicons from "@expo/vector-icons/Ionicons";
+import ConfirmationCard from "../components/cards/ConfirmationCard";
+import React from "react";
+import Confirmation, {confStyles} from "./Confirmation";
+import {Booking, Car} from "../../backend/models";
+import {NativeStackScreenProps} from "@react-navigation/native-stack";
+import {HomeStackParamList, UserBookingsStackParamList} from "../components/BottomNav";
+import {useNavigation} from "@react-navigation/native";
+import {bookingService} from "../../backend/BookingService";
 import {CarService} from "../../backend/CarService";
+import BookHeader from "../components/BookHeader";
+import HeaderFinalConfirm from "../components/HeaderFinalConfirm";
+import BookingProgress from "../components/BookingProgress";
 
-type ConfirmationProps = NativeStackScreenProps<UserBookingsStackParamList, 'Confirmation'>;
 
-const Confirmation: React.FC<ConfirmationProps> = ({route}) => {
-    const navigation = useNavigation();
+type FinalConfirmProps = NativeStackScreenProps<HomeStackParamList, 'FinalConfirm'>;
 
-    const {bookingId} = route.params;
 
-    const [loading, setLoading] = React.useState(true);
-    const [error, setError] = React.useState<string | null>(null);
+const FinalConfirm: React.FC<FinalConfirmProps> = ({route, navigation}) => {
+
     const [booking, setBooking] = React.useState<Booking | null>(null)
     const [car, setCar] = React.useState<Car | null>(null)
+
+    const [error, setError] = React.useState<string | null>(null);
+    const [loading, setLoading] = React.useState(true);
+
+    const {bookingId} = route.params;
 
     React.useEffect(() => {
         let isMount = true;
@@ -57,8 +63,9 @@ const Confirmation: React.FC<ConfirmationProps> = ({route}) => {
 
     if (loading) {
         return (
-            <SafeAreaView edges={["left", "right", "bottom"]}>
-                <Header/>
+            <SafeAreaView style={{flex: 1}} edges={["left", "right", "bottom"]}>
+                <HeaderFinalConfirm title={"Confirmation"}/>
+
                 <View style={confStyles.backButton}>
                     <Pressable
                         style={confStyles.backButton}
@@ -83,8 +90,9 @@ const Confirmation: React.FC<ConfirmationProps> = ({route}) => {
 
     if (error || !booking) {
         return (
-            <SafeAreaView edges={["left", "right", "bottom"]}>
-                <Header/>
+            <SafeAreaView style={{flex: 1}} edges={["left", "right", "bottom"]}>
+                <HeaderFinalConfirm title={"Confirmation"}/>
+
                 <View style={confStyles.backButton}>
                     <Pressable
                         style={confStyles.backButton}
@@ -95,7 +103,7 @@ const Confirmation: React.FC<ConfirmationProps> = ({route}) => {
                 <View style={confStyles.noBookingContainer}>
                     <View style={confStyles.emptyState}>
                         <Text style={confStyles.emptyTitle}>
-                            {error ?? 'No bookings were found'}
+                            {error ?? 'Could not load booking'}
                         </Text>
                     </View>
                 </View>
@@ -105,53 +113,57 @@ const Confirmation: React.FC<ConfirmationProps> = ({route}) => {
 
     return (
 
-        <SafeAreaView edges={["left", "right", "bottom"]}>
-            <Header/>
-            <ScrollView contentContainerStyle={confStyles.scrollContent}>
-                <View style={confStyles.backButton}>
-                    <Pressable
-                        style={confStyles.backButton}
-                        onPress={() => navigation.goBack()}>
-                        <Ionicons name="chevron-back-circle-outline" size={70} color="#7E7D7E80"/>
-                    </Pressable>
-                </View>
+        <SafeAreaView style={{flex: 1}} edges={["left", "right"]}>
+            <HeaderFinalConfirm title={"Confirmation"}/>
+
+            <ScrollView style={{flex: 1}} contentContainerStyle={[styles.scrollContent, {flexGrow: 1}]}>
+                <BookingProgress currentStep={"confirmation"}/>
                 <ConfirmationCard booking={booking} car={car}/>
+                <View style={styles.doneWrapper}>
+                    <TouchableOpacity
+                        style={styles.doneButton}
+                        onPress={() => navigation.popToTop()}>
+                        <Text style={styles.buttonText}>
+                            Done
+                        </Text>
+                    </TouchableOpacity>
+                </View>
             </ScrollView>
         </SafeAreaView>
 
     );
 };
 
-export default Confirmation;
+export default FinalConfirm;
 
-export const confStyles = StyleSheet.create({
+export const styles = StyleSheet.create({
     scrollContent: {
         padding: 16,
         paddingBottom: 76
     },
-    backButton: {
-        width: 70,
-        height: 70,
+    doneWrapper: {
+        alignItems: "flex-end",
+        marginTop: 16,
     },
-    noBookingContainer: {
-        flex: 1,
-        backgroundColor: '#fff',
+    doneButton: {
+        flexDirection: "row",
+        alignItems: "center",
+        justifyContent: "flex-end",
+        backgroundColor: "#BA181B",
+        borderRadius: 7,
+        paddingHorizontal: 16,
+        paddingVertical: 8,
+        height: 44,
+        shadowColor: "#000000",
+        shadowOffset: {width: 0, height: 4},
+        shadowOpacity: 0.5,
+        shadowRadius: 4,
+        elevation: 4,
     },
-    emptyState: {
-        flex: 1,
-        alignItems: 'center',
-        justifyContent: 'center',
-        padding: 24
-    },
-    emptyTitle: {
+    buttonText: {
         fontSize: 20,
-        fontWeight: 'bold',
-        marginBottom: 8,
+        fontWeight: "bold",
+        color: "#FFFFFF",
+        alignSelf: "center",
     },
-    h1: {
-        fontSize: 24,
-        fontWeight: '800',
-        color: '#0f172a',
-        textAlign: 'center'
-    }
 })
