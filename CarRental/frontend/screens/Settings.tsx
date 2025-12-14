@@ -11,6 +11,7 @@ import axios from "axios";
 import {API_BASE_URL} from "@env";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import BookHeader from "../components/BookHeader";
+import BookingProgress from "../components/BookingProgress";
 
 const Settings: React.FC = () => {
     const navigation = useNavigation<any>();
@@ -87,6 +88,7 @@ const Settings: React.FC = () => {
     return (
         <SafeAreaView edges={["left", "right", "bottom"]} style={styles.container}>
             <BookHeader title={"Settings"} navigation={navigation} />
+            <BookingProgress currentStep={"booking"}/>
             <Text style={styles.title}>Settings</Text>
 
             <UserInfoCard
