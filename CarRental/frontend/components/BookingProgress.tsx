@@ -52,7 +52,6 @@ const styles = StyleSheet.create({
     container: {
         paddingTop: 16,
         paddingBottom: 24,
-        backgroundColor: "#fff",
         alignItems: "center",
     },
     progressWrap:{

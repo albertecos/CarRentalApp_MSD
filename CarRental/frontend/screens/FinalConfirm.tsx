@@ -4,19 +4,22 @@ import {ActivityIndicator, Pressable, ScrollView, StyleSheet, Text, TouchableOpa
 import Ionicons from "@expo/vector-icons/Ionicons";
 import ConfirmationCard from "../components/cards/ConfirmationCard";
 import React from "react";
-import {confStyles} from "./Confirmation";
+import Confirmation, {confStyles} from "./Confirmation";
 import {Booking, Car} from "../../backend/models";
 import {NativeStackScreenProps} from "@react-navigation/native-stack";
 import {HomeStackParamList, UserBookingsStackParamList} from "../components/BottomNav";
 import {useNavigation} from "@react-navigation/native";
 import {bookingService} from "../../backend/BookingService";
 import {CarService} from "../../backend/CarService";
+import BookHeader from "../components/BookHeader";
+import HeaderFinalConfirm from "../components/HeaderFinalConfirm";
+import BookingProgress from "../components/BookingProgress";
 
 
 type FinalConfirmProps = NativeStackScreenProps<HomeStackParamList, 'FinalConfirm'>;
 
 
-const FinalConfirm : React.FC<FinalConfirmProps> = ({route, navigation}) => {
+const FinalConfirm: React.FC<FinalConfirmProps> = ({route, navigation}) => {
 
     const [booking, setBooking] = React.useState<Booking | null>(null)
     const [car, setCar] = React.useState<Car | null>(null)
@@ -60,7 +63,9 @@ const FinalConfirm : React.FC<FinalConfirmProps> = ({route, navigation}) => {
 
     if (loading) {
         return (
-            <SafeAreaView edges={["top", "left", "right", "bottom"]}>
+            <SafeAreaView style={{flex: 1}} edges={["left", "right", "bottom"]}>
+                <HeaderFinalConfirm title={"Confirmation"}/>
+
                 <View style={confStyles.backButton}>
                     <Pressable
                         style={confStyles.backButton}
@@ -85,7 +90,9 @@ const FinalConfirm : React.FC<FinalConfirmProps> = ({route, navigation}) => {
 
     if (error || !booking) {
         return (
-            <SafeAreaView edges={["top", "left", "right", "bottom"]}>
+            <SafeAreaView style={{flex: 1}} edges={["left", "right", "bottom"]}>
+                <HeaderFinalConfirm title={"Confirmation"}/>
+
                 <View style={confStyles.backButton}>
                     <Pressable
                         style={confStyles.backButton}
@@ -106,16 +113,21 @@ const FinalConfirm : React.FC<FinalConfirmProps> = ({route, navigation}) => {
 
     return (
 
-        <SafeAreaView edges={["top", "left", "right", "bottom"]}>
-            <ScrollView contentContainerStyle={styles.scrollContent}>
+        <SafeAreaView style={{flex: 1}} edges={["left", "right"]}>
+            <HeaderFinalConfirm title={"Confirmation"}/>
+
+            <ScrollView style={{flex: 1}} contentContainerStyle={[styles.scrollContent, {flexGrow: 1}]}>
+                <BookingProgress currentStep={"confirmation"}/>
                 <ConfirmationCard booking={booking} car={car}/>
-                <TouchableOpacity
-                    style={styles.doneButton}
-                    onPress={() => navigation.popToTop()}>
-                    <Text style={styles.buttonText}>
-                        Done
-                    </Text>
-                </TouchableOpacity>
+                <View style={styles.doneWrapper}>
+                    <TouchableOpacity
+                        style={styles.doneButton}
+                        onPress={() => navigation.popToTop()}>
+                        <Text style={styles.buttonText}>
+                            Done
+                        </Text>
+                    </TouchableOpacity>
+                </View>
             </ScrollView>
         </SafeAreaView>
 
@@ -129,7 +141,11 @@ export const styles = StyleSheet.create({
         padding: 16,
         paddingBottom: 76
     },
-    doneButton:{
+    doneWrapper: {
+        alignItems: "flex-end",
+        marginTop: 16,
+    },
+    doneButton: {
         flexDirection: "row",
         alignItems: "center",
         justifyContent: "flex-end",

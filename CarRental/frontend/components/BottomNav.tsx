@@ -34,7 +34,7 @@ export type MapStackParamList = {
     Payment: {
         booking: TempBooking;
     };
-    Confirmation: {
+    FinalConfirm: {
         bookingId: string;
     };
 };
@@ -78,7 +78,7 @@ function MapStackScreen(){
             <MapStack.Screen name="CarDetails" component={CarDetails} />
             <MapStack.Screen name="BookingDetails" component={BookingDetails} />
             <MapStack.Screen name="Payment" component={Payment}/>
-            <MapStack.Screen name="Confirmation" component={Confirmation}/>
+            <MapStack.Screen name="FinalConfirm" component={FinalConfirm}/>
         </MapStack.Navigator>
     )
 }
