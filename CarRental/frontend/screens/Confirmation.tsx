@@ -131,41 +131,27 @@ export const confStyles = StyleSheet.create({
     },
     backButton: {
         width: 70,
-        height:
-            70,
-    }
-    ,
+        height: 70,
+    },
     noBookingContainer: {
         flex: 1,
-        backgroundColor:
-            '#fff',
-    }
-    ,
+        backgroundColor: '#fff',
+    },
     emptyState: {
         flex: 1,
-        alignItems:
-            'center',
-        justifyContent:
-            'center',
-        padding:
-            24
-    }
-    ,
+        alignItems: 'center',
+        justifyContent: 'center',
+        padding: 24
+    },
     emptyTitle: {
         fontSize: 20,
-        fontWeight:
-            'bold',
-        marginBottom:
-            8,
-    }
-    ,
+        fontWeight: 'bold',
+        marginBottom: 8,
+    },
     h1: {
         fontSize: 24,
-        fontWeight:
-            '800',
-        color:
-            '#0f172a',
-        textAlign:
-            'center'
+        fontWeight: '800',
+        color: '#0f172a',
+        textAlign: 'center'
     }
 })
