@@ -26,7 +26,7 @@ export class CarService {
                         console.log("Loaded cars from AsyncStorage");
                     }
                 }
-                axios.get(`${API_BASE_URL}/cars`)
+                axios.get<Car[]>(`${API_BASE_URL}/cars`)
                     .then(response => {
                         this.cars = response.data;
                         resolve();

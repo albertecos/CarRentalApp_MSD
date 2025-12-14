@@ -1,6 +1,6 @@
 import {Text, TouchableOpacity, View} from "react-native";
 import {NativeStackScreenProps} from "@react-navigation/native-stack";
-import {HomeStackParamList, SearchStackParamList} from "../components/BottomNav";
+import {HomeStackParamList} from "../components/BottomNav";
 import React from "react";
 import {Car} from "../../backend/models";
 import Header from "../components/Header";

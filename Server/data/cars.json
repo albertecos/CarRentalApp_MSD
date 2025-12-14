@@ -11,11 +11,21 @@
         "features": {
             "airConditioning": true,
             "numberOfSeats": 5,
+            "doors": 4,
             "transmission": "automatic",
             "fuelType": "hybrid"
         },
+        "renter": {
+            "name": "Karl cars A/S",
+            "phone": "(+45) 12 34 56 78",
+            "email": "karl@karlcars.dk"
+        },
         "extras": ["GPS", "Child Seat"],
-        "location": "Odense"
+        "location": {
+            "latitude": 55.6764,
+            "longitude": 12.568,
+            "area": "Copenhagen"
+        }
     },
     {
         "id": "2",
@@ -29,11 +39,22 @@
         "features": {
             "airConditioning": true,
             "numberOfSeats": 4,
+            "doors": 2,
             "transmission": "manual",
             "fuelType": "petrol"
         },
+
+        "renter": {
+            "name": "AutoRentals DK",
+            "phone": "(+45) 12 34 56 78",
+            "email": "info@autorentals.dk"
+        },
         "extras": ["GPS"],
-        "location": "Copenhagen"
+        "location": {
+            "latitude": 55.6761,
+            "longitude": 12.5684,
+            "area": "Copenhagen"
+        }
     },
     {
         "id": "3",
@@ -47,11 +68,21 @@
         "features": {
             "airConditioning": true,
             "numberOfSeats": 5,
+            "doors": 4,
             "transmission": "automatic",
             "fuelType": "petrol"
         },
+        "renter": {
+            "name": "Rent-A-Car Odense",
+            "phone": "(+45) 12 34 56 78",
+            "email": "info@rentacarodense.dk"
+        },
         "extras": ["Child Seat"],
-        "location": "Odense C"
+        "location": {
+            "latitude": 55.3961,
+            "longitude": 10.3883,
+            "area": "Odense"
+        }
     },
     {
         "id": "4",
@@ -65,11 +96,21 @@
         "features": {
             "airConditioning": true,
             "numberOfSeats": 5,
+            "doors": 4,
             "transmission": "automatic",
             "fuelType": "petrol"
         },
+        "renter": {
+            "name": "Esbjerg Car Rentals",
+            "phone": "(+45) 12 34 56 78",
+            "email": "car@esbjerg.dk"
+        },
         "extras": ["Child Seat"],
-        "location": "Esbjerg"
+        "location": {
+            "latitude": 55.4765,
+            "longitude": 8.4594,
+            "area": "Esbjerg"
+        }
     },
     {
         "id": "5",
@@ -83,10 +124,20 @@
         "features": {
             "airConditioning": true,
             "numberOfSeats": 5,
+            "doors": 4,
             "transmission": "automatic",
             "fuelType": "hybrid"
         },
+        "renter": {
+            "name": "City Wheels Aalborg",
+            "phone": "(+45) 12 34 56 78",
+            "email": "info@citywheelsaalborg.dk"
+        },
         "extras": ["GPS", "Child Seat"],
-        "location": "Aarhus"
+        "location": {
+            "latitude": 56.1629,
+            "longitude": 10.2039,
+            "area": "Aarhus"
+        }
     }
 ]
