@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, Button, Image, StyleSheet } from 'react-native'; // Add Image here
+import {View, Text, Button, Image, StyleSheet, Pressable} from 'react-native'; // Add Image here
 import {HomeStackParamList, SearchStackParamList, UserBookingsStackParamList} from "../components/BottomNav";
 
 import {CarService } from '../../backend/CarService';
@@ -7,6 +7,8 @@ import {Booking, Car, TempBooking} from '../../backend/models';
 import {UseUserContext} from "../../UserContext";
 import {StackScreenProps} from "@react-navigation/stack";
 import BookingInfoBox from "../components/cards/BookingInfoBox";
+import {SafeAreaView} from "react-native-safe-area-context";
+import Ionicons from "@expo/vector-icons/Ionicons";
 
 type BookingDetailsProps = StackScreenProps<HomeStackParamList, 'BookingDetails'>;
 
@@ -65,12 +67,26 @@ const BookingDetails: React.FC<BookingDetailsProps> = ({ route, navigation }) =>
   }
 
   return (
-      <View>
-        <Text>BOOKING PAGE</Text>
+      <SafeAreaView edges={["left", "right", "bottom"]}>
+        <View style={bookingDetailsStyle.backButton}>
+        <Pressable
+            style={bookingDetailsStyle.backButton}
+            onPress={() => navigation.goBack()}>
+          <Ionicons name="chevron-back-circle-outline" size={70} color="#7E7D7E80"/>
+        </Pressable>
+      </View>
         <BookingInfoBox booking={temparyBooking} car={car} />
         <Button title="Purchase" onPress={handlePayment} />
-      </View>
+      </SafeAreaView>
   );
 };
 
 export default BookingDetails;
+
+export const bookingDetailsStyle = StyleSheet.create({
+  backButton: {
+    width: 70,
+    height:
+        70,
+  }
+});
