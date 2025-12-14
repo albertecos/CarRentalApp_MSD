@@ -7,6 +7,8 @@ import {SafeAreaView} from "react-native-safe-area-context";
 import {UseUserContext} from "../../UserContext";
 import {StackScreenProps} from "@react-navigation/stack";
 import {SearchStackParamList} from "../components/BottomNav";
+import BookHeader from "../components/BookHeader";
+import BookingProgress from "../components/BookingProgress";
 
 type PaymentProps = StackScreenProps<SearchStackParamList, 'Payment'>;
 
@@ -71,7 +73,9 @@ const Payment: React.FC<PaymentProps> = ({route, navigation}) => {
     const formValid = isFormValid();
 
     return (
-        <SafeAreaView style={{flex: 1}}>
+        <SafeAreaView edges={["left", "right", "bottom"]}>
+            <BookHeader title={"Payment"} navigation={navigation} />
+            <BookingProgress currentStep={"payment"}/>
 
             <ScrollView contentContainerStyle={styles.container}>
                 <Text style={styles.heading}>Select payment method</Text>

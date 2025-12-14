@@ -64,7 +64,7 @@ const HomeStack = createNativeStackNavigator<HomeStackParamList>()
 
 function SearchStackScreen(){
     return(
-        <SearchStack.Navigator>
+        <SearchStack.Navigator screenOptions={{headerShown: false}}>
             <SearchStack.Screen name="Booking" component={Booking} />
             <SearchStack.Screen name="BookingDetails" component={BookingDetails} />
             <SearchStack.Screen name="Payment" component={Payment}/>

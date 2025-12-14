@@ -87,8 +87,6 @@ const Settings: React.FC = () => {
 
     return (
         <SafeAreaView edges={["left", "right", "bottom"]} style={styles.container}>
-            <BookHeader title={"Settings"} navigation={navigation} />
-            <BookingProgress currentStep={"booking"}/>
             <Text style={styles.title}>Settings</Text>
 
             <UserInfoCard
