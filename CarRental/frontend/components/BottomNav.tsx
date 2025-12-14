@@ -17,8 +17,10 @@ import SearchBooking from "./SearchBooking";
 import ResultPage from "../screens/ResultPage";
 import CarDetails from "../screens/CarDetails";
 
-export type SearchStackParamList = {
-    Booking: undefined;
+export type MapStackParamList = {
+    MapPage: {
+        camera?: any;
+    };
     CarDetails: {
         carId: string;
         bookingSearch: BookingSearch;
@@ -48,9 +50,6 @@ export type HomeStackParamList = {
     ResultPage: {
         bookingSearch: BookingSearch;
     };
-    MapPage: {
-        camera?: any;
-    };
     CarDetails: {
         carId: string;
         bookingSearch: BookingSearch;
@@ -67,19 +66,19 @@ export type HomeStackParamList = {
         bookingId: string;
     };
 }
-const SearchStack = createNativeStackNavigator<SearchStackParamList>();
+const MapStack = createNativeStackNavigator<MapStackParamList>();
 const UserBookingsStack = createNativeStackNavigator<UserBookingsStackParamList>();
 const HomeStack = createNativeStackNavigator<HomeStackParamList>()
 
-function SearchStackScreen(){
+function MapStackScreen(){
     return(
-        <SearchStack.Navigator>
-            <SearchStack.Screen name="Booking" component={Booking} />
-            <SearchStack.Screen name="CarDetails" component={CarDetails} />
-            <SearchStack.Screen name="BookingDetails" component={BookingDetails} />
-            <SearchStack.Screen name="Payment" component={Payment}/>
-            <SearchStack.Screen name="Confirmation" component={Confirmation}/>
-        </SearchStack.Navigator>
+        <MapStack.Navigator>
+            <MapStack.Screen name="MapPage" component={MapPage} />
+            <MapStack.Screen name="CarDetails" component={CarDetails} />
+            <MapStack.Screen name="BookingDetails" component={BookingDetails} />
+            <MapStack.Screen name="Payment" component={Payment}/>
+            <MapStack.Screen name="Confirmation" component={Confirmation}/>
+        </MapStack.Navigator>
     )
 }
 function UserBookingsStackNavigator(){
@@ -96,7 +95,6 @@ function HomeStackNavigator(){
         <HomeStack.Navigator screenOptions={{headerShown: false}}>
             <HomeStack.Screen name="Home" component={Home} />
             <HomeStack.Screen name="ResultPage" component={ResultPage} />
-            <HomeStack.Screen name="MapPage" component={MapPage} />
             <HomeStack.Screen name="CarDetails" component={CarDetails}/>
             <HomeStack.Screen name="BookingDetails" component={BookingDetails} />
             <HomeStack.Screen name="Payment" component={Payment}/>
@@ -108,7 +106,7 @@ function HomeStackNavigator(){
 
 export type BottomTabParams = {
     Home: undefined;
-    Search: any;
+    Map: any;
     UserBooking: undefined;
     Settings: undefined;
 };
@@ -135,8 +133,8 @@ const BottomTabs = () => {
                         }}
             />
 
-            <Tab.Screen name="Search"
-                        component={SearchStackScreen}
+            <Tab.Screen name="Map"
+                        component={MapStackScreen}
                         options={{
                             tabBarIcon: ({focused}) => (
                                 <IconWithDot focused={focused}>

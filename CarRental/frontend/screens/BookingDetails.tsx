@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, Text, Button, Image, StyleSheet } from 'react-native'; // Add Image here
-import {HomeStackParamList, SearchStackParamList, UserBookingsStackParamList} from "../components/BottomNav";
+import {HomeStackParamList} from "../components/BottomNav";
 
 import { bookingService} from '../../backend/BookingService';
 import {CarService } from '../../backend/CarService';

@@ -4,14 +4,14 @@ import MapView, {Callout, Marker} from "react-native-maps";
 import {View, Text, StyleSheet, TextInput, TouchableOpacity, Image, Alert} from "react-native";
 import * as Location from 'expo-location';
 import { useNavigation, CompositeNavigationProp } from '@react-navigation/native';
-import { SearchStackParamList, BottomTabParams, HomeStackParamList } from './BottomNav';
+import { MapStackParamList, BottomTabParams, HomeStackParamList } from './BottomNav';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { BottomTabNavigationProp } from '@react-navigation/bottom-tabs';
 
 type BookingNavigationProp = CompositeNavigationProp<
     BottomTabNavigationProp<BottomTabParams>,
     CompositeNavigationProp<
-        NativeStackNavigationProp<SearchStackParamList>,
+        NativeStackNavigationProp<MapStackParamList>,
         NativeStackNavigationProp<HomeStackParamList>
     >
 >
@@ -26,7 +26,7 @@ const CarMapView: React.FC<MapViewProps> = ({type, camera}) => {
     const [location, setLocation] = React.useState<any>();
     const [cars, setCars] = React.useState<Car[]>([]);
     const mapRef = React.useRef<MapView>(null);
-    const navigation = useNavigation<BookingNavigationProp>();
+    const navigation = useNavigation<BottomTabNavigationProp<BottomTabParams>>();
 
     useEffect(() => {
         (async () => {
@@ -82,8 +82,11 @@ const CarMapView: React.FC<MapViewProps> = ({type, camera}) => {
                     onPress={async () => {
                         if (mapRef.current) {
                             const camera = await mapRef.current.getCamera();
-                            navigation.navigate('MapPage', {
-                                camera: camera,
+                            navigation.navigate('Map', {
+                                screen: 'MapPage',
+                                params: {
+                                    camera: camera,
+                                }
                             });
                         }
                     }}
@@ -115,13 +118,14 @@ const CarMapMarker: React.FC<{ car: Car }> = ({car}) => {
         let endDate = new Date();
         endDate.setDate(today.getDate() + 1);
 
-        navigation.navigate('Search', {
-            screen: 'BookingDetails',
-            params: {
+        navigation.navigate('CarDetails', {
                 carId: car.id,
-                startDate: today.toISOString().split('T')[0],
-                endDate: endDate.toISOString().split('T')[0]
-            }
+                bookingSearch: {
+                    startDate: today.toISOString().split('T')[0],
+                    endDate: endDate.toISOString().split('T')[0],
+                    pickUpLocation: 'Default Location',
+                    deliveryLocation: 'Default Location',
+                }
         });
     };
     
@@ -137,7 +141,7 @@ const CarMapMarker: React.FC<{ car: Car }> = ({car}) => {
                 console.log(`Marker for ${car.brand} ${car.model} pressed`);
             }}
         >
-            <Callout tooltip style={styles.callout} onPress={() => handleNavigateToBookingDetails()}>
+            <Callout style={styles.callout} onPress={() => handleNavigateToBookingDetails()}>
                 <CarView car={car}/>
             </Callout>
         </Marker>

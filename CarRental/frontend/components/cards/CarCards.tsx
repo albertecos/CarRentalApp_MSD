@@ -3,7 +3,7 @@ import {View, Text, Image, TouchableOpacity} from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import {NativeStackNavigationProp} from "@react-navigation/native-stack";
 // import {SearchStackParamList} from "../../../App";
-import {HomeStackParamList, SearchStackParamList} from "../BottomNav";
+import {HomeStackParamList} from "../BottomNav";
 type BookingNavigationProp = NativeStackNavigationProp<HomeStackParamList>
 import {
     flexContainer, infoContainer, priceContainer, brandFont, normalFont,
