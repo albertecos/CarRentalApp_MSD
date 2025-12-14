@@ -4,20 +4,20 @@ import MapView, {Callout, Marker} from "react-native-maps";
 import {View, Text, StyleSheet, TextInput, TouchableOpacity, Image, Alert} from "react-native";
 import * as Location from 'expo-location';
 import { useNavigation, CompositeNavigationProp } from '@react-navigation/native';
-import { SearchStackParamList, BottomTabParams, HomeStackParamList } from './BottomNav';
+import { MapStackParamList, BottomTabParams, HomeStackParamList } from './BottomNav';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { BottomTabNavigationProp } from '@react-navigation/bottom-tabs';
 
 type BookingNavigationProp = CompositeNavigationProp<
     BottomTabNavigationProp<BottomTabParams>,
     CompositeNavigationProp<
-        NativeStackNavigationProp<SearchStackParamList>,
+        NativeStackNavigationProp<MapStackParamList>,
         NativeStackNavigationProp<HomeStackParamList>
     >
 >
 
 type MapViewProps = {
-    type: "small" | "large";
+    type: "tiny" | "small" | "large";
     camera?: any;
 }
 
@@ -26,10 +26,11 @@ const CarMapView: React.FC<MapViewProps> = ({type, camera}) => {
     const [location, setLocation] = React.useState<any>();
     const [cars, setCars] = React.useState<Car[]>([]);
     const mapRef = React.useRef<MapView>(null);
-    const navigation = useNavigation<BookingNavigationProp>();
+    const navigation = useNavigation<BottomTabNavigationProp<BottomTabParams>>();
 
     useEffect(() => {
         (async () => {
+            if (type === "tiny") return; // Do not request location for tiny map
             let {status} = await Location.requestForegroundPermissionsAsync();
             if (status !== 'granted') {
                 Alert.alert(
@@ -75,15 +76,18 @@ const CarMapView: React.FC<MapViewProps> = ({type, camera}) => {
 
     
     return (
-        <View style={type === "small" ? styles.mapContainer : styles.mapContainerLarge}>
+        <View style={type === "small" ? styles.mapContainer : type === "large" ? styles.mapContainerLarge : styles.mapContainerTiny}>
             {type === "small" && (
                 <TouchableOpacity
                     style={styles.fullScreenButton}
                     onPress={async () => {
                         if (mapRef.current) {
                             const camera = await mapRef.current.getCamera();
-                            navigation.navigate('MapPage', {
-                                camera: camera,
+                            navigation.navigate('Map', {
+                                screen: 'MapPage',
+                                params: {
+                                    camera: camera,
+                                }
                             });
                         }
                     }}
@@ -94,8 +98,10 @@ const CarMapView: React.FC<MapViewProps> = ({type, camera}) => {
             <MapView
                 ref={mapRef}
                 provider="google"
-                style={type === "small" ? styles.mapSmall : styles.mapLarge}
-                showsUserLocation={true}
+                style={type === "small" ? styles.mapSmall : type === "large" ? styles.mapLarge : styles.mapTiny}
+                showsUserLocation={!(type === "tiny")}
+                zoomEnabled={!(type === "tiny")}
+                scrollEnabled={!(type === "tiny")}
             >
                 {cars.map((car) => (
                     <CarMapMarker key={car.id} car={car}/>
@@ -113,13 +119,14 @@ const CarMapMarker: React.FC<{ car: Car }> = ({car}) => {
         let endDate = new Date();
         endDate.setDate(today.getDate() + 1);
 
-        navigation.navigate('Search', {
-            screen: 'BookingDetails',
-            params: {
+        navigation.navigate('CarDetails', {
                 carId: car.id,
-                startDate: today.toISOString().split('T')[0],
-                endDate: endDate.toISOString().split('T')[0]
-            }
+                bookingSearch: {
+                    startDate: today.toISOString().split('T')[0],
+                    endDate: endDate.toISOString().split('T')[0],
+                    pickUpLocation: 'Default Location',
+                    deliveryLocation: 'Default Location',
+                }
         });
     };
     
@@ -135,7 +142,7 @@ const CarMapMarker: React.FC<{ car: Car }> = ({car}) => {
                 console.log(`Marker for ${car.brand} ${car.model} pressed`);
             }}
         >
-            <Callout tooltip style={styles.callout} onPress={() => handleNavigateToBookingDetails()}>
+            <Callout style={styles.callout} onPress={() => handleNavigateToBookingDetails()}>
                 <CarView car={car}/>
             </Callout>
         </Marker>
@@ -174,12 +181,21 @@ const styles = StyleSheet.create({
         width: '100%',
         flex: 1,
     },
+    mapContainerTiny: {
+        position: 'relative',
+        width: '100%',
+    },
     mapSmall: {
         height: 350,
         borderRadius: 20,
         borderWidth: 1,
         marginVertical: 10,
         marginHorizontal: 16,
+    },
+    mapTiny: {
+        height: 120,
+        borderRadius: 20,
+        borderWidth: 1,
     },
     mapLarge: {
         width: '100%',

@@ -1,6 +1,6 @@
 import React from 'react';
 import {View, Text, Button, Image, StyleSheet, Pressable, TouchableOpacity, TextInput} from 'react-native'; // Add Image here
-import {HomeStackParamList, SearchStackParamList, UserBookingsStackParamList} from "../components/BottomNav";
+import {HomeStackParamList, UserBookingsStackParamList} from "../components/BottomNav";
 
 import {CarService } from '../../backend/CarService';
 import {Booking, Car, TempBooking} from '../../backend/models';
@@ -16,7 +16,7 @@ import {bookingDetailsStyle} from "../styling/BookingDetailsStyle";
 type BookingDetailsProps = StackScreenProps<HomeStackParamList, 'BookingDetails'>;
 
 const BookingDetails: React.FC<BookingDetailsProps> = ({ route, navigation }) => {
-  const { carId, bookingSearch } = route.params;
+  const { carId, bookingSearch } = route.params ?? {};
   const [car, setCar] = React.useState<Car | null>(null);
   const {user} = UseUserContext();
 
@@ -52,8 +52,8 @@ const BookingDetails: React.FC<BookingDetailsProps> = ({ route, navigation }) =>
     id: "tempary booking",
     userId: user?.id ?? '',
     carId: car?.id,
-    startDate: endDate,
-    endDate: startDate,
+    startDate: startDate,
+    endDate: endDate,
     pickUpLocation: bookingSearch.pickUpLocation,
     deliveryLocation: bookingSearch.deliveryLocation,
     payMethod: "Select next step",
@@ -89,7 +89,7 @@ const BookingDetails: React.FC<BookingDetailsProps> = ({ route, navigation }) =>
 
 
         <BookingInfoBox booking={temparyBooking} car={car} />
-        <TouchableOpacity style={bookingDetailsStyle.confirmButton}>
+        <TouchableOpacity style={bookingDetailsStyle.confirmButton} onPress={handlePayment}>
           <Text style={bookingDetailsStyle.confirmText}>Confirm booking</Text>
         </TouchableOpacity>
       </SafeAreaView>

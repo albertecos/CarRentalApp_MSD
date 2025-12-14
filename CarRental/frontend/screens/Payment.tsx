@@ -6,11 +6,11 @@ import {Booking, Car, TempBooking} from '../../backend/models';
 import {SafeAreaView} from "react-native-safe-area-context";
 import {UseUserContext} from "../../UserContext";
 import {StackScreenProps} from "@react-navigation/stack";
-import {SearchStackParamList} from "../components/BottomNav";
+import {MapStackParamList} from "../components/BottomNav";
 import BookHeader from "../components/BookHeader";
 import BookingProgress from "../components/BookingProgress";
 
-type PaymentProps = StackScreenProps<SearchStackParamList, 'Payment'>;
+type PaymentProps = StackScreenProps<MapStackParamList, 'Payment'>;
 
 const Payment: React.FC<PaymentProps> = ({route, navigation}) => {
     const {booking} = route.params;
@@ -23,7 +23,7 @@ const Payment: React.FC<PaymentProps> = ({route, navigation}) => {
         }
         let newBooking: Booking = await bookingService.createBooking(updatedBooking);
 
-        navigation.navigate('Confirmation', {bookingId: newBooking.id});
+        navigation.navigate('FinalConfirm', {bookingId: newBooking.id});
     }
     const [saveCard, setSaveCard] = useState(false);
     const [selectedMethod, setSelectedMethod] = useState<"Card" | "Cash" | null>(null);
@@ -239,7 +239,6 @@ export default Payment
 const styles = StyleSheet.create({
     container: {
         flexGrow: 1,
-        backgroundColor: "#fff",
         padding: 20,
     },
 

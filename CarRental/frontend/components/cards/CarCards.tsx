@@ -19,9 +19,14 @@ const CarCards: React.FC<props> = ({ car, bookingSearch }) => {
     const navigation = useNavigation<NavigationProp>();
 
     const handleNavigateToBookingDetails = () => {
-        navigation.navigate('BookingDetails', {
+        navigation.navigate('CarDetails', {
             carId: car.id,
-            bookingSearch
+            bookingSearch: {
+                startDate: new Date().toISOString().split('T')[0],
+                endDate: new Date(new Date().setDate(new Date().getDate() + 1)).toISOString().split('T')[0],
+                pickUpLocation: 'Default Location',
+                deliveryLocation: 'Default Location',
+            }
         });
     };
 
@@ -41,7 +46,7 @@ const CarCards: React.FC<props> = ({ car, bookingSearch }) => {
                         {/*Location*/}
                         <View style={carCardStyles.locationRow}>
                             <Feather name="map-pin" size={18} color="#9A9A9A"/>
-                            <Text style={cardStyles.metaLabel}> {car.location}</Text>
+                            <Text style={cardStyles.metaLabel}> {car.location.area}</Text>
                         </View>
                     </View>
 

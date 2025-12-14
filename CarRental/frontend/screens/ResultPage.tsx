@@ -1,10 +1,10 @@
 import {Pressable, ScrollView, StyleSheet, Text, TouchableOpacity, View} from "react-native";
 import {NativeStackScreenProps} from "@react-navigation/native-stack";
-import {HomeStackParamList, SearchStackParamList} from "../components/BottomNav";
+import {HomeStackParamList} from "../components/BottomNav";
 import React, {useEffect} from "react";
 import {Car} from "../../backend/models";
 import Header from "../components/Header";
-// import SearchBooking from "../components/SearchBooking";
+import SearchBooking from "../components/SearchBooking";
 import {SafeAreaView} from "react-native-safe-area-context";
 import axios from "axios";
 import {API_BASE_URL} from "@env";

@@ -8,10 +8,10 @@ import {API_BASE_URL} from "@env";
 import {SafeAreaView} from "react-native-safe-area-context";
 import CarMapView from '../components/CarMapView';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { HomeStackParamList } from '../components/BottomNav';
+import { MapStackParamList } from '../components/BottomNav';
 import Header from "../components/Header";
 
-type MapPageProps = NativeStackScreenProps<HomeStackParamList, 'MapPage'>;
+type MapPageProps = NativeStackScreenProps<MapStackParamList, 'MapPage'>;
 
 const MapPage: React.FC<MapPageProps> = ({ route }) => {
     const { camera } = route.params || {};
