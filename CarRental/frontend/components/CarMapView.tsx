@@ -204,7 +204,7 @@ const styles = StyleSheet.create({
     calloutImage: {
         width: '100%',
         height: 100,
-        backgroundColor: '#f0f0f0',
+        backgroundColor: 'white',
     },
     calloutContent: {
         padding: 12,
