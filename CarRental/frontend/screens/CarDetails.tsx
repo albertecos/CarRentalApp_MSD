@@ -6,6 +6,7 @@ import { HomeStackParamList } from '../components/BottomNav';
 import { CarService } from '../../backend/CarService';
 import { Car } from '../../backend/models';
 import CarMapView from '../components/CarMapView';
+import BookHeader from "../components/BookHeader";
 
 type CarDetailsProps = NativeStackScreenProps<HomeStackParamList, 'CarDetails'>;
 
@@ -45,6 +46,7 @@ const CarDetails: React.FC<CarDetailsProps> = ({ route, navigation }) => {
 
   return (
     <SafeAreaView style={styles.container} edges={['left', 'right']}>
+        <BookHeader title={"Car details"} navigation={navigation}/>
       <ScrollView style={styles.scrollView} showsVerticalScrollIndicator={false}>
         {/* Car Image */}
         <View style={styles.imageContainer}>
