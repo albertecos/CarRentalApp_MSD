@@ -18,11 +18,11 @@ import CarDetails from "../screens/CarDetails";
 
 export type SearchStackParamList = {
     Booking: undefined;
-    BookingDetails: {
+    /*BookingDetails: {
         carId: string;
         startDate: string;
         endDate: string;
-    };
+    }; */
     Payment: {
         booking: TempBooking;
     };
@@ -48,8 +48,7 @@ export type HomeStackParamList = {
     };
     BookingDetails: {
         carId: string;
-        startDate: string;
-        endDate: string;
+        bookingSearch: BookingSearch;
     };
     Payment: {
         booking: TempBooking;
@@ -66,7 +65,7 @@ function SearchStackScreen(){
     return(
         <SearchStack.Navigator>
             <SearchStack.Screen name="Booking" component={Booking} />
-            <SearchStack.Screen name="BookingDetails" component={BookingDetails} />
+            {/*            <SearchStack.Screen name="BookingDetails" component={BookingDetails} />*/}
             <SearchStack.Screen name="Payment" component={Payment}/>
             <SearchStack.Screen name="Confirmation" component={Confirmation}/>
         </SearchStack.Navigator>

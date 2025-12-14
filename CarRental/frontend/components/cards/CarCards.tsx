@@ -2,27 +2,26 @@ import React from 'react';
 import {View, Text, Image, TouchableOpacity, Pressable} from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import {NativeStackNavigationProp} from "@react-navigation/native-stack";
-import {HomeStackParamList, SearchStackParamList} from "../BottomNav";
+import {HomeStackParamList} from "../BottomNav";
 import { carCardStyles } from "../../styling/CardStyles/CarCardsStyle"; //carCards specifically
 import { cardStyles } from "../../styling/CardStyles/baseCardsStyle";
 import { Car, BookingSearch } from "../../../backend/models";
 import {Feather} from "@expo/vector-icons";
 
-type NavigationProp = NativeStackNavigationProp<SearchStackParamList, 'Booking'>
+type NavigationProp = NativeStackNavigationProp<HomeStackParamList, 'BookingDetails'>
 
 type props = {
     car: Car;
     bookingSearch: BookingSearch;
 }
 
-const CarCards: React.FC<props> = ({ car }) => {
+const CarCards: React.FC<props> = ({ car, bookingSearch }) => {
     const navigation = useNavigation<NavigationProp>();
 
     const handleNavigateToBookingDetails = () => {
         navigation.navigate('BookingDetails', {
             carId: car.id,
-            startDate: '{bookingSearch.startDate}',
-            endDate: '{bookingSearch.endDate}'
+            bookingSearch
         });
     };
 
