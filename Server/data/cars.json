@@ -16,7 +16,11 @@
             "fuelType": "hybrid"
         },
         "extras": ["GPS", "Child Seat"],
-        "location": "Odense"
+        "location": {
+            "latitude": 55.6764,
+            "longitude": 12.568,
+            "area": "Copenhagen"
+        }
     },
     {
         "id": "2",
@@ -35,7 +39,11 @@
             "fuelType": "petrol"
         },
         "extras": ["GPS"],
-        "location": "Copenhagen"
+        "location": {
+            "latitude": 55.6761,
+            "longitude": 12.5684,
+            "area": "Copenhagen"
+        }
     },
     {
         "id": "3",
@@ -54,7 +62,11 @@
             "fuelType": "petrol"
         },
         "extras": ["Child Seat"],
-        "location": "Odense C"
+        "location": {
+            "latitude": 55.3961,
+            "longitude": 10.3883,
+            "area": "Odense"
+        }
     },
     {
         "id": "4",
@@ -73,7 +85,11 @@
             "fuelType": "petrol"
         },
         "extras": ["Child Seat"],
-        "location": "Esbjerg"
+        "location": {
+            "latitude": 55.4765,
+            "longitude": 8.4594,
+            "area": "Esbjerg"
+        }
     },
     {
         "id": "5",
@@ -92,6 +108,10 @@
             "fuelType": "hybrid"
         },
         "extras": ["GPS", "Child Seat"],
-        "location": "Aarhus"
+        "location": {
+            "latitude": 56.1629,
+            "longitude": 10.2039,
+            "area": "Aarhus"
+        }
     }
 ]
