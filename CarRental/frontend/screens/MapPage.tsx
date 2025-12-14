@@ -16,7 +16,7 @@ const MapPage: React.FC<MapPageProps> = ({ route }) => {
     const { camera } = route.params || {};
 
     return (
-        <SafeAreaView edges={["left", "right", "bottom"]} style={{flex: 1}}>
+        <SafeAreaView edges={["top", "left", "right"]} style={{flex: 1}}>
             <CarMapView type="large" camera={camera}/>
         </SafeAreaView>
     )
