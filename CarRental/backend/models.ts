@@ -10,6 +10,7 @@ export type Car = {
     features: {
         airConditioning: boolean;
         numberOfSeats: number;
+        doors: number;
         transmission: 'manual' | 'automatic';
         fuelType: 'petrol' | 'diesel' | 'electric' | 'hybrid';
     }

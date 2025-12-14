@@ -11,6 +11,7 @@
         "features": {
             "airConditioning": true,
             "numberOfSeats": 5,
+            "doors": 4,
             "transmission": "automatic",
             "fuelType": "hybrid"
         },
@@ -29,6 +30,7 @@
         "features": {
             "airConditioning": true,
             "numberOfSeats": 4,
+            "doors": 2,
             "transmission": "manual",
             "fuelType": "petrol"
         },
@@ -47,6 +49,7 @@
         "features": {
             "airConditioning": true,
             "numberOfSeats": 5,
+            "doors": 4,
             "transmission": "automatic",
             "fuelType": "petrol"
         },
@@ -65,6 +68,7 @@
         "features": {
             "airConditioning": true,
             "numberOfSeats": 5,
+            "doors": 4,
             "transmission": "automatic",
             "fuelType": "petrol"
         },
@@ -83,6 +87,7 @@
         "features": {
             "airConditioning": true,
             "numberOfSeats": 5,
+            "doors": 4,
             "transmission": "automatic",
             "fuelType": "hybrid"
         },

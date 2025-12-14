@@ -4,7 +4,7 @@ import { useNavigation } from '@react-navigation/native';
 import {NativeStackNavigationProp} from "@react-navigation/native-stack";
 // import {SearchStackParamList} from "../../../App";
 import {HomeStackParamList, SearchStackParamList} from "../BottomNav";
-type BookingNavigationProp = NativeStackNavigationProp<SearchStackParamList, 'Booking'>
+type BookingNavigationProp = NativeStackNavigationProp<HomeStackParamList>
 import {
     flexContainer, infoContainer, priceContainer, brandFont, normalFont,
     imageLogo, priceFont, button, buttonFont, dailyPriceFont
@@ -29,10 +29,14 @@ const CarCards: React.FC<carProps> = ({ car }) => {
     const navigation = useNavigation<BookingNavigationProp>();
 
     const handleNavigateToBookingDetails = () => {
-        navigation.navigate('BookingDetails', {
+        navigation.navigate('CarDetails', {
             carId: car.id,
-            startDate: '2025-09-25',
-            endDate: '2025-09-28'
+            bookingSearch: {
+                startDate: new Date().toISOString().split('T')[0],
+                endDate: new Date(new Date().setDate(new Date().getDate() + 1)).toISOString().split('T')[0],
+                pickUpLocation: 'Default Location',
+                deliveryLocation: 'Default Location',
+            }
         });
     };
 
