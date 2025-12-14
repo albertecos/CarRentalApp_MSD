@@ -72,7 +72,7 @@ const HomeStack = createNativeStackNavigator<HomeStackParamList>()
 
 function MapStackScreen(){
     return(
-        <MapStack.Navigator>
+        <MapStack.Navigator screenOptions={{headerShown: false}}>
             <MapStack.Screen name="MapPage" component={MapPage} />
             <MapStack.Screen name="CarDetails" component={CarDetails} />
             <MapStack.Screen name="BookingDetails" component={BookingDetails} />
