@@ -4,13 +4,14 @@ import {HomeStackParamList, SearchStackParamList} from "../components/BottomNav"
 import React, {useEffect} from "react";
 import {Car} from "../../backend/models";
 import Header from "../components/Header";
-import SearchBooking from "../components/SearchBooking";
+// import SearchBooking from "../components/SearchBooking";
 import {SafeAreaView} from "react-native-safe-area-context";
 import axios from "axios";
 import {API_BASE_URL} from "@env";
 import {normalFont} from "../styling/BookingPageStyle";
 import CarCards from "../components/cards/CarCards";
 import Ionicons from "@expo/vector-icons/Ionicons";
+import {resultPageStyling} from "../styling/ResultPageStyle";
 
 type ResultPageProps = NativeStackScreenProps<HomeStackParamList, 'ResultPage'>;
 
@@ -32,13 +33,17 @@ const ResultPage: React.FC<ResultPageProps> = ({navigation, route}) => {
         <SafeAreaView edges={["left", "right", "bottom"]}>
             <Header/>
             <View>
-                <View style={backButtonStyle.backButton}>
-                    <Pressable
-                        style={backButtonStyle.backButton}
-                        onPress={() => navigation.goBack()}>
-                        <Ionicons name="chevron-back-circle-outline" size={70} color="#7E7D7E80"/>
-                    </Pressable>
+                <View style={resultPageStyling.containerTop}>
+                    <View style={resultPageStyling.backButton}>
+                        <Pressable
+                            style={resultPageStyling.backButton}
+                            onPress={() => navigation.goBack()}>
+                            <Ionicons name="chevron-back-circle-outline" size={70} color="#7E7D7E80"/>
+                        </Pressable>
+                    </View>
+                    <Text style={normalFont.container}>Your search gave {cars.length} results</Text>
                 </View>
+
 
                 {/*
                 <Text>RESULT PAGE</Text>
@@ -46,17 +51,10 @@ const ResultPage: React.FC<ResultPageProps> = ({navigation, route}) => {
                 <Text>END DATE: {bookingSearch.endDate}</Text>
                 <Text>PICK UP LOCATION: {bookingSearch.pickUpLocation}</Text>
                 <Text>DELIVERY LOCATION: {bookingSearch.deliveryLocation}</Text>
-
-                <Text style={normalFont.container}>Your search gave {cars.length} results</Text>
-
-                <TouchableOpacity onPress={handleCarDetails}>
-                    <Text >
-                        car card
-                    </Text>
-                </TouchableOpacity>
                 */}
 
                 <ScrollView>
+
                     {cars.map((car) => (
                         <CarCards
                             key={car.id}
@@ -73,11 +71,3 @@ const ResultPage: React.FC<ResultPageProps> = ({navigation, route}) => {
 }
 
 export default ResultPage;
-
-export const backButtonStyle = StyleSheet.create({
-    backButton: {
-        width: 70,
-        height:
-            70,
-    }
-})
