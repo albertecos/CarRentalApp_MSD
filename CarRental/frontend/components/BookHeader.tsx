@@ -30,7 +30,7 @@ export default BookHeader;
 
 const styles = StyleSheet.create({
     container: {
-        backgroundColor: "#7E7D7E80",
+        backgroundColor: "rgba(205,204,205,0.5)",
         width: '100%',
         paddingHorizontal: 24,
         flexDirection: "row",
