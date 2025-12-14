@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Text, Button, Image, StyleSheet, Pressable} from 'react-native'; // Add Image here
+import {View, Text, Button, Image, StyleSheet, Pressable, TouchableOpacity, TextInput} from 'react-native'; // Add Image here
 import {HomeStackParamList, SearchStackParamList, UserBookingsStackParamList} from "../components/BottomNav";
 
 import {CarService } from '../../backend/CarService';
@@ -9,6 +9,9 @@ import {StackScreenProps} from "@react-navigation/stack";
 import BookingInfoBox from "../components/cards/BookingInfoBox";
 import {SafeAreaView} from "react-native-safe-area-context";
 import Ionicons from "@expo/vector-icons/Ionicons";
+import BookHeader from "../components/BookHeader";
+import BookingProgress from "../components/BookingProgress";
+import {bookingDetailsStyle} from "../styling/BookingDetailsStyle";
 
 type BookingDetailsProps = StackScreenProps<HomeStackParamList, 'BookingDetails'>;
 
@@ -16,6 +19,10 @@ const BookingDetails: React.FC<BookingDetailsProps> = ({ route, navigation }) =>
   const { carId, bookingSearch } = route.params;
   const [car, setCar] = React.useState<Car | null>(null);
   const {user} = UseUserContext();
+
+  const [fullname, setFullname] = React.useState(user?.name ?? "");
+  const [email, setEmail] = React.useState(user?.email ?? "");
+  const [phone, setPhone] = React.useState(user?.phone ?? "");
 
   React.useEffect(() => {
     async function fetchCar() {
@@ -26,16 +33,18 @@ const BookingDetails: React.FC<BookingDetailsProps> = ({ route, navigation }) =>
     fetchCar();
   }, [carId]);
 
-  if (!car || !bookingSearch.endDate || !bookingSearch.startDate) {
+  if (!car) {
     return (
-        <View>
-          <Text>WRONG NO DATES :(</Text>
-        </View>
-    )
+      <SafeAreaView style={{ flex: 1, backgroundColor: "white" }}>
+        <Text>Loading... car can't be found</Text>
+      </SafeAreaView>
+    );
   }
 
+  const startDate = bookingSearch.startDate ?? new Date(Date.now()).toISOString();
+  const endDate = bookingSearch.endDate ?? new Date(Date.now() + 24*60*60*1000 ).toISOString();
   const days = Math.ceil(
-      (new Date(bookingSearch.endDate).getTime() - new Date(bookingSearch.startDate).getTime()) / (1000*60*60*24)
+      (new Date(endDate).getTime() - new Date(startDate).getTime()) / (1000*60*60*24)
   );
 
   const totalCost = days * car.pricePerDay;
@@ -43,8 +52,8 @@ const BookingDetails: React.FC<BookingDetailsProps> = ({ route, navigation }) =>
     id: "tempary booking",
     userId: user?.id ?? '',
     carId: car?.id,
-    startDate: bookingSearch.startDate,
-    endDate: bookingSearch.endDate,
+    startDate: endDate,
+    endDate: startDate,
     pickUpLocation: bookingSearch.pickUpLocation,
     deliveryLocation: bookingSearch.deliveryLocation,
     payMethod: "Select next step",
@@ -67,26 +76,25 @@ const BookingDetails: React.FC<BookingDetailsProps> = ({ route, navigation }) =>
   }
 
   return (
-      <SafeAreaView edges={["left", "right", "bottom"]}>
-        <View style={bookingDetailsStyle.backButton}>
-        <Pressable
-            style={bookingDetailsStyle.backButton}
-            onPress={() => navigation.goBack()}>
-          <Ionicons name="chevron-back-circle-outline" size={70} color="#7E7D7E80"/>
-        </Pressable>
-      </View>
+      <SafeAreaView edges={["left", "right", "bottom"]} style={{ flex: 1, backgroundColor: "white" }}>
+        <BookHeader title={"Booking Details"} navigation={navigation} />
+        <BookingProgress currentStep={"booking"}/>
+
+        <View style={bookingDetailsStyle.section}>
+          <Text style={bookingDetailsStyle.title}>Customer</Text>
+          <TextInput style={bookingDetailsStyle.input} placeholder={"Full name"} value={fullname} onChangeText={setFullname}></TextInput>
+          <TextInput style={bookingDetailsStyle.input} placeholder={"Email adress"} value={email} onChangeText={setEmail}></TextInput>
+          <TextInput style={bookingDetailsStyle.input} placeholder={"Phone number"} value={phone} onChangeText={setPhone}></TextInput>
+        </View>
+
+
         <BookingInfoBox booking={temparyBooking} car={car} />
-        <Button title="Purchase" onPress={handlePayment} />
+        <TouchableOpacity style={bookingDetailsStyle.confirmButton}>
+          <Text style={bookingDetailsStyle.confirmText}>Confirm booking</Text>
+        </TouchableOpacity>
       </SafeAreaView>
   );
 };
 
 export default BookingDetails;
 
-export const bookingDetailsStyle = StyleSheet.create({
-  backButton: {
-    width: 70,
-    height:
-        70,
-  }
-});
