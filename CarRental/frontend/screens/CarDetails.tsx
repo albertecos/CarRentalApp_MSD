@@ -42,7 +42,7 @@ const CarDetails: React.FC<CarDetailsProps> = ({ route, navigation }) => {
   const uri = car?.imageUrl || 'https://via.placeholder.com/400x200';
 
 
-    let initials = car?.renter ? car?.renter.name.split(' ').map(n => n[0]).join('').toUpperCase() : '';
+    let initials = car?.renter ? car?.renter?.name.split(' ').map(n => n[0]).join('').toUpperCase() : '';
 
   return (
     <SafeAreaView style={styles.container} edges={['left', 'right']}>
@@ -136,10 +136,10 @@ const CarDetails: React.FC<CarDetailsProps> = ({ route, navigation }) => {
                 <Text style={styles.renterAvatarText}>{initials}</Text>
               </View>
               <View style={styles.renterDetails}>
-                <Text style={styles.renterName}>{car?.renter.name}</Text>
+                <Text style={styles.renterName}>{car?.renter?.name}</Text>
                 <View style={styles.renterContact}>
-                  <Text style={styles.renterPhone}>{car?.renter.phone}</Text>
-                  <Text style={styles.renterEmail}>{car?.renter.email}</Text>
+                  <Text style={styles.renterPhone}>{car?.renter?.phone}</Text>
+                  <Text style={styles.renterEmail}>{car?.renter?.email}</Text>
                 </View>
               </View>
             </View>
@@ -151,15 +151,15 @@ const CarDetails: React.FC<CarDetailsProps> = ({ route, navigation }) => {
                 style={styles.locationIcon}
               />
               <View>
-                <Text style={styles.locationName}>{car?.location.area}</Text>
+                <Text style={styles.locationName}>{car?.location?.area}</Text>
               </View>
             </View>
 
             {/* Map Preview */}
             <CarMapView type="tiny" camera={{
                     center: {
-                        latitude: car?.location.latitude || 0,
-                        longitude: car?.location.longitude || 0,
+                        latitude: car?.location?.latitude || 0,
+                        longitude: car?.location?.longitude || 0,
                     },
                     zoom: 13,
                 }} />
