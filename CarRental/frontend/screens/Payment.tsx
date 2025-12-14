@@ -6,11 +6,11 @@ import {Booking, Car, TempBooking} from '../../backend/models';
 import {SafeAreaView} from "react-native-safe-area-context";
 import {UseUserContext} from "../../UserContext";
 import {StackScreenProps} from "@react-navigation/stack";
-import {SearchStackParamList} from "../components/BottomNav";
+import {MapStackParamList} from "../components/BottomNav";
 import BookHeader from "../components/BookHeader";
 import BookingProgress from "../components/BookingProgress";
 
-type PaymentProps = StackScreenProps<SearchStackParamList, 'Payment'>;
+type PaymentProps = StackScreenProps<MapStackParamList, 'Payment'>;
 
 const Payment: React.FC<PaymentProps> = ({route, navigation}) => {
     const {booking} = route.params;
