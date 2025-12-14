@@ -5,6 +5,7 @@ import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { HomeStackParamList } from '../components/BottomNav';
 import { CarService } from '../../backend/CarService';
 import { Car } from '../../backend/models';
+import CarMapView from '../components/CarMapView';
 
 type CarDetailsProps = NativeStackScreenProps<HomeStackParamList, 'CarDetails'>;
 
@@ -20,6 +21,7 @@ const CarDetails: React.FC<CarDetailsProps> = ({ route, navigation }) => {
     airConditioning: require('../assets/air_conditioner-icon.png'),
     seats: require('../assets/seats-icon.png'),
     distance: require('../assets/distance-icon.png'),
+    location: require('../assets/location-icon.png'),
   } as const;
 
   React.useEffect(() => {
@@ -38,27 +40,40 @@ const CarDetails: React.FC<CarDetailsProps> = ({ route, navigation }) => {
 
   const uri = car?.imageUrl || 'https://via.placeholder.com/400x200';
 
+
+    let initials = car?.renter.name.split(' ').map(n => n[0]).join('').toUpperCase();
+
   return (
-    <SafeAreaView style={styles.container} edges={['top', 'left', 'right', 'bottom']}>
+    <SafeAreaView style={styles.container} edges={['left', 'right']}>
       <ScrollView style={styles.scrollView} showsVerticalScrollIndicator={false}>
-        {/* Car Image Carousel */}
+        {/* Car Image */}
         <View style={styles.imageContainer}>
           <Image source={{ uri }} style={styles.carImage} />
-          
-          {/* Image Pagination Dots */}
-          <View style={styles.paginationContainer}>
-            <View style={[styles.paginationDot, styles.paginationDotActive]} />
-            <View style={styles.paginationDot} />
-            <View style={styles.paginationDot} />
-          </View>
         </View>
 
         {/* Car Title and Price */}
         <View style={styles.headerSection}>
           <Text style={styles.carTitle}>{car?.brand} {car?.model} ({car?.year})</Text>
-          <View style={styles.priceContainer}>
-            <Text style={styles.priceAmount}>{car?.pricePerDay} DKK</Text>
-            <Text style={styles.priceLabel}>/ daily</Text>
+          <Text style={styles.description}>{car?.description}</Text>
+          <View style={styles.priceButtonContainer}>
+            <View style={styles.priceContainer}>
+              <Text style={styles.priceAmount}>{car?.pricePerDay} DKK</Text>
+              <Text style={styles.priceLabel}>/ daily</Text>
+            </View>
+            <TouchableOpacity 
+              style={styles.bookButtonInline}
+              onPress={() => {
+                navigation.navigate('BookingDetails', 
+                  { 
+                      carId,
+                      startDate: bookingSearch?.startDate || new Date().toISOString().split('T')[0],
+                      endDate: bookingSearch?.endDate || new Date(new Date().setDate(new Date().getDate() + 1)).toISOString().split('T')[0],
+                  });
+              }}
+            >
+              <Text style={styles.bookButtonText}>Book now</Text>
+              <Text style={styles.bookButtonArrow}>→</Text>
+            </TouchableOpacity>
           </View>
         </View>
 
@@ -112,13 +127,13 @@ const CarDetails: React.FC<CarDetailsProps> = ({ route, navigation }) => {
           <View style={styles.renterCard}>
             <View style={styles.renterInfo}>
               <View style={styles.renterAvatar}>
-                <Text style={styles.renterAvatarText}>DS</Text>
+                <Text style={styles.renterAvatarText}>{initials}</Text>
               </View>
               <View style={styles.renterDetails}>
-                <Text style={styles.renterName}>Danielle S. L.</Text>
+                <Text style={styles.renterName}>{car?.renter.name}</Text>
                 <View style={styles.renterContact}>
-                  <Text style={styles.renterPhone}>(+45) 12 34 56 78</Text>
-                  <Text style={styles.renterEmail}>dsl@carrent.com</Text>
+                  <Text style={styles.renterPhone}>{car?.renter.phone}</Text>
+                  <Text style={styles.renterEmail}>{car?.renter.email}</Text>
                 </View>
               </View>
             </View>
@@ -126,45 +141,25 @@ const CarDetails: React.FC<CarDetailsProps> = ({ route, navigation }) => {
             {/* Location */}
             <View style={styles.locationContainer}>
               <Image 
-                source={{ uri: 'https://cdn-icons-png.flaticon.com/512/684/684908.png' }} 
+                source={icons.location}
                 style={styles.locationIcon} 
               />
               <View>
-                <Text style={styles.locationName}>Odense C,</Text>
-                <Text style={styles.locationCountry}>Denmark</Text>
+                <Text style={styles.locationName}>{car?.location.area}</Text>
               </View>
             </View>
 
             {/* Map Preview */}
-            <View style={styles.mapPreview}>
-              <Image 
-                source={{ uri: 'https://via.placeholder.com/300x150/cccccc/666666?text=Map' }} 
-                style={styles.mapImage}
-              />
-            </View>
+            <CarMapView type="tiny" camera={{
+                    center: {
+                        latitude: car?.location.latitude || 0,
+                        longitude: car?.location.longitude || 0,
+                    },
+                    zoom: 13,
+                }} />
           </View>
         </View>
-
-        {/* Extra spacing for bottom button */}
-        {/* <View style={{ height: 100 }} /> */}
       </ScrollView>
-
-      {/* Book Now Button */}
-      <TouchableOpacity 
-        style={styles.bookButton}
-        onPress={() => {
-          // Navigate to booking page
-          navigation.navigate('BookingDetails', 
-            { 
-                carId,
-                startDate: bookingSearch?.startDate || new Date().toISOString().split('T')[0],
-                endDate: bookingSearch?.endDate || new Date(new Date().setDate(new Date().getDate() + 1)).toISOString().split('T')[0],
-            });
-        }}
-      >
-        <Text style={styles.bookButtonText}>Book now</Text>
-        <Text style={styles.bookButtonArrow}>→</Text>
-      </TouchableOpacity>
     </SafeAreaView>
   );
 };
@@ -219,6 +214,12 @@ const styles = StyleSheet.create({
     color: '#000',
     marginBottom: 8,
   },
+  description: {
+    fontSize: 14,
+    color: '#666',
+    marginBottom: 12,
+    lineHeight: 20,
+  },
   priceContainer: {
     flexDirection: 'row',
     alignItems: 'baseline',
@@ -226,7 +227,7 @@ const styles = StyleSheet.create({
   priceAmount: {
     fontSize: 32,
     fontWeight: 'bold',
-    color: '#000',
+    color: '#e01313',
     marginRight: 5,
   },
   priceLabel: {
@@ -323,8 +324,7 @@ const styles = StyleSheet.create({
   },
   locationIcon: {
     width: 24,
-    height: 24,
-    tintColor: '#666',
+    height: 30,
   },
   locationName: {
     fontSize: 15,
@@ -372,6 +372,26 @@ const styles = StyleSheet.create({
     color: '#fff',
     fontSize: 18,
     fontWeight: 'bold',
+  },
+  priceButtonContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginTop: 12,
+  },
+  bookButtonInline: {
+    backgroundColor: '#e01313',
+    paddingVertical: 12,
+    paddingHorizontal: 24,
+    borderRadius: 8,
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 8,
+    elevation: 3,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.2,
+    shadowRadius: 2,
   },
 });
 

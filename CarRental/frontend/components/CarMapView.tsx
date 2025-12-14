@@ -17,7 +17,7 @@ type BookingNavigationProp = CompositeNavigationProp<
 >
 
 type MapViewProps = {
-    type: "small" | "large";
+    type: "tiny" | "small" | "large";
     camera?: any;
 }
 
@@ -75,7 +75,7 @@ const CarMapView: React.FC<MapViewProps> = ({type, camera}) => {
 
     
     return (
-        <View style={type === "small" ? styles.mapContainer : styles.mapContainerLarge}>
+        <View style={type === "small" ? styles.mapContainer : type === "large" ? styles.mapContainerLarge : styles.mapContainerTiny}>
             {type === "small" && (
                 <TouchableOpacity
                     style={styles.fullScreenButton}
@@ -94,8 +94,10 @@ const CarMapView: React.FC<MapViewProps> = ({type, camera}) => {
             <MapView
                 ref={mapRef}
                 provider="google"
-                style={type === "small" ? styles.mapSmall : styles.mapLarge}
-                showsUserLocation={true}
+                style={type === "small" ? styles.mapSmall : type === "large" ? styles.mapLarge : styles.mapTiny}
+                showsUserLocation={!(type === "tiny")}
+                zoomEnabled={!(type === "tiny")}
+                scrollEnabled={!(type === "tiny")}
             >
                 {cars.map((car) => (
                     <CarMapMarker key={car.id} car={car}/>
@@ -174,12 +176,21 @@ const styles = StyleSheet.create({
         width: '100%',
         flex: 1,
     },
+    mapContainerTiny: {
+        position: 'relative',
+        width: '100%',
+    },
     mapSmall: {
         height: 350,
         borderRadius: 20,
         borderWidth: 1,
         marginVertical: 10,
         marginHorizontal: 16,
+    },
+    mapTiny: {
+        height: 120,
+        borderRadius: 20,
+        borderWidth: 1,
     },
     mapLarge: {
         width: '100%',

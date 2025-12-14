@@ -14,6 +14,11 @@ export type Car = {
         transmission: 'manual' | 'automatic';
         fuelType: 'petrol' | 'diesel' | 'electric' | 'hybrid';
     }
+    renter: {
+        name: string;
+        phone: string;
+        email: string;
+    }
     extras: string[];
     location: {
         latitude: number;
