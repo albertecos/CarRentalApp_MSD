@@ -30,6 +30,7 @@ const CarMapView: React.FC<MapViewProps> = ({type, camera}) => {
 
     useEffect(() => {
         (async () => {
+            if (type === "tiny") return; // Do not request location for tiny map
             let {status} = await Location.requestForegroundPermissionsAsync();
             if (status !== 'granted') {
                 Alert.alert(
