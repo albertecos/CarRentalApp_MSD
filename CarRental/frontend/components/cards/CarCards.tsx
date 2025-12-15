@@ -17,6 +17,11 @@ type props = {
 
 const CarCards: React.FC<props> = ({ car, bookingSearch }) => {
     const navigation = useNavigation<NavigationProp>();
+    const icons = {
+        gearBox: require("../../assets/gearbox-icon.png"),
+        fuel: require("../../assets/fuel-icon.png"),
+        seats: require("../../assets/seats-icon.png"),
+    }
 
     const handleNavigateToBookingDetails = () => {
         navigation.navigate('CarDetails', {
@@ -54,6 +59,22 @@ const CarCards: React.FC<props> = ({ car, bookingSearch }) => {
                     <View style={carCardStyles.priceContainer}>
                         <Text style={carCardStyles.priceFont}> {car.pricePerDay} DKK </Text>
                         <Text style={carCardStyles.dailyTextFont}>/ daily</Text>
+                    </View>
+                </View>
+
+                {/*Icons*/}
+                <View style={carCardStyles.featureRow}>
+                    <View style={carCardStyles.featureItem}>
+                        <Image source={icons.gearBox} style={carCardStyles.icons}/>
+                        <Text style={carCardStyles.iconsText}>{car?.features.transmission}</Text>
+                    </View>
+                    <View style={carCardStyles.featureItem}>
+                        <Image source={icons.seats} style={carCardStyles.icons}/>
+                        <Text style={carCardStyles.iconsText}>{car?.features.numberOfSeats} seats</Text>
+                    </View>
+                    <View style={carCardStyles.featureItem}>
+                        <Image source={icons.fuel} style={carCardStyles.icons}/>
+                        <Text style={carCardStyles.iconsText}>{car?.features.fuelType}</Text>
                     </View>
                 </View>
 

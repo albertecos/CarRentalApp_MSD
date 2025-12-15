@@ -25,9 +25,9 @@ export const carCardStyles = StyleSheet.create({
     },
 
     priceFont: {
-        color: "rgba(102,7,8,1)",
+        color: '#e01313',
         fontWeight: 'bold',
-        fontSize: 15,
+        fontSize: 20,
     },
 
     buttonFont: {
@@ -39,6 +39,31 @@ export const carCardStyles = StyleSheet.create({
         fontSize: 10,
         fontWeight: "700",
         color: "#B8B8B8",
+    },
+
+    featureRow: {
+        flexDirection: "row",
+        justifyContent: 'center',
+        gap: 40,
+        marginTop: 10,
+    },
+
+    featureItem: {
+        flexDirection: "row",
+        alignItems: "center",
+        gap: 2,
+    },
+
+    icons: {
+        width: 20,
+        height: 20,
+        tintColor: "#000000",
+    },
+
+    iconsText: {
+        fontSize: 13,
+        fontWeight: "700",
+        color: "#000000",
     },
 });
 
