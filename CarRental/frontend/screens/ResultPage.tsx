@@ -30,9 +30,9 @@ const ResultPage: React.FC<ResultPageProps> = ({navigation, route}) => {
     const handleCarDetails = async () => {
     }
     return (
-        <SafeAreaView edges={["left", "right", "bottom"]}>
+        <SafeAreaView style={{flex: 1}} edges={["left", "right"]}>
             <Header/>
-            <View>
+            <ScrollView style={{flex: 1}} contentContainerStyle={[resultPageStyling.scrollContent, {flexGrow: 1}]}>
                 <View style={resultPageStyling.containerTop}>
                     <View style={resultPageStyling.backButton}>
                         <Pressable
@@ -64,7 +64,7 @@ const ResultPage: React.FC<ResultPageProps> = ({navigation, route}) => {
                     ))}
                 </ScrollView>
 
-            </View>
+            </ScrollView>
         </SafeAreaView>
 
     )

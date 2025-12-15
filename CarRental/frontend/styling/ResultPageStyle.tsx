@@ -12,5 +12,10 @@ export const resultPageStyling = StyleSheet.create({
         justifyContent: "space-between",
         alignItems: "center",
         marginRight: 20,
-    }
+    },
+
+    scrollContent: {
+        padding: 16,
+        paddingBottom: 76
+    },
 });
