@@ -4,7 +4,6 @@ import {createBottomTabNavigator} from "@react-navigation/bottom-tabs";
 import {Feather, Ionicons, FontAwesome5} from "@expo/vector-icons";
 
 import Home from "../screens/Home";
-import Booking from "../screens/Booking";
 import UserBookings from "../screens/UserBookings";
 import Settings from "../screens/Settings";
 import {createNativeStackNavigator} from "@react-navigation/native-stack";
