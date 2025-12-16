@@ -23,7 +23,7 @@ const BookingDetails: React.FC<BookingDetailsProps> = ({ route, navigation }) =>
 
   const [fullname, setFullname] = React.useState(user?.name ?? "");
   const [email, setEmail] = React.useState(user?.email ?? "");
-  const [phone, setPhone] = React.useState(user?.phone ?? "");
+  const [phone, setPhone] = React.useState(user?.phone == "Unknown" ? undefined : user?.phone);
 
   React.useEffect(() => {
     async function fetchCar() {

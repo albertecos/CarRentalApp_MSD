@@ -12,7 +12,7 @@ import {HomeStackParamList} from "../components/BottomNav";
 import CarMapView from "../components/CarMapView";
 import {scrollingStyling} from "../styling/scrollingStyling";
 
-type HomeProps = StackScreenProps<HomeStackParamList, 'HomeScreen'>;
+type HomeProps = StackScreenProps<HomeStackParamList, 'Home'>;
 
 
 const Home: React.FC = () => {

@@ -45,7 +45,7 @@ export type UserBookingsStackParamList = {
 };
 
 export type HomeStackParamList = {
-    HomeScreen: undefined;
+    Home: undefined;
     ResultPage: {
         bookingSearch: BookingSearch;
     };
@@ -91,7 +91,7 @@ function UserBookingsStackNavigator(){
 function HomeStackNavigator(){
     return(
         <HomeStack.Navigator screenOptions={{headerShown: false}}>
-            <HomeStack.Screen name="HomeScreen" component={Home} />
+            <HomeStack.Screen name="Home" component={Home} />
             <HomeStack.Screen name="ResultPage" component={ResultPage} />
             <HomeStack.Screen name="CarDetails" component={CarDetails}/>
             <HomeStack.Screen name="BookingDetails" component={BookingDetails} />
