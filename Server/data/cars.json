@@ -11,8 +11,14 @@
         "features": {
             "airConditioning": true,
             "numberOfSeats": 5,
+            "doors": 4,
             "transmission": "automatic",
             "fuelType": "hybrid"
+        },
+        "renter": {
+            "name": "Karl cars A/S",
+            "phone": "(+45) 12 34 56 78",
+            "email": "karl@karlcars.dk"
         },
         "extras": ["GPS", "Child Seat"],
         "location": {
@@ -33,8 +39,15 @@
         "features": {
             "airConditioning": true,
             "numberOfSeats": 4,
+            "doors": 2,
             "transmission": "manual",
             "fuelType": "petrol"
+        },
+
+        "renter": {
+            "name": "AutoRentals DK",
+            "phone": "(+45) 12 34 56 78",
+            "email": "info@autorentals.dk"
         },
         "extras": ["GPS"],
         "location": {
@@ -55,8 +68,14 @@
         "features": {
             "airConditioning": true,
             "numberOfSeats": 5,
+            "doors": 4,
             "transmission": "automatic",
             "fuelType": "petrol"
+        },
+        "renter": {
+            "name": "Rent-A-Car Odense",
+            "phone": "(+45) 12 34 56 78",
+            "email": "info@rentacarodense.dk"
         },
         "extras": ["Child Seat"],
         "location": {
@@ -77,8 +96,14 @@
         "features": {
             "airConditioning": true,
             "numberOfSeats": 5,
+            "doors": 4,
             "transmission": "automatic",
             "fuelType": "petrol"
+        },
+        "renter": {
+            "name": "Esbjerg Car Rentals",
+            "phone": "(+45) 12 34 56 78",
+            "email": "car@esbjerg.dk"
         },
         "extras": ["Child Seat"],
         "location": {
@@ -99,8 +124,14 @@
         "features": {
             "airConditioning": true,
             "numberOfSeats": 5,
+            "doors": 4,
             "transmission": "automatic",
             "fuelType": "hybrid"
+        },
+        "renter": {
+            "name": "City Wheels Aalborg",
+            "phone": "(+45) 12 34 56 78",
+            "email": "info@citywheelsaalborg.dk"
         },
         "extras": ["GPS", "Child Seat"],
         "location": {
