@@ -26,12 +26,7 @@ const CarCards: React.FC<props> = ({ car, bookingSearch }) => {
     const handleNavigateToBookingDetails = () => {
         navigation.navigate('CarDetails', {
             carId: car.id,
-            bookingSearch: {
-                startDate: new Date().toISOString().split('T')[0],
-                endDate: new Date(new Date().setDate(new Date().getDate() + 1)).toISOString().split('T')[0],
-                pickUpLocation: 'Default Location',
-                deliveryLocation: 'Default Location',
-            }
+            bookingSearch: bookingSearch
         });
     };
 

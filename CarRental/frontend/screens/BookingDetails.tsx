@@ -1,6 +1,6 @@
 import React from 'react';
-import {View, Text, Button, Image, StyleSheet, Pressable, TouchableOpacity, TextInput, ScrollView} from 'react-native'; // Add Image here
-import {HomeStackParamList, UserBookingsStackParamList} from "../components/BottomNav";
+import {View, Text, TouchableOpacity, TextInput, ScrollView} from 'react-native'; // Add Image here
+import {HomeStackParamList} from "../components/BottomNav";
 
 import {CarService } from '../../backend/CarService';
 import {Booking, Car, TempBooking} from '../../backend/models';
@@ -8,7 +8,6 @@ import {UseUserContext} from "../../UserContext";
 import {StackScreenProps} from "@react-navigation/stack";
 import BookingInfoBox from "../components/cards/BookingInfoBox";
 import {SafeAreaView} from "react-native-safe-area-context";
-import Ionicons from "@expo/vector-icons/Ionicons";
 import BookHeader from "../components/BookHeader";
 import BookingProgress from "../components/BookingProgress";
 import {bookingDetailsStyle} from "../styling/BookingDetailsStyle";
@@ -53,8 +52,8 @@ const BookingDetails: React.FC<BookingDetailsProps> = ({ route, navigation }) =>
     id: "tempary booking",
     userId: user?.id ?? '',
     carId: car?.id,
-    startDate: startDate,
-    endDate: endDate,
+    startDate: startDate.split('T')[0],
+    endDate: endDate.split('T')[0],
     pickUpLocation: bookingSearch.pickUpLocation,
     deliveryLocation: bookingSearch.deliveryLocation,
     payMethod: "Select next step",

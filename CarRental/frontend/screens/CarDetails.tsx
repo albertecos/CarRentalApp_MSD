@@ -68,12 +68,7 @@ const CarDetails: React.FC<CarDetailsProps> = ({ route, navigation }) => {
                 navigation.navigate('BookingDetails',
                   {
                       carId,
-                      bookingSearch: {
-                        startDate: bookingSearch?.startDate || new Date().toISOString().split('T')[0],
-                        endDate: bookingSearch?.endDate || new Date(new Date().setDate(new Date().getDate() + 1)).toISOString().split('T')[0],
-                        pickUpLocation: bookingSearch?.pickUpLocation || 'Default Location',
-                        deliveryLocation: bookingSearch?.deliveryLocation ||'Default Location',
-                      }
+                    bookingSearch: bookingSearch
                   });
               }}
             >
