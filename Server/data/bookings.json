@@ -42,5 +42,82 @@
     "pickUpLocation": "Somewhere",
     "deliveryLocation": "Somewhere else",
     "payMethod": "Cash"
+  },
+  {
+    "id": "ea298f2f-5ba8-4c8a-b0df-9bf106ae7cac",
+    "userId": "132857b4-fb91-4125-a699-2e6eb0029de0",
+    "carId": "2",
+    "startDate": "2025-09-25",
+    "endDate": "2025-09-28",
+    "totalCost": 870,
+    "pickUpLocation": "Somewhere",
+    "deliveryLocation": "Somewhere else",
+    "payMethod": "Cash"
+  },
+  {
+    "id": "f7ff185e-46af-4e0b-85f5-2863255cd1bb",
+    "userId": "132857b4-fb91-4125-a699-2e6eb0029de0",
+    "carId": "2",
+    "startDate": "2025-09-25",
+    "endDate": "2025-09-28",
+    "totalCost": 870,
+    "pickUpLocation": "Somewhere",
+    "deliveryLocation": "Somewhere else",
+    "payMethod": "Cash"
+  },
+  {
+    "id": "eebcf302-aa65-421f-9b01-8744321b553b",
+    "userId": "132857b4-fb91-4125-a699-2e6eb0029de0",
+    "carId": "2",
+    "startDate": "2025-09-25",
+    "endDate": "2025-09-28",
+    "totalCost": 870,
+    "pickUpLocation": "Somewhere",
+    "deliveryLocation": "Somewhere else",
+    "payMethod": "Cash"
+  },
+  {
+    "id": "1b953af8-80c6-408d-8626-7b2980c4ca11",
+    "userId": "132857b4-fb91-4125-a699-2e6eb0029de0",
+    "carId": "1",
+    "startDate": "2025-12-16",
+    "endDate": "2025-12-17",
+    "totalCost": 250,
+    "pickUpLocation": "Default Location",
+    "deliveryLocation": "Default Location",
+    "payMethod": "Cash"
+  },
+  {
+    "id": "6b4f3673-e923-4aac-9f91-5e5ef0b0b5b4",
+    "userId": "596b034d-91de-4232-b9b2-cae2768065f4",
+    "carId": "1",
+    "startDate": "2025-12-16",
+    "endDate": "2025-12-17",
+    "totalCost": 250,
+    "pickUpLocation": "Default Location",
+    "deliveryLocation": "Default Location",
+    "payMethod": "Cash"
+  },
+  {
+    "id": "7b12e156-750a-4877-9435-38fe172ab969",
+    "userId": "596b034d-91de-4232-b9b2-cae2768065f4",
+    "carId": "1",
+    "startDate": "2025-12-15T23:00:00.000Z",
+    "endDate": "2025-12-20T23:00:00.000Z",
+    "totalCost": 1250,
+    "pickUpLocation": "Copenhagen",
+    "deliveryLocation": "Odense",
+    "payMethod": "Cash"
+  },
+  {
+    "id": "cb9f3ac8-38be-4c5f-8847-b373cce41b09",
+    "userId": "596b034d-91de-4232-b9b2-cae2768065f4",
+    "carId": "1",
+    "startDate": "2025-12-15",
+    "endDate": "2025-12-20",
+    "totalCost": 1250,
+    "pickUpLocation": "Copenhagen",
+    "deliveryLocation": "Odense",
+    "payMethod": "Cash"
   }
 ]

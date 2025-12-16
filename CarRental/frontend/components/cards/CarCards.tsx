@@ -1,62 +1,81 @@
 import React from 'react';
-import {View, Text, Image, TouchableOpacity} from 'react-native';
+import {View, Text, Image, TouchableOpacity, Pressable} from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import {NativeStackNavigationProp} from "@react-navigation/native-stack";
-// import {SearchStackParamList} from "../../../App";
 import {HomeStackParamList} from "../BottomNav";
-type BookingNavigationProp = NativeStackNavigationProp<HomeStackParamList>
-import {
-    flexContainer, infoContainer, priceContainer, brandFont, normalFont,
-    imageLogo, priceFont, button, buttonFont, dailyPriceFont
-} from "../../styling/CarCardsStyle";
+import { carCardStyles } from "../../styling/CardStyles/CarCardsStyle"; //carCards specifically
+import { cardStyles } from "../../styling/CardStyles/baseCardsStyle";
+import { Car, BookingSearch } from "../../../backend/models";
+import {Feather} from "@expo/vector-icons";
 
-type CarType = {
-    id: string,
-    brand: string,
-    model: string,
-    year: number,
-    pricePerDay: number,
-    available: boolean,
-    imageUrl: string,
-    description: string,
+type NavigationProp = NativeStackNavigationProp<HomeStackParamList, 'BookingDetails'>
+
+type props = {
+    car: Car;
+    bookingSearch: BookingSearch;
 }
 
-type carProps = {
-    car: CarType;
-}
-
-const CarCards: React.FC<carProps> = ({ car }) => {
-    const navigation = useNavigation<BookingNavigationProp>();
+const CarCards: React.FC<props> = ({ car, bookingSearch }) => {
+    const navigation = useNavigation<NavigationProp>();
+    const icons = {
+        gearBox: require("../../assets/gearbox-icon.png"),
+        fuel: require("../../assets/fuel-icon.png"),
+        seats: require("../../assets/seats-icon.png"),
+    }
 
     const handleNavigateToBookingDetails = () => {
         navigation.navigate('CarDetails', {
             carId: car.id,
-            bookingSearch: {
-                startDate: new Date().toISOString().split('T')[0],
-                endDate: new Date(new Date().setDate(new Date().getDate() + 1)).toISOString().split('T')[0],
-                pickUpLocation: 'Default Location',
-                deliveryLocation: 'Default Location',
-            }
+            bookingSearch: bookingSearch
         });
     };
 
     return (
-        <View style={flexContainer.container}>
-            <Image source={{uri: car.imageUrl}} style={imageLogo.container}/>
-            <View style={infoContainer.container}>
-                <Text style={brandFont.container}> {car.brand + " " + car.model} {car.year}</Text>
-                <Text style={normalFont.container}>{car.description}</Text>
-            </View>
-            <View style={priceContainer.container}>
+        <Pressable onPress={handleNavigateToBookingDetails} style={cardStyles.card}>
+            <Image source={{uri: car.imageUrl}} style={cardStyles.image} resizeMode={"cover"}/>
 
-                <Text style={priceFont.container}>Price for booking</Text>
-                <Text style={dailyPriceFont.container}>{car.pricePerDay}DKK / daily</Text>
-                <Text style={priceFont.container}>Total: 2000DKK (6 days)</Text>
-                <TouchableOpacity style={button.container} onPress={handleNavigateToBookingDetails}>
-                    <Text style={buttonFont.container}>Check offer</Text>
-                </TouchableOpacity>
+            <View style={cardStyles.content}>
+
+                <View style={carCardStyles.headerRow}>
+                    {/*Title*/}
+                    <View style={carCardStyles.titleContainer}>
+                        <Text style={cardStyles.title}>
+                            {car.brand} {car.model} ({car.year})
+                        </Text>
+
+                        {/*Location*/}
+                        <View style={carCardStyles.locationRow}>
+                            <Feather name="map-pin" size={18} color="#9A9A9A"/>
+                            <Text style={cardStyles.metaLabel}> {car.location.area}</Text>
+                        </View>
+                    </View>
+
+                    {/*Price part*/}
+                    <View style={carCardStyles.priceContainer}>
+                        <Text style={carCardStyles.priceFont}> {car.pricePerDay} DKK </Text>
+                        <Text style={carCardStyles.dailyTextFont}>/ daily</Text>
+                    </View>
+                </View>
+
+                {/*Icons*/}
+                <View style={carCardStyles.featureRow}>
+                    <View style={carCardStyles.featureItem}>
+                        <Image source={icons.gearBox} style={carCardStyles.icons}/>
+                        <Text style={carCardStyles.iconsText}>{car?.features.transmission}</Text>
+                    </View>
+                    <View style={carCardStyles.featureItem}>
+                        <Image source={icons.seats} style={carCardStyles.icons}/>
+                        <Text style={carCardStyles.iconsText}>{car?.features.numberOfSeats} seats</Text>
+                    </View>
+                    <View style={carCardStyles.featureItem}>
+                        <Image source={icons.fuel} style={carCardStyles.icons}/>
+                        <Text style={carCardStyles.iconsText}>{car?.features.fuelType}</Text>
+                    </View>
+                </View>
+
+                {/*MISSING: The last row with icons :,3*/}
             </View>
-        </View>
+        </Pressable>
     )
 };
 

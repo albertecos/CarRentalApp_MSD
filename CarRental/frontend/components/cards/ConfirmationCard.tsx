@@ -1,6 +1,6 @@
 import React from 'react';
 import {View, Text, Image} from 'react-native';
-import {confStyles} from "../../styling/ConfirmationStyles/ConfirmationCardStyling";
+import {confStyles} from "../../styling/CardStyles/ConfirmationCardStyling";
 import {Booking, Car} from "../../../backend/models";
 import BookingInfoBox from "./BookingInfoBox";
 

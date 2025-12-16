@@ -115,9 +115,9 @@ const FinalConfirm: React.FC<FinalConfirmProps> = ({route, navigation}) => {
 
         <SafeAreaView style={{flex: 1}} edges={["left", "right"]}>
             <HeaderFinalConfirm title={"Confirmation"}/>
+            <BookingProgress currentStep={"confirmation"}/>
 
             <ScrollView style={{flex: 1}} contentContainerStyle={[styles.scrollContent, {flexGrow: 1}]}>
-                <BookingProgress currentStep={"confirmation"}/>
                 <ConfirmationCard booking={booking} car={car}/>
                 <View style={styles.doneWrapper}>
                     <TouchableOpacity

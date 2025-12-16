@@ -10,6 +10,7 @@ import {Booking, Car} from "../../backend/models";
 import {useNavigation} from "@react-navigation/native";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import {CarService} from "../../backend/CarService";
+import {scrollingStyling} from "../styling/scrollingStyling";
 
 type ConfirmationProps = NativeStackScreenProps<UserBookingsStackParamList, 'Confirmation'>;
 
@@ -107,7 +108,7 @@ const Confirmation: React.FC<ConfirmationProps> = ({route}) => {
 
         <SafeAreaView edges={["left", "right", "bottom"]}>
             <Header/>
-            <ScrollView contentContainerStyle={confStyles.scrollContent}>
+            <ScrollView contentContainerStyle={scrollingStyling.scrollContent}>
                 <View style={confStyles.backButton}>
                     <Pressable
                         style={confStyles.backButton}
@@ -125,10 +126,6 @@ const Confirmation: React.FC<ConfirmationProps> = ({route}) => {
 export default Confirmation;
 
 export const confStyles = StyleSheet.create({
-    scrollContent: {
-        padding: 16,
-        paddingBottom: 76
-    },
     backButton: {
         width: 70,
         height: 70,

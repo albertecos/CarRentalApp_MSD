@@ -1,5 +1,5 @@
 import {Text, View} from "react-native";
-import {confStyles} from "../../styling/ConfirmationStyles/ConfirmationCardStyling";
+import {confStyles} from "../../styling/CardStyles/ConfirmationCardStyling";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import React from "react";
 import {Booking, Car} from "../../../backend/models";
