@@ -6,7 +6,7 @@
         "year": 2023,
         "pricePerDay": 250,
         "available": true,
-        "imageUrl": "https://github.com/albertecos/CarRentalApp_MSD/blob/main/CarRental/frontend/assets/Car%20images/Toyota_Aygo_(2023).png?raw=true",
+        "imageUrl": "https://github.com/albertecos/CarRentalApp_MSD/blob/main/Server/data/Car%20images/animecar.webp?raw=true",
         "description": "A comfortable midsize sedan with great fuel efficiency.",
         "features": {
             "airConditioning": true,
@@ -28,7 +28,7 @@
         "year": 2023,
         "pricePerDay": 290,
         "available": false,
-        "imageUrl": "https://github.com/albertecos/CarRentalApp_MSD/blob/main/CarRental/frontend/assets/Car%20images/Seat_Leon%20(2023).png?raw=true",
+        "imageUrl": "https://github.com/albertecos/CarRentalApp_MSD/blob/main/Server/data/Car%20images/blingBlingColoredCar.jpg?raw=true",
         "description": "A sporty coupe with powerful performance.",
         "features": {
             "airConditioning": true,
@@ -50,7 +50,7 @@
         "year": 2024,
         "pricePerDay": 245,
         "available": true,
-        "imageUrl": "https://github.com/albertecos/CarRentalApp_MSD/blob/main/CarRental/frontend/assets/Car%20images/Opel_Crossland_(2024).png?raw=true",
+        "imageUrl": "https://github.com/albertecos/CarRentalApp_MSD/blob/main/Server/data/Car%20images/flowerycary.jpeg?raw=true",
         "description": "A reliable compact car with modern features.",
         "features": {
             "airConditioning": true,
@@ -72,7 +72,7 @@
         "year": 2024,
         "pricePerDay": 230,
         "available": true,
-        "imageUrl": "https://github.com/albertecos/CarRentalApp_MSD/blob/main/CarRental/frontend/assets/Car%20images/Cupra_Leon.png?raw=true",
+        "imageUrl": "https://github.com/albertecos/CarRentalApp_MSD/blob/main/Server/data/Car%20images/SMpinkcar.jpg?raw=true",
         "description": "Sleek style, crafted interiors, and immersive technology.",
         "features": {
             "airConditioning": true,
@@ -94,7 +94,7 @@
         "year": 2024,
         "pricePerDay": 220,
         "available": true,
-        "imageUrl": "https://github.com/albertecos/CarRentalApp_MSD/blob/main/CarRental/frontend/assets/Car%20images/Citreon_C3.png?raw=true",
+        "imageUrl": "https://github.com/albertecos/CarRentalApp_MSD/blob/main/Server/data/Car%20images/pinkLamboCar.png?raw=true",
         "description": "A practical and affordable city car.",
         "features": {
             "airConditioning": true,
