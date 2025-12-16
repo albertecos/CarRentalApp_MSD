@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
 import {
     StyleSheet,
-    Alert,
+    Alert, ScrollView,
 } from "react-native";
 import Header from "../components/Header";
 import {SafeAreaView} from "react-native-safe-area-context";
@@ -10,18 +10,21 @@ import {useNavigation} from "@react-navigation/native";
 import {StackScreenProps} from "@react-navigation/stack";
 import {HomeStackParamList} from "../components/BottomNav";
 import CarMapView from "../components/CarMapView";
+import {scrollingStyling} from "../styling/scrollingStyling";
 
-type HomeProps = StackScreenProps<HomeStackParamList, 'Home'>;
+type HomeProps = StackScreenProps<HomeStackParamList, 'HomeScreen'>;
 
 
 const Home: React.FC = () => {
     const navigation = useNavigation();
 
     return (
-        <SafeAreaView style={styles.root} edges={["left", "right", "bottom"]}>
+        <SafeAreaView style={styles.root} edges={["left", "right"]}>
             <Header/>
-            <SearchBooking />
-            <CarMapView type="small"/>
+            <ScrollView style={{flex: 1}} contentContainerStyle={[scrollingStyling.scrollContent, {flexGrow: 1}]}>
+                <SearchBooking/>
+                <CarMapView type="small"/>
+            </ScrollView>
         </SafeAreaView>
     )
 };

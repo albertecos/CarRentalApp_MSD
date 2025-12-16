@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Text, Button, Image, StyleSheet, Pressable, TouchableOpacity, TextInput} from 'react-native'; // Add Image here
+import {View, Text, Button, Image, StyleSheet, Pressable, TouchableOpacity, TextInput, ScrollView} from 'react-native'; // Add Image here
 import {HomeStackParamList, UserBookingsStackParamList} from "../components/BottomNav";
 
 import {CarService } from '../../backend/CarService';
@@ -12,6 +12,7 @@ import Ionicons from "@expo/vector-icons/Ionicons";
 import BookHeader from "../components/BookHeader";
 import BookingProgress from "../components/BookingProgress";
 import {bookingDetailsStyle} from "../styling/BookingDetailsStyle";
+import {scrollingStyling} from "../styling/scrollingStyling";
 
 type BookingDetailsProps = StackScreenProps<HomeStackParamList, 'BookingDetails'>;
 
@@ -76,9 +77,11 @@ const BookingDetails: React.FC<BookingDetailsProps> = ({ route, navigation }) =>
   }
 
   return (
-      <SafeAreaView edges={["left", "right", "bottom"]} style={{ flex: 1, backgroundColor: "white" }}>
+      <SafeAreaView edges={["left", "right"]} style={{ flex: 1, backgroundColor: "white" }}>
         <BookHeader title={"Booking Details"} navigation={navigation} />
         <BookingProgress currentStep={"booking"}/>
+
+        <ScrollView style={{flex: 1}} contentContainerStyle={[scrollingStyling.scrollContent, {flexGrow: 1}]}>
 
         <View style={bookingDetailsStyle.section}>
           <Text style={bookingDetailsStyle.title}>Customer</Text>
@@ -92,6 +95,7 @@ const BookingDetails: React.FC<BookingDetailsProps> = ({ route, navigation }) =>
         <TouchableOpacity style={bookingDetailsStyle.confirmButton} onPress={handlePayment}>
           <Text style={bookingDetailsStyle.confirmText}>Confirm booking</Text>
         </TouchableOpacity>
+        </ScrollView>
       </SafeAreaView>
   );
 };

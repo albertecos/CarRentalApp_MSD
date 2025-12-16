@@ -13,9 +13,4 @@ export const resultPageStyling = StyleSheet.create({
         alignItems: "center",
         marginRight: 20,
     },
-
-    scrollContent: {
-        padding: 16,
-        paddingBottom: 76
-    },
 });

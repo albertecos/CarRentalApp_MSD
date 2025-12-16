@@ -12,6 +12,7 @@ import {normalFont} from "../styling/BookingPageStyle";
 import CarCards from "../components/cards/CarCards";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import {resultPageStyling} from "../styling/ResultPageStyle";
+import {scrollingStyling} from "../styling/scrollingStyling";
 
 type ResultPageProps = NativeStackScreenProps<HomeStackParamList, 'ResultPage'>;
 
@@ -27,35 +28,33 @@ const ResultPage: React.FC<ResultPageProps> = ({navigation, route}) => {
         ).catch(error => console.log(error));
     }, []);
 
-    const handleCarDetails = async () => {
-    }
+    const sortedCars = cars.map(cars => cars).sort((carA, carB) => {
+        const searchedLocation = bookingSearch.pickUpLocation;
+
+        const carAMatches = carA.location.area == searchedLocation;
+        const carBMatches = carB.location.area == searchedLocation;
+
+        if (carAMatches && !carBMatches) return -1;
+        if (!carAMatches && carBMatches) return 1;
+        return 0
+    });
+
     return (
         <SafeAreaView style={{flex: 1}} edges={["left", "right"]}>
             <Header/>
-            <ScrollView style={{flex: 1}} contentContainerStyle={[resultPageStyling.scrollContent, {flexGrow: 1}]}>
-                <View style={resultPageStyling.containerTop}>
-                    <View style={resultPageStyling.backButton}>
-                        <Pressable
-                            style={resultPageStyling.backButton}
-                            onPress={() => navigation.goBack()}>
-                            <Ionicons name="chevron-back-circle-outline" size={70} color="#7E7D7E80"/>
-                        </Pressable>
-                    </View>
-                    <Text style={normalFont.container}>Your search gave {cars.length} results</Text>
+            <View style={resultPageStyling.containerTop}>
+                <View style={resultPageStyling.backButton}>
+                    <Pressable
+                        style={resultPageStyling.backButton}
+                        onPress={() => navigation.goBack()}>
+                        <Ionicons name="chevron-back-circle-outline" size={70} color="#7E7D7E80"/>
+                    </Pressable>
                 </View>
-
-
-                {/*
-                <Text>RESULT PAGE</Text>
-                <Text>START DATE: {bookingSearch.startDate}</Text>
-                <Text>END DATE: {bookingSearch.endDate}</Text>
-                <Text>PICK UP LOCATION: {bookingSearch.pickUpLocation}</Text>
-                <Text>DELIVERY LOCATION: {bookingSearch.deliveryLocation}</Text>
-                */}
-
+                <Text style={normalFont.container}>Your search gave {cars.length} results</Text>
+            </View>
+            <ScrollView style={{flex: 1}} contentContainerStyle={[scrollingStyling.scrollContent, {flexGrow: 1}]}>
                 <ScrollView>
-
-                    {cars.map((car) => (
+                    {sortedCars.map((car) => (
                         <CarCards
                             key={car.id}
                             car={car}
@@ -63,10 +62,8 @@ const ResultPage: React.FC<ResultPageProps> = ({navigation, route}) => {
                         />
                     ))}
                 </ScrollView>
-
             </ScrollView>
         </SafeAreaView>
-
     )
 }
 
